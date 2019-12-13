@@ -12,17 +12,16 @@ const Idea = require('../../models/Idea');
  */
 router.get('/me', auth, async (req, res) => {
   try {
-    let profile = await Profile.findOne({ user: req.user.id })
+    const profile = await Profile.findOne({ user: req.user.id })
       .populate({
         path: 'user',
-        select: ['name', 'avatar', 'ideas'],
-        populate: { path: 'ideas'}
+        select: ['name', 'avatar']
       });
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
     }
-
-    return res.json(profile);
+    const ideas = await Idea.find({ user: req.user.id });
+    return res.json({profile, ideas});
 
   } catch (err) {
     console.error(err.message);
@@ -90,7 +89,7 @@ router.post('/', auth, async (req, res) => {
  */
 router.get('/', async (req, res) => {
   try {
-    const profiles = await Profile.find({}).populate('user', ['name', 'avatar']).populate('ideas');
+    const profiles = await Profile.find({}).populate('user', ['name', 'avatar']);
     return res.json(profiles);
   } catch (err) {
     console.log(err.message);
@@ -106,12 +105,12 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.user_id })
-      .populate('user', ['name', 'avatar'])
-      .populate('ideas');
+      .populate('user', ['name', 'avatar']);
     if (!profile) {
       return res.status(400).json({ msg: 'Profile not found' });
     }
-    return res.json(profile);
+    const ideas = await Idea.find({ user: req.params.user_id });
+    return res.json({profile, ideas});
   } catch (err) {
     console.log(err.message);
     if (err.kind === 'ObjectId') {

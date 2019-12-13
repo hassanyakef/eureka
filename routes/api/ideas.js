@@ -32,9 +32,38 @@ router.post('/', [auth, [check('body', 'Body is required').not().isEmpty()]],
       });
 
       const idea = await newIdea.save();
-      user.ideas.unshift(newIdea);
-      await user.save();
+      // user.ideas.unshift(newIdea);
+      // await user.save();
       return res.json(idea);
+
+    } catch (err) {
+      console.log(err.message);
+      return res.status(500).send('Server Error');
+    }
+
+  });
+
+/**
+ * @route PUT api/ideas/:id
+ * @desc Update an idea
+ * @access Private
+ */
+router.put('/:id', auth,
+  async (req, res) => {
+    try {
+      const idea = await Idea.findById(req.params.id);
+      if (!idea) {
+        return res.status(404).json({ msg: 'Idea not found' });
+      }
+
+      idea.title = req.body.title;
+      idea.body = req.body.body;
+      idea.category = req.body.category;
+      idea.status = req.body.status;
+      idea.allowComments = req.body.allowComments;
+
+      const result = await idea.save();
+      return res.json(result);
 
     } catch (err) {
       console.log(err.message);
