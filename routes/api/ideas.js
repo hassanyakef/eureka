@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Profile = mongoose.model('profile');
-const User = mongoose.model('users');
-const Idea = mongoose.model('ideas');
+const User = require('../../models/User');
+const Idea = require('../../models/Idea');
 const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator/check');
 
@@ -11,7 +10,7 @@ const { check, validationResult } = require('express-validator/check');
  * @desc Create an idea
  * @access Private
  */
-router.post('/', [auth, [check('text', 'Text is required').not().isEmpty()]],
+router.post('/', [auth, [check('body', 'Body is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -19,12 +18,22 @@ router.post('/', [auth, [check('text', 'Text is required').not().isEmpty()]],
     }
 
     try {
-      const user = await User.findById(req.user.id).select('-password');
+      const user = await User.findById(req.user.id);
+
       const newIdea = new Idea({
-        text: req.body.text, name: user.name, avatar: user.avatar, user: req.user.id
+        title: req.body.title,
+        body: req.body.body,
+        category: req.body.category,
+        status: req.body.status,
+        allowComments: req.body.allowComments,
+        authorName: user.name,
+        avatar: user.avatar,
+        user: req.user.id
       });
 
       const idea = await newIdea.save();
+      user.ideas.unshift(newIdea);
+      await user.save();
       return res.json(idea);
 
     } catch (err) {
@@ -177,10 +186,10 @@ router.post('/comment/:id', [auth, [check('text', 'Text is required').not().isEm
       const user = await User.findById(req.user.id).select('-password');
       const idea = await Idea.findById(req.params.id);
       const newComment = {
-        text: req.body.text,
+        commentBody: req.body.text,
         name: user.name,
         avatar: user.avatar,
-        user: req.user.id
+        commentUser: req.user.id
       };
 
       idea.comments.unshift(newComment);

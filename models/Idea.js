@@ -4,7 +4,13 @@ const Schema = mongoose.Schema;
 const IdeaSchema = new mongoose.Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: 'user'
+  },
+  authorName: {
+    type: String,
+  },
+  avatar: {
+    type: String,
   },
   title: {
     type: String,
@@ -30,7 +36,7 @@ const IdeaSchema = new mongoose.Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'user'
       }
     }
   ],
@@ -38,7 +44,13 @@ const IdeaSchema = new mongoose.Schema({
     {
       commentUser: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'user'
+      },
+      name: {
+        type: String,
+      },
+      avatar: {
+        type: String,
       },
       commentBody: {
         type: String,
@@ -56,4 +68,4 @@ const IdeaSchema = new mongoose.Schema({
   }
 });
 
-mongoose.model('idea', IdeaSchema);
+module.exports = Idea = mongoose.model('idea', IdeaSchema);

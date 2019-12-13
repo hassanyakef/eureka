@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
+  ideas: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'idea'
+  }],
   date: {
     type: Date,
     default: Date.now
@@ -24,4 +28,4 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Create collection and add schema
-mongoose.model('users', UserSchema);
+module.exports = User = mongoose.model('user', UserSchema);

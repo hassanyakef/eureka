@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const Profile = mongoose.model('profile');
-const User = mongoose.model('users');
-const Idea = mongoose.model('ideas');
+const Profile = require('../../models/Profile');
+const User = require('../../models/User');
+const Idea = require('../../models/Idea');
 const { check, validationResult } = require('express-validator/check');
 
 /**
@@ -14,10 +14,15 @@ const { check, validationResult } = require('express-validator/check');
 router.get('/me', auth, async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.user.id })
-      .populate('user', ['name', 'avatar']);
+      .populate({
+        path: 'user',
+        select: ['name', 'avatar', 'ideas'],
+        populate: { path: 'ideas'}
+      });
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
     }
+
     return res.json(profile);
 
   } catch (err) {
@@ -86,7 +91,7 @@ router.post('/', auth, async (req, res) => {
  */
 router.get('/', async (req, res) => {
   try {
-    const profiles = await Profile.find({}).populate('user', ['name', 'avatar']);
+    const profiles = await Profile.find({}).populate('user', ['name', 'avatar']).populate('ideas');
     return res.json(profiles);
   } catch (err) {
     console.log(err.message);
@@ -102,7 +107,8 @@ router.get('/', async (req, res) => {
 router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.user_id })
-      .populate('user', ['name', 'avatar']);
+      .populate('user', ['name', 'avatar'])
+      .populate('ideas');
     if (!profile) {
       return res.status(400).json({ msg: 'Profile not found' });
     }
