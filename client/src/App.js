@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import lightBlue from '@material-ui/core/colors/lightBlue';
+import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,11 +9,12 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Navbar from './features/nav/Navbar';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import UserDetailedPage from './features/user/UserDetailed/UserDetailedPage';
 
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    secondary: lightBlue,
+    secondary: grey
   }
 });
 
@@ -27,9 +29,12 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   fab: {
-    position: 'absolute',
     bottom: theme.spacing(10),
     right: theme.spacing(10),
+    margin: 0,
+    top: 'auto',
+    left: 'auto',
+    position: 'fixed',
   },
 }));
 
@@ -44,6 +49,8 @@ const App = () => {
           <Fab className={classes.fab} color="primary" aria-label="add">
             <AddIcon />
           </Fab>
+          <UserDetailedPage/>
+
         </Container>
       </ThemeProvider>
     </div>
