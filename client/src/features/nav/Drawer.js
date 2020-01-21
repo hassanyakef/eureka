@@ -13,6 +13,8 @@ import NoteIcon from '@material-ui/icons/Note';
 import SettingsIcon from '@material-ui/icons/Settings';
 import IconButton from '@material-ui/core/IconButton';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -46,25 +48,31 @@ const Drawer = ({theme}) => {
       onKeyDown={toggleDrawer()}
     >
       <List>
-        <ListItem button key={'Profile'}>
+        <ListItem button key={'Dashboard'} component={Link} to="/">
+          <ListItemIcon>
+            <DashboardIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Dashboard'}/>
+        </ListItem>
+        <ListItem button key={'Profile'} component={Link} to="/profile/me">
           <ListItemIcon>
             <PersonOutlineIcon/>
           </ListItemIcon>
           <ListItemText primary={'Profile'}/>
         </ListItem>
-        <ListItem button key={'Bookmarks'}>
+        <ListItem button key={'Bookmarks'}  component={Link} to="/bookmarks">
           <ListItemIcon>
             <BookmarkBorderIcon/>
           </ListItemIcon>
           <ListItemText primary={'Bookmarks'}/>
         </ListItem>
-        <ListItem button key={'My Ideas'}>
+        <ListItem button key={'My Ideas'} component={Link} to="/ideas/me">
           <ListItemIcon>
             <NoteIcon/>
           </ListItemIcon>
           <ListItemText primary={'My Ideas'}/>
         </ListItem>
-        <ListItem button key={'Setting'}>
+        <ListItem button key={'Setting'} component={Link} to="/setting">
           <ListItemIcon>
             <SettingsIcon/>
           </ListItemIcon>

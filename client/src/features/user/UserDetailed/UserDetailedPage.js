@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   container: {
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(3)
   },
 
 }));
@@ -19,9 +19,8 @@ const useStyles = makeStyles(theme => ({
 const UserDetailedPage = ({theme}) => {
   const classes = useStyles(theme);
   return (
-    <Container className={classes.container}>
-      <Grid container className={classes.root} spacing={5}>
-        <Grid item md={9}>
+      <Grid container className={classes.root} spacing={3}>
+        <Grid item md={12}>
           <Grid container className={classes.root}>
             <Grid item md={12}>
               <UserDetailedHeader/>
@@ -31,11 +30,7 @@ const UserDetailedPage = ({theme}) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item md={3}>
-          <UserDetailedSidebar/>
-        </Grid>
       </Grid>
-    </Container>
   );
 };
 

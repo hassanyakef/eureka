@@ -11,6 +11,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Link } from 'react-router-dom';
+import ListItem from '@material-ui/core/ListItem';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,6 +21,8 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     display: 'none',
+    textDecoration: 'none',
+    color: '#fff',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -89,12 +93,9 @@ const Navbar = ({theme}) => {
   return (
     <div className={classes.root}>
       <AppBar color='primary' position="static">
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Toolbar>
             <Drawer/>
-            <Typography className={classes.title} variant="h6" noWrap>
-              Eureka
-            </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -133,8 +134,8 @@ const Navbar = ({theme}) => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My Ideas</MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to="/profile/me">Profile</MenuItem>
+                <MenuItem onClick={handleClose} component={Link} to="/ideas/me">My Ideas</MenuItem>
               </Menu>
             </div>
           </Toolbar>
