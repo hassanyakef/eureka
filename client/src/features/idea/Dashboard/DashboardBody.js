@@ -1,9 +1,23 @@
 import React from 'react';
+import DashboardBodyIdea from './DashboardBodyIdea';
+import { makeStyles } from '@material-ui/core/styles';
 
-const DashboardBody = () => {
+
+const useStyles = makeStyles(theme => ({
+  root: {
+
+  },
+}));
+
+const DashboardBody = ({theme}) => {
+  const classes = useStyles(theme);
+
   return (
-    <div>
-
+    <div className={classes.root}>
+      <DashboardBodyIdea/>
+      <DashboardBodyIdea/>
+      <DashboardBodyIdea/>
+      <DashboardBodyIdea/>
     </div>
   );
 };

@@ -81,7 +81,6 @@ const App = () => {
                         <Route exact path="/login" component={UserDetailedPage}/>
                         <Route exact path='/profiles' component={UserDetailedPage} />
                         <Route exact path='/profile/:id' component={UserDetailedPage} />
-                        <Route exact path="/dashboard" component={UserDetailedPage}/>
                         <Route exact path="/create-profile" component={UserDetailedPage}/>
                         <Route exact path="/edit-profile" component={UserDetailedPage}/>
                         <Route exact path='/ideas' component={UserDetailedPage} />
