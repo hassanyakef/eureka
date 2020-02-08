@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DashboardBodyIdeaButtons = ({theme}) => {
+const IdeasPageBodyIdeaButtons = ({theme}) => {
   const classes = useStyles(theme);
 
   return (
@@ -48,4 +48,4 @@ const DashboardBodyIdeaButtons = ({theme}) => {
   );
 };
 
-export default DashboardBodyIdeaButtons;
+export default IdeasPageBodyIdeaButtons;

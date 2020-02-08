@@ -1,5 +1,5 @@
 import React from 'react';
-import DashboardBodyIdea from './DashboardBodyIdea';
+import IdeasPageBodyIdea from './IdeasPageBodyIdea';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -9,17 +9,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const DashboardBody = ({theme}) => {
+const IdeasPageBody = ({theme}) => {
   const classes = useStyles(theme);
 
   return (
     <div className={classes.root}>
-      <DashboardBodyIdea/>
-      <DashboardBodyIdea/>
-      <DashboardBodyIdea/>
-      <DashboardBodyIdea/>
+      <IdeasPageBodyIdea/>
+      <IdeasPageBodyIdea/>
+      <IdeasPageBodyIdea/>
+      <IdeasPageBodyIdea/>
     </div>
   );
 };
 
-export default DashboardBody;
+export default IdeasPageBody;

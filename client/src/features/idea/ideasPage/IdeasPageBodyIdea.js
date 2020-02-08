@@ -5,7 +5,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
-import DashboardBodyIdeaButtons from './DashboardBodyIdeaButtons';
+import IdeasPageBodyIdeaButtons from './IdeasPageBodyIdeaButtons';
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const DashboardBodyIdea = ({theme}) => {
+const IdeasPageBodyIdea = ({theme}) => {
   const classes = useStyles(theme);
 
   return (
@@ -82,11 +82,11 @@ const DashboardBodyIdea = ({theme}) => {
             </Link>
 
           </Typography>
-          <DashboardBodyIdeaButtons/>
+          <IdeasPageBodyIdeaButtons/>
         </Grid>
       </Grid>
     </Card>
   );
 };
 
-export default DashboardBodyIdea;
+export default IdeasPageBodyIdea;

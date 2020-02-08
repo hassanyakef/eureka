@@ -11,9 +11,14 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import UserDetailedPage from './features/user/UserDetailed/UserDetailedPage';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import Dashboard from './features/idea/Dashboard/Dashboard';
+import IdeasPage from './features/idea/ideasPage/IdeasPage';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import ResponsiveDrawer from './features/nav/ResponsiveDrawer';
+import Landing from './features/layout/Landing';
+import Dashboard from './features/dashboard/Dashboard';
+import Register from './features/auth/Register';
+import Login from './features/auth/Login';
+import UsersPage from './features/user/UsersPage/UsersPage';
 
 const theme = createMuiTheme({
   palette: {
@@ -71,20 +76,20 @@ const App = () => {
               <ResponsiveDrawer/>
               <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <Route exact path="/" component={Dashboard}/>
-                    <Fab className={classes.fab} color="primary" aria-label="add">
-                      <AddIcon />
-                    </Fab>
+                    {/*<Fab className={classes.fab} color="primary" aria-label="add">*/}
+                    {/*  <AddIcon />*/}
+                    {/*</Fab>*/}
                     <Container maxWidth={'lg'} className={classes.box}>
+                      <Route exact path="/" component={Landing}/>
                       <Switch>
-                        <Route exact path="/register" component={UserDetailedPage}/>
-                        <Route exact path="/login" component={UserDetailedPage}/>
-                        <Route exact path='/profiles' component={UserDetailedPage} />
-                        <Route exact path='/profile/:id' component={UserDetailedPage} />
+                        <Route exact path="/register" component={Register}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path='/users/:id' component={UserDetailedPage} />
+                        <Route exact path='/users' component={UsersPage}/>
                         <Route exact path="/create-profile" component={UserDetailedPage}/>
                         <Route exact path="/edit-profile" component={UserDetailedPage}/>
-                        <Route exact path='/ideas' component={UserDetailedPage} />
-                        <Route exact path='/ideas/me' component={UserDetailedPage} />
+                        <Route exact path='/ideas' component={IdeasPage} />
+                        <Route exact path='/dashboard' component={Dashboard} />
                         <Route exact path='/bookmarks' component={UserDetailedPage} />
                       </Switch>
                     </Container>

@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DashboardHeader = ({theme}) => {
+const IdeasPageHeader = ({theme}) => {
 
   const [open, setOpen] = React.useState(false);
 
@@ -86,4 +86,4 @@ const DashboardHeader = ({theme}) => {
   );
 };
 
-export default DashboardHeader;
+export default IdeasPageHeader;

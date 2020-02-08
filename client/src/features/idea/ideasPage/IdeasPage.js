@@ -1,7 +1,7 @@
 import React from 'react';
-import DashboardHeader from './DashboardHeader';
-import DashboardBody from './DashboardBody';
-import DashboardSidebarRight from './DashboardSidebarRight';
+import IdeasPageHeader from './IdeasPageHeader';
+import IdeasPageBody from './IdeasPageBody';
+import IdeasPageSidebarRight from './IdeasPageSidebarRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -11,32 +11,30 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   container: {
-    padding: theme.spacing(2),
+    marginTop: theme.spacing(3)
   },
 
 }));
 
-const Dashboard = ({ theme }) => {
+const IdeasPage = ({ theme }) => {
   const classes = useStyles(theme);
   return (
-    <Container className={classes.container} maxWidth={'lg'}>
       <Grid container className={classes.root} spacing={5}>
         <Grid item lg={8} sm={12}>
           <Grid container className={classes.root}>
             <Grid item sm={12}>
-              <DashboardHeader/>
+              <IdeasPageHeader/>
             </Grid>
             <Grid item sm={12}>
-              <DashboardBody/>
+              <IdeasPageBody/>
             </Grid>
           </Grid>
         </Grid>
         <Grid item lg={4} sm={12}>
-          <DashboardSidebarRight/>
+          <IdeasPageSidebarRight/>
         </Grid>
       </Grid>
-    </Container>
   )
 };
 
-export default Dashboard;
+export default IdeasPage;

@@ -20,10 +20,13 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import NoteIcon from '@material-ui/icons/Note';
+import PeopleIcon from '@material-ui/icons/People';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -90,40 +93,47 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [authenticated, setAuthenticated] = React.useState(true);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
+  const authenticatedMenu = (
     <div className={classes.outerDiv}>
       <div className={classes.toolbar} />
       <List>
-        <ListItem button key={'Dashboard'} component={Link} to="/">
+        <ListItem button key={'Ideas'} component={RouterLink} to="/ideas">
+          <ListItemIcon>
+            <NoteIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Ideas'}/>
+        </ListItem>
+        <ListItem button key={'Dashboard'} component={RouterLink} to="/dashboard">
           <ListItemIcon>
             <DashboardIcon/>
           </ListItemIcon>
           <ListItemText primary={'Dashboard'}/>
         </ListItem>
-        <ListItem button key={'Profile'} component={Link} to="/profile/me">
+        <ListItem button key={'Profile'} component={RouterLink} to="/users/1">
           <ListItemIcon>
             <PersonOutlineIcon/>
           </ListItemIcon>
           <ListItemText primary={'Profile'}/>
         </ListItem>
-        <ListItem button key={'Bookmarks'}  component={Link} to="/bookmarks">
+        <ListItem button key={'Users'} component={RouterLink} to="/users">
+          <ListItemIcon>
+            <PeopleIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Users'}/>
+        </ListItem>
+        <ListItem button key={'Bookmarks'}  component={RouterLink} to="/bookmarks">
           <ListItemIcon>
             <BookmarkBorderIcon/>
           </ListItemIcon>
           <ListItemText primary={'Bookmarks'}/>
         </ListItem>
-        <ListItem button key={'My Ideas'} component={Link} to="/ideas/me">
-          <ListItemIcon>
-            <NoteIcon/>
-          </ListItemIcon>
-          <ListItemText primary={'My Ideas'}/>
-        </ListItem>
-        <ListItem button key={'Setting'} component={Link} to="/setting">
+        <ListItem button key={'Setting'} component={RouterLink} to="/setting">
           <ListItemIcon>
             <SettingsIcon/>
           </ListItemIcon>
@@ -142,6 +152,35 @@ function ResponsiveDrawer(props) {
     </div>
   );
 
+  const unAuthenticatedMenu = (
+    <div className={classes.outerDiv}>
+      <div className={classes.toolbar} />
+      <List>
+        <ListItem button key={'Ideas'} component={RouterLink} to="ideas/">
+          <ListItemIcon>
+            <NoteIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Ideas'}/>
+        </ListItem>
+      </List>
+      <Divider/>
+      <List>
+        <ListItem button key={'Login'} component={RouterLink} to="/login">
+          <ListItemIcon>
+            <ExitToAppIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Login'}/>
+        </ListItem>
+        <ListItem button key={'Register'} component={RouterLink} to="/register">
+          <ListItemIcon>
+            <ExitToAppIcon/>
+          </ListItemIcon>
+          <ListItemText primary={'Register'}/>
+        </ListItem>
+      </List>
+    </div>
+  );
+
   return (
     <Fragment>
       <AppBar position="fixed" className={classes.appBar}>
@@ -155,9 +194,9 @@ function ResponsiveDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Eureka
-          </Typography>
+          <Link color='inherit' variant='h6' underline='none' component={RouterLink} to='/'>Eureka</Link>
+
+
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -177,7 +216,7 @@ function ResponsiveDrawer(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            {authenticated ? authenticatedMenu : unAuthenticatedMenu}
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -188,7 +227,7 @@ function ResponsiveDrawer(props) {
             variant="permanent"
             open
           >
-            {drawer}
+            {authenticated ? authenticatedMenu : unAuthenticatedMenu}
           </Drawer>
         </Hidden>
       </nav>

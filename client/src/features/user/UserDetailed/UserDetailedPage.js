@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import UserDetailedHeader from './UserDetailedHeader';
 import UserDetailedSidebar from './UserDetailedSidebar';
 import UserDetailedPageBody from './UserDetailedPageBody';
-import DashboardSidebarRight from '../../idea/Dashboard/DashboardSidebarRight';
+import IdeasPageSidebarRight from '../../idea/ideasPage/IdeasPageSidebarRight';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +21,7 @@ const UserDetailedPage = ({theme}) => {
   const classes = useStyles(theme);
   return (
       <Grid container className={classes.root} spacing={5}>
-        <Grid item md={8}>
+        <Grid item lg={8} sm={12}>
           <Grid container className={classes.root}>
             <Grid item sm={12}>
               <UserDetailedHeader/>
