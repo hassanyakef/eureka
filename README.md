@@ -1,10 +1,10 @@
 # Eureka
 An idea-generator where people (general public) can post an app idea.
 
-### How to run this locally?
+### How to run this (front-end) locally?
+- ``` cd client ```
 - ``` npm install ```
-- ```npm run client-install```
-- ```npm run dev```
+- ```npm start```
 
 ### keys_dev.js needs to be created in the config folder:
 ```
