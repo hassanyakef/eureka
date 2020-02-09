@@ -35,7 +35,9 @@ const Login = ({ theme }) => {
             <Box my={2}>
               <TextField fullWidth={true}  label="Password" type='password'/>
             </Box>
-            <Button variant='outlined' color='primary' fullWidth={true}>Submit</Button>
+            <Box mt={3}>
+              <Button variant='outlined' color='primary' fullWidth={true}>Submit</Button>
+            </Box>
             <Box mt={2}>
               <Typography variant='body1'>Don't have an account? <Link component={RouterLink} to='/register'>Sign Up</Link></Typography>
             </Box>

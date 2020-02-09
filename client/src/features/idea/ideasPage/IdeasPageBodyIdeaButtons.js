@@ -1,10 +1,12 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import Link from '@material-ui/core/Link'
+import { Link as RouterLink } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +29,7 @@ const IdeasPageBodyIdeaButtons = ({theme}) => {
   return (
     <div className={classes.root}>
       <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link href="#" color="secondary">
+        <Link href='#' color="secondary">
           <ThumbUpOutlinedIcon color="action" className={classes.icon} fontSize='small'/>
           15
         </Link>
@@ -39,7 +41,7 @@ const IdeasPageBodyIdeaButtons = ({theme}) => {
         </Link>
       </Typography>
       <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link href="#" color="secondary">
+        <Link component={RouterLink} to='/ideas/1' color="secondary">
           <ChatBubbleOutlineIcon color="action" className={classes.icon} fontSize='small'/>
           8
         </Link>

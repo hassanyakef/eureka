@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link';
 import UserDetailedBodyInfo from './UserDetailedBodyInfo';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,7 +43,7 @@ const UserDetailedPageBodyIdea = ({theme}) => {
           </Grid>
           <Grid item md={11}>
             <Typography variant="h6" gutterBottom={true}>
-              <Link href="#">
+              <Link  component={RouterLink} to='/ideas/1' >
                 Idea Generator
               </Link>
             </Typography>

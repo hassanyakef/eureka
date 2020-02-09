@@ -19,6 +19,7 @@ import Dashboard from './features/dashboard/Dashboard';
 import Register from './features/auth/Register';
 import Login from './features/auth/Login';
 import UsersPage from './features/user/UsersPage/UsersPage';
+import IdeaDetailed from './features/idea/ideaDetailed/IdeaDetailed';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,6 +42,9 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     padding: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(0.5),
+    }
   },
   fab: {
     bottom: theme.spacing(10),
@@ -89,6 +93,7 @@ const App = () => {
                         <Route exact path="/create-profile" component={UserDetailedPage}/>
                         <Route exact path="/edit-profile" component={UserDetailedPage}/>
                         <Route exact path='/ideas' component={IdeasPage} />
+                        <Route exact path='/ideas/:id' component={IdeaDetailed} />
                         <Route exact path='/dashboard' component={Dashboard} />
                         <Route exact path='/bookmarks' component={UserDetailedPage} />
                       </Switch>

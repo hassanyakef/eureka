@@ -5,6 +5,7 @@ import Link from '@material-ui/core/Link';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +40,7 @@ const UserDetailedBodyInfo = ({theme}) => {
         </Link>
       </Typography>
       <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link href="#" color="secondary">
+        <Link component={RouterLink} to='/ideas/1'  color="secondary">
           <ChatBubbleOutlineIcon color="action" className={classes.icon} fontSize='small'/>
           8
         </Link>

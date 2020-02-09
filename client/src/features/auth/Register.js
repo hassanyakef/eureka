@@ -41,7 +41,9 @@ const Register = ({ theme }) => {
             <Box my={2}>
               <TextField fullWidth={true}  label="Confirm Password" type='password'/>
             </Box>
-            <Button variant='outlined' color='primary' fullWidth={true}>Submit</Button>
+            <Box mt={3}>
+              <Button variant='outlined' color='primary' fullWidth={true}>Submit</Button>
+            </Box>
             <Box mt={2}>
               <Typography variant='body1'>Already have an account? <Link component={RouterLink} to='/login'>Log In</Link></Typography>
             </Box>
