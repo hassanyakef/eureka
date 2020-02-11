@@ -3,16 +3,16 @@ An idea-generator where people (general public) can post an app idea.
 
 ### Project Overview
 
-##### Problem:
+#### Problem:
 
 Developer/coders often do not consider the software from the end user's point of view, and thus, they can miss-code some features. 
 
 This app can solve this problem by creating an easy communication channel between the user (the idea creator) and the coder (the solver) without the coder having to share the user's experience themselves.
 
-##### Concept:
+#### Concept:
 An idea-generator where people (general public) can post an app idea.
 
-##### Features:
+#### Features:
 
 - People can create posts about wanting an app that can solve a problem they are experiencing.
 - Other people can then upvote their ideas.
@@ -22,13 +22,13 @@ An idea-generator where people (general public) can post an app idea.
 
 ### (Desktop) UI
 
-/ideas
+##### /ideas
 ![](img/3.jpg)
 
-/ideas/:id
+##### /ideas/:id
 ![](img/2.jpg)
 
-/user/:id
+##### /user/:id
 ![](img/4.jpg)
 
 
