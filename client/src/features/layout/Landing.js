@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,10 +29,10 @@ const Landing = ({ theme }) => {
             <Typography variant='body1' paragraph>Welcome to Eureka 1.0.0</Typography>
             <Typography variant='body1' paragraph>Post your app ideas and choose for them to be seen by the world or completely private.</Typography>
             <Box component='span'>
-              <Button color='primary' size="large" component={Link} to="/login">Login</Button>
+              <Button color='primary' size="large" component={RouterLink} to="/login">Login</Button>
             </Box>
             <Box component='span'>
-              <Button size="large" component={Link} to="/register">Register</Button>
+              <Button size="large" component={RouterLink} to='/register'>Register</Button>
             </Box>
           </Card>
         </Grid>
