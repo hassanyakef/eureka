@@ -1,24 +1,15 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import IdeasPageBodyIdea from './IdeasPageBodyIdea';
-import { makeStyles } from '@material-ui/core/styles';
 
-
-const useStyles = makeStyles(theme => ({
-  root: {
-
-  },
-}));
-
-const IdeasPageBody = ({theme}) => {
-  const classes = useStyles(theme);
+const IdeasPageBody = () => {
 
   return (
-    <div className={classes.root}>
+    <Fragment>
       <IdeasPageBodyIdea/>
       <IdeasPageBodyIdea/>
       <IdeasPageBodyIdea/>
       <IdeasPageBodyIdea/>
-    </div>
+    </Fragment>
   );
 };
 

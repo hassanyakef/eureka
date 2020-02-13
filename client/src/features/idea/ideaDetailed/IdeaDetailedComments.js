@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import IdeaDetailedComment from './IdeaDetailedComment';
 
 const IdeaDetailedComments = () => {
   return (
-    <div>
+    <Fragment>
       <IdeaDetailedComment/>
       <IdeaDetailedComment/>
       <IdeaDetailedComment/>
       <IdeaDetailedComment/>
-    </div>
+    </Fragment>
   );
 };
 

@@ -14,20 +14,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
-  inline: {
-    display: 'inline',
-  },
-  cardMain: {
-    padding: theme.spacing(3),
-    marginTop: theme.spacing(3)
-  },
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  idea: {
-    padding: theme.spacing(1),
-  }
+
 }));
 
 const UserDetailedPageBodyIdea = ({theme}) => {
@@ -38,7 +25,7 @@ const UserDetailedPageBodyIdea = ({theme}) => {
       <ListItem>
         <Grid container className={classes.root} spacing={1}>
           <Grid item md={1}>
-            <Avatar className={classes.profile} alt="Remy Sharp"
+            <Avatar alt="Remy Sharp"
                     src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
           </Grid>
           <Grid item md={11}>

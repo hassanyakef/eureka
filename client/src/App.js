@@ -20,6 +20,7 @@ import Register from './features/auth/Register';
 import Login from './features/auth/Login';
 import UsersPage from './features/user/UsersPage/UsersPage';
 import IdeaDetailed from './features/idea/ideaDetailed/IdeaDetailed';
+import Bookmark from './features/idea/bookmarks/Bookmarks'
 
 const theme = createMuiTheme({
   palette: {
@@ -95,7 +96,7 @@ const App = () => {
                         <Route exact path='/ideas' component={IdeasPage} />
                         <Route exact path='/ideas/:id' component={IdeaDetailed} />
                         <Route exact path='/dashboard' component={Dashboard} />
-                        <Route exact path='/bookmarks' component={UserDetailedPage} />
+                        <Route exact path='/bookmarks' component={Bookmark} />
                       </Switch>
                     </Container>
               </main>

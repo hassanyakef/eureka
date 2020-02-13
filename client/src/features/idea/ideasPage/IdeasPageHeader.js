@@ -6,6 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import CreateIdeaForm from './CreateIdeaForm';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,23 +16,8 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(5),
     height: theme.spacing(5)
   },
-  container: {
-    marginTop: theme.spacing(5)
-  },
   card: {
     padding: theme.spacing(3)
-  },
-  follower: {
-    marginRight: theme.spacing(2)
-  },
-  socialStat: {
-    marginTop: theme.spacing(1),
-  },
-  icon: {
-    marginBottom: '-3px'
-  },
-  profileName: {
-    marginTop: theme.spacing(0.5)
   },
   ideaLink: {
     color: '#64b5f6',
@@ -65,11 +51,14 @@ const IdeasPageHeader = ({theme}) => {
 
           </Grid>
           <Grid item sm={8}>
-            <Typography variant="h5" className={classes.profileName}>
-              <Link href="#" style={{color: '#757575'}}>
-              John Doe
-              </Link>
-            </Typography>
+            <Box component='span' mt={0.5}>
+              <Typography variant="h5">
+                <Link href="#" style={{color: '#757575'}}>
+                  John Doe
+                </Link>
+              </Typography>
+            </Box>
+
           </Grid>
           <Grid item md={12}>
             <Typography variant="h5" >

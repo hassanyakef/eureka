@@ -2,11 +2,8 @@ import React, {Fragment} from 'react';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import UserDetailedHeaderInfo from '../../user/UserDetailed/UserDetailedHeaderInfo';
-import Link from '@material-ui/core/Link';
-import { Link as RouterLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 
@@ -17,18 +14,6 @@ const useStyles = makeStyles(theme => ({
   profile: {
     width: theme.spacing(20),
     height: theme.spacing(20)
-  },
-  container: {
-    marginTop: theme.spacing(5)
-  },
-  card: {
-    padding: theme.spacing(3),
-  },
-  follower: {
-    marginRight: theme.spacing(2)
-  },
-  icon: {
-    marginBottom: '-3px'
   }
 }));
 
@@ -54,7 +39,7 @@ const IdeaDetailedSidebarRight = ({ theme }) => {
           </Typography>
           <UserDetailedHeaderInfo/>
           <Box my={2}>
-           <Button size='large' fullWidth={true} variant='contained' color='secondary'>+ Follow</Button>
+            <Button size='large' fullWidth={true} variant='contained' color='secondary'>+ Follow</Button>
           </Box>
 
         </Grid>

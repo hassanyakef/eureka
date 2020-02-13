@@ -7,12 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
+import Box from '@material-ui/core/Box';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = makeStyles(theme => ({
@@ -25,9 +23,6 @@ const styles = makeStyles(theme => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
-  },
-  textField: {
-    marginRight: theme.spacing(2),
   },
 }));
 
@@ -92,33 +87,34 @@ const CreateIdeaForm = ({handleClose, open, theme}) => {
           <DialogContentText>
             What kind of app do you wish to be made?
           </DialogContentText>
-          <TextField
-            required
-            autoFocus
-            margin="dense"
-            id="name"
-            label="App idea Suggestion"
-            placeholder="What kind of app do you need?"
-            className={classes.textField}
-          />
-          <TextField
-            required
-            id="standard-select-currency"
-            select
-            label="Platform"
-            margin="dense"
-            value={appType}
-            onChange={(event) => setAppType(event.target.value)}
-            style={{minWidth: 100}}
-            className={classes.textField}
-
-          >
-            {appTypes.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          <Box mr={2} component='span'>
+            <TextField
+              required
+              autoFocus
+              margin="dense"
+              id="name"
+              label="App idea Suggestion"
+              placeholder="What kind of app do you need?"
+            />
+          </Box>
+          <Box mr={2} component='span'>
+            <TextField
+              required
+              id="standard-select-currency"
+              select
+              label="Platform"
+              margin="dense"
+              value={appType}
+              onChange={(event) => setAppType(event.target.value)}
+              style={{minWidth: 100}}
+            >
+              {appTypes.map(option => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
           <TextField
             required
             id="standard-select-currency"

@@ -6,47 +6,46 @@ import { Link as RouterLink } from 'react-router-dom';
 import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ShareIcon from '@material-ui/icons/Share';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
-import Grid from '@material-ui/core/Grid';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1.5),
-  },
   icon: {
     marginBottom: '-4px',
     marginRight: '4px'
   },
-  iconText: {
-    marginRight: theme.spacing(2.5)
-
-  }
 }));
 
 const IdeasPageBodyIdeaButtons = ({theme}) => {
   const classes = useStyles(theme);
 
   return (
-    <div className={classes.root}>
-      <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link href='#' color="secondary">
-          <ThumbUpOutlinedIcon color="action" className={classes.icon} fontSize='small'/>
-          15
-        </Link>
-      </Typography>
-      <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link href="#" color="secondary">
-          <ShareIcon color="action" className={classes.icon} fontSize='small'/>
-          6
-        </Link>
-      </Typography>
-      <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link component={RouterLink} to='/ideas/1' color="secondary">
-          <ChatBubbleOutlineIcon color="action" className={classes.icon} fontSize='small'/>
-          8
-        </Link>
-      </Typography>
-    </div>
+    <Box mb={1} mt={1.5}>
+      <Box mr={2.5} component={'span'}>
+        <Typography variant="body2" display="inline" gutterBottom={true}>
+          <Link href='#' color="secondary">
+            <ThumbUpOutlinedIcon color="action" className={classes.icon} fontSize='small'/>
+            15
+          </Link>
+        </Typography>
+      </Box>
+      <Box mr={2.5} component={'span'}>
+        <Typography variant="body2" display="inline" gutterBottom={true}>
+          <Link href="#" color="secondary">
+            <ShareIcon color="action" className={classes.icon} fontSize='small'/>
+            6
+          </Link>
+        </Typography>
+      </Box>
+      <Box mr={2.5} component={'span'}>
+        <Typography variant="body2" display="inline" gutterBottom={true}>
+          <Link component={RouterLink} to='/ideas/1' color="secondary">
+            <ChatBubbleOutlineIcon color="action" className={classes.icon} fontSize='small'/>
+            8
+          </Link>
+        </Typography>
+      </Box>
+    </Box>
+
   );
 };
 

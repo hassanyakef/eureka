@@ -16,9 +16,6 @@ const useStyles = makeStyles(theme => ({
   card: {
     padding: theme.spacing(5)
   },
-  info: {
-    marginBottom: theme.spacing(1)
-  },
   hashtag: {
     padding: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5)
@@ -33,13 +30,14 @@ const IdeaDetailedBody = ({ theme }) => {
       <Box mb={3}>
         <Typography variant='h3'>An app to share ideas</Typography>
       </Box>
-      <Grid container spacing={2} className={classes.info}>
-        <Grid item sm={2.5}>
-          <Link component={RouterLink} to='/users/1'>
-            <Avatar className={classes.profile} alt="Remy Sharp"
-                    src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
-          </Link>
-        </Grid>
+      <Box mb={2}>
+        <Grid container spacing={2}>
+          <Grid item sm={2.5}>
+            <Link component={RouterLink} to='/users/1'>
+              <Avatar alt="Remy Sharp"
+                      src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+            </Link>
+          </Grid>
           <Box mt={2} ml={1} mr={0} component='span'>
             <Link variant='body1' color="secondary" component={RouterLink} to='/users/1'>John Doe</Link>
           </Box>
@@ -53,13 +51,14 @@ const IdeaDetailedBody = ({ theme }) => {
               variant="outlined"
               color="primary"
               size='small'
-              className={classes.button}
               startIcon={<BookmarkIcon />}
             >
               Save
             </Button>
-           </Box>
-      </Grid>
+          </Box>
+        </Grid>
+      </Box>
+
       <Box mb={2}>
         <Box mr={1} component='span'>
           <Typography display='inline' variant="body2" className={classes.hashtag} style={{backgroundColor: 'yellow'}}>

@@ -3,15 +3,11 @@ import IdeasPageHeader from './IdeasPageHeader';
 import IdeasPageBody from './IdeasPageBody';
 import IdeasPageSidebarRight from './IdeasPageSidebarRight';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-  },
-  container: {
-    marginTop: theme.spacing(3)
   },
 
 }));

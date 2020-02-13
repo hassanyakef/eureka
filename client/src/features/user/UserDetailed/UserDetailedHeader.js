@@ -16,19 +16,14 @@ const useStyles = makeStyles(theme => ({
   },
   profile: {
     width: theme.spacing(20),
-    height: theme.spacing(20)
-  },
-  container: {
-    marginTop: theme.spacing(5)
+    height: theme.spacing(20),
+    [theme.breakpoints.down('sm')]: {
+      width: theme.spacing(15),
+      height: theme.spacing(15),
+    }
   },
   card: {
     padding: theme.spacing(3)
-  },
-  follower: {
-    marginRight: theme.spacing(2)
-  },
-  socialStat: {
-    marginTop: theme.spacing(1),
   },
   icon: {
     marginBottom: '-3px'
@@ -39,42 +34,46 @@ const UserDetailedHeader = ({ theme }) => {
   const classes = useStyles(theme);
 
   return (
-    <Card className={classes.card}>
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item md={2.5}>
-          <Avatar className={classes.profile} alt="Remy Sharp"
-                  src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+    <Box mb={3}>
+      <Card className={classes.card}>
+        <Grid container className={classes.root} spacing={2}>
+          <Grid item md={2.5}>
+            <Avatar className={classes.profile} alt="Remy Sharp"
+                    src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+          </Grid>
+          <Grid item md={8}>
+            <Typography variant="h4" >
+              John Doe
+            </Typography>
+            <Typography variant="h6" gutterBottom={true}>
+              Student at Virginia Tech
+            </Typography>
+            <Box my={1.5}>
+              <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>
+            </Box>
+            <Typography variant="body1" gutterBottom={true} >
+              I'm a web developer based in Blacksburg, Virginia. I have a strong background in creating websites as well as developing rich interactive web apps.
+            </Typography>
+            <UserDetailedHeaderInfo/>
+            <Box mt={1}>
+              <Box component='span' mr={2}>
+                <Typography color="secondary" display="inline" variant="body1">
+                  <Link color="secondary" component={RouterLink} to='/users'>
+                    <strong>15</strong> Followers
+                  </Link>
+                </Typography>
+              </Box>
+              <Typography display="inline" variant="body1">
+                <Link color="secondary"  component={RouterLink} to='/users'>
+                  <strong>22</strong> Following
+                </Link>
+              </Typography>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item md={8}>
-          <Typography variant="h4" >
-            John Doe
-          </Typography>
-          <Typography variant="h6" gutterBottom={true}>
-            Student at Virginia Tech
-          </Typography>
-          <Box my={1.5}>
-            <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>
-          </Box>
-          <Typography variant="body1" gutterBottom={true} >
-            I'm a web developer based in Blacksburg, Virginia. I have a strong background in creating websites as well as developing rich interactive web apps.
-          </Typography>
-          <UserDetailedHeaderInfo/>
-          <div className={classes.socialStat}>
-            <Typography color="secondary" className={classes.follower} display="inline" variant="body1">
-              <Link color="secondary" component={RouterLink} to='/users'>
-                <strong>15</strong> Followers
-              </Link>
-            </Typography>
-            <Typography display="inline" variant="body1">
-              <Link color="secondary"  component={RouterLink} to='/users'>
-                <strong>22</strong> Following
-              </Link>
-            </Typography>
-          </div>
+      </Card>
+    </Box>
 
-        </Grid>
-      </Grid>
-    </Card>
   );
 };
 

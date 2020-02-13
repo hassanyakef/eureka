@@ -4,7 +4,7 @@ import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import LinkIcon from '@material-ui/icons/Link';
 import TodayIcon from '@material-ui/icons/Today';
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
+import { Link, Box } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,32 +14,40 @@ const useStyles = makeStyles(theme => ({
   icon: {
     marginBottom: '-4px',
     marginRight: '4px'
-  },
-  iconText: {
-    marginRight: theme.spacing(2.5)
-
   }
 }));
 
-const UserDetailedHeaderInfo = ({theme}) => {
+const UserDetailedHeaderInfo = ({ theme }) => {
   const classes = useStyles(theme);
 
   return (
     <div className={classes.root}>
-      <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <LocationOnOutlinedIcon color="action" className={classes.icon} fontSize='small'/>
-        Blacksburg, VA
-      </Typography>
-      <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <Link href="#">
-          <LinkIcon color="action" className={classes.icon} fontSize='small'/>
-          johndoe.com
-        </Link>
-      </Typography>
-      <Typography variant="body2" display="inline" className={classes.iconText} gutterBottom={true}>
-        <TodayIcon color="action" className={classes.icon} fontSize='small'/>
-        Joined March 2017
-      </Typography>
+      <Box component='span' mr={2.5}>
+        <Typography variant="body2" display="inline"
+                    gutterBottom={true}>
+          <LocationOnOutlinedIcon color="action" className={classes.icon}
+                                  fontSize='small'/>
+          Blacksburg, VA
+        </Typography>
+      </Box>
+      <Box component='span' mr={2.5}>
+
+        <Typography variant="body2" display="inline"
+                    gutterBottom={true}>
+          <Link href="#">
+            <LinkIcon color="action" className={classes.icon} fontSize='small'/>
+            johndoe.com
+          </Link>
+        </Typography>
+      </Box>
+      <Box component='span' mr={2.5}>
+        <Typography variant="body2" display="inline"
+                    gutterBottom={true}>
+          <TodayIcon color="action" className={classes.icon} fontSize='small'/>
+          Joined March 2017
+        </Typography>
+      </Box>
+
 
     </div>
   );
