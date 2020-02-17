@@ -65,15 +65,15 @@ const DashboardIdeaCard = ({ theme }) => {
               <Box mb={2}>
                 <IdeasPageBodyIdeaButtons/>
               </Box>
-              <Box my={2}>
-                <ButtonGroup aria-label="button group">
-                  <Button size='small' color='primary'
+              <Box mt={2}>
+                <ButtonGroup size='small' aria-label="button group">
+                  <Button color='primary'
                           component={RouterLink}
                           to='/ideas/edit/1'
                           startIcon={<EditIcon/>}>
                     Edit
                   </Button>
-                  <Button size='small' className={classes.deleteButton} startIcon={<DeleteIcon/>}>Delete</Button>
+                  <Button className={classes.deleteButton} startIcon={<DeleteIcon/>}>Delete</Button>
                 </ButtonGroup>
               </Box>
 

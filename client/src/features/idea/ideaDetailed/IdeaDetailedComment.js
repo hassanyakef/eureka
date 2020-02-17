@@ -15,6 +15,9 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     padding: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3),
+    }
   },
   icon: {
     marginBottom: '-4px',

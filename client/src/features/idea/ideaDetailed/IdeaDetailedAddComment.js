@@ -10,7 +10,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   card: {
-    padding: theme.spacing(5)
+    padding: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3),
+    }
   }
 
 }));

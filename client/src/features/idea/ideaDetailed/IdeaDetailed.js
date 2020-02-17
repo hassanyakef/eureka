@@ -13,7 +13,10 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     padding: theme.spacing(5),
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(3),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3),
+    }
   }
 
 }));

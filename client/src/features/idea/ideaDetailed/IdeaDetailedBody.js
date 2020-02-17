@@ -13,9 +13,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
   },
-  card: {
-    padding: theme.spacing(5)
-  },
   hashtag: {
     padding: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5)

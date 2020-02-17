@@ -12,8 +12,12 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   profile: {
-    width: theme.spacing(20),
-    height: theme.spacing(20)
+      width: theme.spacing(15),
+    height: theme.spacing(15),
+    [theme.breakpoints.down('sm')]: {
+      width: theme.spacing(12.5),
+      height: theme.spacing(12.5),
+    }
   }
 }));
 
