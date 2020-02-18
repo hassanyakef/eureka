@@ -27,6 +27,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
+import AddIcon from '@material-ui/icons/Add';
 
 
 
@@ -86,6 +87,12 @@ const useStyles = makeStyles(theme => {
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    addIdeaButton: {
+      borderRadius: '25px / 25px ',
+      paddingRight: theme.spacing(5),
+      paddingLeft: theme.spacing(4),
+      textTransform: 'capitalize'
+    }
 }});
 
 function ResponsiveDrawer(props) {
@@ -133,12 +140,25 @@ function ResponsiveDrawer(props) {
           </ListItemIcon>
           <ListItemText primary={'Bookmarks'}/>
         </ListItem>
-        <ListItem button key={'Setting'} component={RouterLink} to="/setting">
+        <ListItem button key={'Setting'} component={RouterLink} to="/edit-profile">
           <ListItemIcon>
             <SettingsIcon/>
           </ListItemIcon>
           <ListItemText primary={'Setting'}/>
         </ListItem>
+        <Box ml={1} mt={1} mb={2}>
+          <Button
+            component={RouterLink}
+            to="/ideas/add"
+            variant="contained"
+            color="primary"
+            size='large'
+            className={classes.addIdeaButton}
+            startIcon={<AddIcon />}
+          >
+            Add Idea
+          </Button>
+        </Box>
       </List>
       <Divider/>
       <List>

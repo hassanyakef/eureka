@@ -44,7 +44,7 @@ const Dashboard = ({ theme }) => {
 
   return (
     <Fragment>
-      <Box mb={3}>
+      <Box mb={2}>
         <Card className={classes.card}>
           <Box my={1}>
             <Typography variant='h3'>
@@ -62,7 +62,7 @@ const Dashboard = ({ theme }) => {
               <Button color='primary' component={RouterLink} to='/edit-profile' startIcon={ <AccountCircleIcon />}>
                 Edit Profile
               </Button>
-              <Button  className={classes.successButton} startIcon={<CreateIcon />}>
+              <Button  className={classes.successButton} component={RouterLink} to='/ideas/add' startIcon={<CreateIcon />}>
                 Post Idea</Button>
             </ButtonGroup>
           </Box>

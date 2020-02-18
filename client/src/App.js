@@ -18,8 +18,9 @@ import UsersPage from './features/user/UsersPage/UsersPage';
 import IdeaDetailed from './features/idea/ideaDetailed/IdeaDetailed';
 import Bookmark from './features/idea/bookmarks/Bookmarks'
 import { green, red } from '@material-ui/core/colors';
-import EditIdea from './features/idea/editIdea/EditIdea';
+import EditIdea from './features/idea/ideaForm/EditIdea';
 import EditProfile from './features/user/Settings/EditProfile';
+import AddIdea from './features/idea/ideaForm/AddIdea';
 
 const theme = createMuiTheme({
   palette: {
@@ -89,9 +90,9 @@ const App = () => {
                         <Route exact path="/login" component={Login}/>
                         <Route exact path='/users/:id' component={UserDetailedPage} />
                         <Route exact path='/users' component={UsersPage}/>
-                        <Route exact path="/create-profile" component={UserDetailedPage}/>
                         <Route exact path="/edit-profile" component={EditProfile}/>
                         <Route exact path='/ideas' component={IdeasPage} />
+                        <Route exact path='/ideas/add' component={AddIdea} />
                         <Route exact path='/ideas/:id' component={IdeaDetailed} />
                         <Route exact path='/ideas/edit/:id' component={EditIdea} />
                         <Route exact path='/dashboard' component={Dashboard} />

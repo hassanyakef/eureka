@@ -5,8 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import CreateIdeaForm from './CreateIdeaForm';
 import Box from '@material-ui/core/Box';
+import { Link as RouterLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,16 +29,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const IdeasPageHeader = ({theme}) => {
-
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const classes = useStyles(theme);
 
@@ -62,14 +53,13 @@ const IdeasPageHeader = ({theme}) => {
           </Grid>
           <Grid item md={12}>
             <Typography variant="h5" >
-              <Link href="#" onClick={handleClickOpen} className={classes.ideaLink}>
+              <Link component={RouterLink} to='/ideas/add' className={classes.ideaLink}>
               What is your idea?
               </Link>
             </Typography>
           </Grid>
         </Grid>
       </Card>
-      <CreateIdeaForm open={open} handleClose={handleClose}/>
     </Fragment>
 
   );
