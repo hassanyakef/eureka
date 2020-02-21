@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import './App.css';
 import grey from '@material-ui/core/colors/grey';
 import blue from '@material-ui/core/colors/blue';
@@ -21,6 +21,11 @@ import { green, red } from '@material-ui/core/colors';
 import EditIdea from './features/idea/ideaForm/EditIdea';
 import EditProfile from './features/user/Settings/EditProfile';
 import AddIdea from './features/idea/ideaForm/AddIdea';
+import { Provider } from 'react-redux';
+import { configureStore } from './app/store/configureStore';
+import setAuthToken from './app/common/util/setAuthToken';
+
+const store = configureStore();
 
 const theme = createMuiTheme({
   palette: {
@@ -70,41 +75,52 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
 }));
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 const App = () => {
+
+  // useEffect(() => {
+  //   store.dispatch(loadUser());
+  // }, []);
+
   const classes = useStyles();
 
   return (
-    <Router>
-      <Fragment>
-        <div className="App">
-          <ThemeProvider theme={theme}>
-            <div className={classes.root}>
-              <CssBaseline />
-              <ResponsiveDrawer/>
-              <main className={classes.content}>
-                <div className={classes.toolbar} />
-                    <Container maxWidth={'lg'} className={classes.box}>
-                      <Route exact path="/" component={Landing}/>
-                      <Switch>
-                        <Route exact path="/register" component={Register}/>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path='/users/:id' component={UserDetailedPage} />
-                        <Route exact path='/users' component={UsersPage}/>
-                        <Route exact path="/edit-profile" component={EditProfile}/>
-                        <Route exact path='/ideas' component={IdeasPage} />
-                        <Route exact path='/ideas/add' component={AddIdea} />
-                        <Route exact path='/ideas/:id' component={IdeaDetailed} />
-                        <Route exact path='/ideas/edit/:id' component={EditIdea} />
-                        <Route exact path='/dashboard' component={Dashboard} />
-                        <Route exact path='/bookmarks' component={Bookmark} />
-                      </Switch>
-                    </Container>
-              </main>
-            </div>
-          </ThemeProvider>
-        </div>
-      </Fragment>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <div className="App">
+            <ThemeProvider theme={theme}>
+              <div className={classes.root}>
+                <CssBaseline />
+                <ResponsiveDrawer/>
+                <main className={classes.content}>
+                  <div className={classes.toolbar} />
+                  <Container maxWidth={'lg'} className={classes.box}>
+                    <Route exact path="/" component={Landing}/>
+                    <Switch>
+                      <Route exact path="/register" component={Register}/>
+                      <Route exact path="/login" component={Login}/>
+                      <Route exact path='/users/:id' component={UserDetailedPage} />
+                      <Route exact path='/users' component={UsersPage}/>
+                      <Route exact path="/edit-profile" component={EditProfile}/>
+                      <Route exact path='/ideas' component={IdeasPage} />
+                      <Route exact path='/ideas/add' component={AddIdea} />
+                      <Route exact path='/ideas/:id' component={IdeaDetailed} />
+                      <Route exact path='/ideas/edit/:id' component={EditIdea} />
+                      <Route exact path='/dashboard' component={Dashboard} />
+                      <Route exact path='/bookmarks' component={Bookmark} />
+                    </Switch>
+                  </Container>
+                </main>
+              </div>
+            </ThemeProvider>
+          </div>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 };
 
