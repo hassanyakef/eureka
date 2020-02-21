@@ -9,6 +9,12 @@ const ProfileSchema = new mongoose.Schema({
   bio: {
     type: String
   },
+  profession: {
+    type: String
+  },
+  company: {
+    type: String
+  },
   interests: {
     type: [String]
   },

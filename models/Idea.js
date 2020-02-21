@@ -59,7 +59,15 @@ const IdeaSchema = new mongoose.Schema({
       commentDate: {
         type: Date,
         default: Date.now
-      }
+      },
+      likes: [
+        {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: 'user'
+          }
+        }
+      ],
     }
   ],
   date: {

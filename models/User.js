@@ -17,10 +17,6 @@ const UserSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
-  // ideas: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'idea'
-  // }],
   date: {
     type: Date,
     default: Date.now
