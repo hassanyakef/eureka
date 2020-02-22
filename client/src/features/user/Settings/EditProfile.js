@@ -6,10 +6,26 @@ import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import PersonIcon from '@material-ui/icons/Person';
+import { createProfile, getCurrentProfile} from '../profileActions';
+import { Field, reduxForm } from 'redux-form';
+import { combineValidators, composeValidators, isRequired } from 'revalidate';
+import TextInput from '../../app/common/form/TextInput';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { isValidEmail } from '../../../app/common/util/validator';
+
+const validate = combineValidators({
+  email: composeValidators(
+    isRequired({ message: 'Email is required' }),
+    isValidEmail
+  )(),
+  password: isRequired('password'),
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,26 +41,6 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-//
-// const appTypes = [
-//   {
-//     value: 'ios',
-//     label: 'IOS',
-//   },
-//   {
-//     value: 'android',
-//     label: 'Android',
-//   },
-//   {
-//     value: 'webapp',
-//     label: 'Web App',
-//   },
-//   {
-//     value: 'desktopapp',
-//     label: 'Desktop App',
-//   },
-// ];
-
 const userStatuses = [
   {
     value: 'developer',
@@ -56,11 +52,9 @@ const userStatuses = [
   },
 ];
 
-const EditProfile = ({ theme }) => {
+const EditProfile = ({ theme, auth: {isAuthenticated}, createProfile, getCurrentProfile, handleSubmit, error, invalid, submitting }) => {
   const classes = useStyles(theme);
 
-
-  // const [appType, setAppType] = useState('ios');
   const [userStatus, setUserStatus] = useState('public');
 
   return (
@@ -71,22 +65,24 @@ const EditProfile = ({ theme }) => {
           <Typography variant='subtitle1'>
             <PersonIcon className={classes.icon}/>
             Let's get some information to make your profile stand out</Typography>
-          <form>
+          <form onSubmit={handleSubmit(createProfile)}>
             <Box mr={2.5} mb={1} component='span'>
-              <TextField
+              <Field
                 required
                 margin="dense"
-                id="name"
                 label="Job Title"
                 placeholder='Student, Teacher, Developer, etc.'
+                name="profession"
+                component={TextInput}
               />
             </Box>
             <Box mr={2} mb={1} component='span'>
-              <TextField
+              <Field
                 required
                 margin="dense"
-                id="name"
                 label="Company or School"
+                name="company"
+                component={TextInput}
               />
             </Box>
             <Box mb={1}>
@@ -98,28 +94,40 @@ const EditProfile = ({ theme }) => {
                 label="Location"
                 placeholder='City, State'
               />
+              <Field
+                fullWidth={true}
+                label="Location"
+                placeholder='City, State'
+                required
+                margin="dense"
+                name="location"
+                component={TextInput}
+              />
             </Box>
             <Box mb={1}>
-              <TextField
+              <Field
                 fullWidth={true}
                 margin="dense"
-                id="name"
+                name="location"
                 label="Interests"
                 placeholder='Reading, Swimming, Hiking etc.'
+                component={TextInput}
               />
             </Box>
             <Box mr={2.5} mb={1} component='span'>
-              <TextField
+              <Field
                 margin="dense"
-                id="name"
+                name="website"
                 label="Website"
+                component={TextInput}
               />
             </Box>
             <Box mr={2.5} mb={1} component='span'>
-              <TextField
+              <Field
                 margin="dense"
-                id="name"
+                name="github"
                 label="Github Profile"
+                component={TextInput}
               />
             </Box>
             <Box mb={1} component='span'>
@@ -163,4 +171,11 @@ const EditProfile = ({ theme }) => {
   )
 };
 
-export default EditProfile;
+const mapStateToProps = (state) => ({
+  profile: state.profile
+});
+
+const actions = { createProfile, getCurrentProfile };
+
+export default connect(mapStateToProps, actions)(
+  withRouter(EditProfile));
