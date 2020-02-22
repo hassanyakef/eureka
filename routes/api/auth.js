@@ -30,10 +30,11 @@ router.get('/', auth, async(req, res) => {
  */
 router.post('/', [
   check('email', 'Please enter a valid email').isEmail(),
-  check('password', 'Please enter your password').exists()
+  check('password', 'Please enter your password').not().isEmpty(),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log(req.body);
     return res.status(400).json({errors: errors.array()})
   }
 

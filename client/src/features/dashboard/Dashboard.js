@@ -11,6 +11,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import CreateIcon from '@material-ui/icons/Create';
 import { Link as RouterLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme }) => {
+const Dashboard = ({ theme, user: {name} }) => {
   const classes = useStyles(theme);
 
   return (
@@ -54,7 +56,7 @@ const Dashboard = ({ theme }) => {
           <Box my={1}>
             <Typography variant='h5'>
               <PersonIcon className={classes.icon}/>
-              Welcome John Doe
+              Welcome {name}
             </Typography>
           </Box>
           <Box mt={1.5}>
@@ -93,4 +95,8 @@ const Dashboard = ({ theme }) => {
   );
 };
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  user: state.auth.user
+});
+
+export default connect(mapStateToProps)(Dashboard);

@@ -28,6 +28,8 @@ import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import AddIcon from '@material-ui/icons/Add';
+import { logout } from '../auth/authActions';
+import { connect } from 'react-redux';
 
 
 
@@ -95,12 +97,11 @@ const useStyles = makeStyles(theme => {
     }
 }});
 
-function ResponsiveDrawer(props) {
+function ResponsiveDrawer({logout, auth: { isAuthenticated, loading }, ...props}) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [authenticated, setAuthenticated] = React.useState(true);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -162,8 +163,8 @@ function ResponsiveDrawer(props) {
       </List>
       <Divider/>
       <List>
-        <ListItem button key={'Logout'}>
-          <ListItemIcon>
+        <ListItem button key={'Logout'} onClick={logout}>
+          <ListItemIcon >
             <ExitToAppIcon/>
           </ListItemIcon>
           <ListItemText primary={'Logout'}/>
@@ -236,7 +237,7 @@ function ResponsiveDrawer(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {authenticated ? authenticatedMenu : unAuthenticatedMenu}
+            {isAuthenticated ? authenticatedMenu : unAuthenticatedMenu}
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
@@ -247,7 +248,7 @@ function ResponsiveDrawer(props) {
             variant="permanent"
             open
           >
-            {authenticated ? authenticatedMenu : unAuthenticatedMenu}
+            {isAuthenticated ? authenticatedMenu : unAuthenticatedMenu}
           </Drawer>
         </Hidden>
       </nav>
@@ -263,4 +264,13 @@ ResponsiveDrawer.propTypes = {
   container: PropTypes.instanceOf(typeof Element === 'undefined' ? Object : Element),
 };
 
-export default ResponsiveDrawer;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+
+const actions = {
+  logout
+};
+
+export default connect(mapStateToProps, actions)(ResponsiveDrawer);

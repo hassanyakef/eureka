@@ -6,10 +6,10 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  LOGOUT,
-  CLEAR_PROFILE
+  LOGOUT
 } from './authConstants';
 import setAuthToken from '../../app/common/util/setAuthToken';
+import { toastr } from 'react-redux-toastr';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -47,11 +47,14 @@ export const register = ({ name, email, password }) => async dispatch => {
       payload: res.data
     });
     dispatch(loadUser());
+    toastr.success('Success', 'Account has been created');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach(error => toastr.error('Oops', `Something went wrong ${error.msg}`));
+      console.log({errors});
     }
+
     dispatch({
       type: REGISTER_FAIL,
     })
@@ -59,7 +62,7 @@ export const register = ({ name, email, password }) => async dispatch => {
 };
 
 // Login User
-export const login = (email, password) => async dispatch => {
+export const login = ({email, password}) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -75,10 +78,12 @@ export const login = (email, password) => async dispatch => {
     });
 
     dispatch(loadUser());
+    toastr.success('Success', 'You are logged in');
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+      errors.forEach(error => toastr.error('Oops', `Something went wrong ${error.msg}`));
+      console.log({ errors});
     }
     dispatch({
       type: LOGIN_FAIL,
@@ -88,6 +93,7 @@ export const login = (email, password) => async dispatch => {
 
 // Logout / Clear Profile
 export const logout = () => dispatch => {
-  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
+  toastr.success('Success', 'You are logged out');
+  console.log('You are logged out');
 };

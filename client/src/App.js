@@ -24,6 +24,10 @@ import AddIdea from './features/idea/ideaForm/AddIdea';
 import { Provider } from 'react-redux';
 import { configureStore } from './app/store/configureStore';
 import setAuthToken from './app/common/util/setAuthToken';
+import ReduxToastr from 'react-redux-toastr';
+import { loadUser } from './features/auth/authActions';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
+import PrivateRoute from './app/common/util/PrivateRoute';
 
 const store = configureStore();
 
@@ -81,9 +85,9 @@ if (localStorage.token) {
 
 const App = () => {
 
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []);
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
 
   const classes = useStyles();
 
@@ -99,19 +103,24 @@ const App = () => {
                 <main className={classes.content}>
                   <div className={classes.toolbar} />
                   <Container maxWidth={'lg'} className={classes.box}>
+                    <ReduxToastr
+                      position='bottom-right'
+                      transitionIn='fadeIn'
+                      transitionOut='fadeOut'
+                    />
                     <Route exact path="/" component={Landing}/>
                     <Switch>
                       <Route exact path="/register" component={Register}/>
                       <Route exact path="/login" component={Login}/>
                       <Route exact path='/users/:id' component={UserDetailedPage} />
-                      <Route exact path='/users' component={UsersPage}/>
-                      <Route exact path="/edit-profile" component={EditProfile}/>
+                      <PrivateRoute exact path='/users' component={UsersPage}/>
+                      <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
                       <Route exact path='/ideas' component={IdeasPage} />
-                      <Route exact path='/ideas/add' component={AddIdea} />
+                      <PrivateRoute exact path='/ideas/add' component={AddIdea} />
                       <Route exact path='/ideas/:id' component={IdeaDetailed} />
-                      <Route exact path='/ideas/edit/:id' component={EditIdea} />
-                      <Route exact path='/dashboard' component={Dashboard} />
-                      <Route exact path='/bookmarks' component={Bookmark} />
+                      <PrivateRoute exact path='/ideas/edit/:id' component={EditIdea} />
+                      <PrivateRoute exact path='/dashboard' component={Dashboard} />
+                      <PrivateRoute exact path='/bookmarks' component={Bookmark} />
                     </Switch>
                   </Container>
                 </main>

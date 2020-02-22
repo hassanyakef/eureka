@@ -7,7 +7,13 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
+import { combineValidators, isRequired } from 'revalidate';
+import { login, loadUser } from './authActions';
+import { Field, reduxForm } from 'redux-form';
+import TextInput from '../../app/common/form/TextInput';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,24 +25,45 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const Login = ({ theme }) => {
+const validate = combineValidators({
+  // email: isRequired('email'),
+  // password: isRequired('password'),
+});
+
+const Login = ({ theme, auth: {isAuthenticated}, login, handleSubmit, error, invalid, submitting }) => {
   const classes = useStyles(theme);
+
+  if(isAuthenticated) {
+    return <Redirect to="/dashboard"/>
+  }
+
   return (
     <Grid container className={classes.root} spacing={5}>
       <Grid item lg={8} sm={12}>
         <Card className={classes.card}>
           <Typography variant='h2'><strong>Log In</strong></Typography>
           <Typography variant='subtitle1'>Sign in to your Eureka account</Typography>
-
-          <form>
+          <form  onSubmit={handleSubmit(login)}>
             <Box my={2}>
-              <TextField fullWidth={true} label="Email Address" type='email'/>
+              <Field
+                name="email"
+                component={TextInput}
+                fullWidth={true}
+                label="Email Address"
+                type='email'
+              />
             </Box>
             <Box my={2}>
-              <TextField fullWidth={true}  label="Password" type='password'/>
+              <Field
+                name="password"
+                component={TextInput}
+                fullWidth={true}
+                label="Password"
+                type='password'
+              />
             </Box>
             <Box mt={3}>
-              <Button variant='outlined' color='primary' fullWidth={true}>Submit</Button>
+              <Button type='submit' disabled={invalid || submitting} variant='outlined' color='primary' fullWidth={true}>Submit {submitting && <Box ml={1.5} mb={-0.7}><CircularProgress size={20}/></Box>}</Button>
             </Box>
             <Box mt={2}>
               <Typography variant='body1'>Don't have an account? <Link component={RouterLink} to='/register'>Sign Up</Link></Typography>
@@ -51,4 +78,12 @@ const Login = ({ theme }) => {
   )
 };
 
-export default Login;
+const actions = {
+  login,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, actions)(reduxForm({ form: 'loginForm', validate})(Login));
