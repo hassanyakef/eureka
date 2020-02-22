@@ -7,13 +7,14 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom';
-import { combineValidators, isRequired } from 'revalidate';
+import { combineValidators, composeValidators, isRequired } from 'revalidate';
 import { login, loadUser } from './authActions';
 import { Field, reduxForm } from 'redux-form';
 import TextInput from '../../app/common/form/TextInput';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { isValidEmail } from '../../app/common/util/validator';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,8 +27,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const validate = combineValidators({
-  // email: isRequired('email'),
-  // password: isRequired('password'),
+  email: composeValidators(
+    isRequired({ message: 'Email is required' }),
+    isValidEmail
+  )(),
+  password: isRequired('password'),
 });
 
 const Login = ({ theme, auth: {isAuthenticated}, login, handleSubmit, error, invalid, submitting }) => {

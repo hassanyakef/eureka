@@ -8,19 +8,31 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import {combineValidators, isRequired} from 'revalidate';
+import {combineValidators, isRequired, composeValidators,} from 'revalidate';
 import {register, loadUser} from './authActions';
 import TextInput from '../../app/common/form/TextInput';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { isValidEmail, passwordMatch } from '../../app/common/util/validator';
 
 const validate = combineValidators({
   name: isRequired('name'),
-  email: isRequired('email'),
+  email: composeValidators(
+    isRequired({ message: 'Email is required' }),
+    isValidEmail
+  )(),
   password: isRequired('password'),
-  password2: isRequired('password2'),
+  password2: isRequired({ message: 'Please confirm your password' })
 });
+
+const warn = values => {
+  const warnings = {};
+  if (values.password !== values.password2) {
+    warnings.password2 = 'Passwords do not match'
+  }
+  return warnings
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -108,4 +120,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, actions)(reduxForm({ form: 'registerForm', validate})(Register));
+export default connect(mapStateToProps, actions)(reduxForm({ form: 'registerForm', validate, warn})(Register));
