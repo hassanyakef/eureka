@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -11,8 +11,9 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import CreateIcon from '@material-ui/icons/Create';
 import { Link as RouterLink } from 'react-router-dom';
+import Spinner from '../../app/common/util/Spinner';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { getCurrentProfile } from '../user/profileActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,62 +42,71 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme, user: {name} }) => {
+const Dashboard = ({ theme, user, profile: { profile, loading}, getCurrentProfile }) => {
   const classes = useStyles(theme);
 
-  return (
-    <Fragment>
-      <Box mb={2}>
-        <Card className={classes.card}>
-          <Box my={1}>
-            <Typography variant='h3'>
-              Dashboard
-            </Typography>
-          </Box>
-          <Box my={1}>
-            <Typography variant='h5'>
-              <PersonIcon className={classes.icon}/>
-              Welcome {name}
-            </Typography>
-          </Box>
-          <Box mt={1.5}>
-            <ButtonGroup aria-label="button group">
-              <Button color='primary' component={RouterLink} to='/edit-profile' startIcon={ <AccountCircleIcon />}>
-                Edit Profile
-              </Button>
-              <Button  className={classes.successButton} component={RouterLink} to='/ideas/add' startIcon={<CreateIcon />}>
-                Post Idea</Button>
-            </ButtonGroup>
-          </Box>
-        </Card>
-      </Box>
+  useEffect(() => {
+    getCurrentProfile();
+  }, []);
 
+  const mainDiv = <Fragment>
+    <Box mb={2}>
       <Card className={classes.card}>
         <Box my={1}>
-          <Typography variant='h5'>
-            My Ideas
+          <Typography variant='h3'>
+            Dashboard
           </Typography>
         </Box>
-        <Box mt={2} mb={0.5}>
-          <Divider/>
+        <Box my={1}>
+          <Typography variant='h5'>
+            <PersonIcon className={classes.icon}/>
+            Welcome {user?.name}
+          </Typography>
         </Box>
-        <List className={classes.root}>
-          <Grid container spacing={20}>
-            <DashboardIdeaCard/>
-            <DashboardIdeaCard/>
-            <DashboardIdeaCard/>
-            <DashboardIdeaCard/>
-            <DashboardIdeaCard/>
-          </Grid>
-
-        </List>
+        <Box mt={1.5}>
+          <ButtonGroup aria-label="button group">
+            <Button color='primary' component={RouterLink} to='/edit-profile' startIcon={ <AccountCircleIcon />}>
+              Edit Profile
+            </Button>
+            <Button  className={classes.successButton} component={RouterLink} to='/ideas/add' startIcon={<CreateIcon />}>
+              Post Idea</Button>
+          </ButtonGroup>
+        </Box>
       </Card>
-    </Fragment>
-  );
+    </Box>
+
+    <Card className={classes.card}>
+      <Box my={1}>
+        <Typography variant='h5'>
+          My Ideas
+        </Typography>
+      </Box>
+      <Box mt={2} mb={0.5}>
+        <Divider/>
+      </Box>
+      <List className={classes.root}>
+        <Grid container spacing={20}>
+          <DashboardIdeaCard/>
+          <DashboardIdeaCard/>
+          <DashboardIdeaCard/>
+          <DashboardIdeaCard/>
+          <DashboardIdeaCard/>
+        </Grid>
+
+      </List>
+    </Card>
+  </Fragment>;
+
+  return loading && profile === null ? <Spinner/> : mainDiv;
 };
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user
+  user: state.auth.user,
+  profile: state.profile
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const actions = {
+  getCurrentProfile
+};
+
+export default connect(mapStateToProps, actions)(Dashboard);
