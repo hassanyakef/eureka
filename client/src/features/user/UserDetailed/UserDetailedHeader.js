@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserDetailedHeader = ({ theme }) => {
+const UserDetailedHeader = ({ theme, profile, myProfile = true }) => {
   const classes = useStyles(theme);
 
   return (
@@ -39,22 +39,24 @@ const UserDetailedHeader = ({ theme }) => {
         <Grid container className={classes.root} spacing={2}>
           <Grid item md={2.5}>
             <Avatar className={classes.profile} alt="Remy Sharp"
-                    src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+                    src={profile.user.avatar}/>
           </Grid>
           <Grid item md={8}>
             <Typography variant="h4" >
-              John Doe
+              {profile?.name}
             </Typography>
             <Typography variant="h6" gutterBottom={true}>
-              Student at Virginia Tech
+              {profile?.profession} at {profile?.company}
             </Typography>
             <Box my={1.5}>
-              <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>
+              {myProfile ? <Button size='medium' fullWidth={false} variant='outlined' color='primary' component={RouterLink} to='/edit-profile'>Edit Profile</Button> :
+                <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>
+              }
             </Box>
             <Typography variant="body1" gutterBottom={true} >
-              I'm a web developer based in Blacksburg, Virginia. I have a strong background in creating websites as well as developing rich interactive web apps.
+              {profile?.bio}
             </Typography>
-            <UserDetailedHeaderInfo/>
+            <UserDetailedHeaderInfo profile={profile}/>
             <Box mt={1}>
               <Box component='span' mr={2}>
                 <Typography color="secondary" display="inline" variant="body1">

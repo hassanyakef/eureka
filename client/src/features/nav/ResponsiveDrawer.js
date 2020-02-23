@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => {
     }
 }});
 
-function ResponsiveDrawer({logout, auth: { isAuthenticated, loading }, ...props}) {
+function ResponsiveDrawer({logout, auth: { isAuthenticated, loading, user }, ...props}) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -123,7 +123,7 @@ function ResponsiveDrawer({logout, auth: { isAuthenticated, loading }, ...props}
           </ListItemIcon>
           <ListItemText primary={'Dashboard'}/>
         </ListItem>
-        <ListItem button key={'Profile'} component={RouterLink} to="/users/1">
+        <ListItem button key={'Profile'} component={RouterLink} to={`/users/${user?._id}`}>
           <ListItemIcon>
             <PersonOutlineIcon/>
           </ListItemIcon>

@@ -5,6 +5,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import TodayIcon from '@material-ui/icons/Today';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, Box } from '@material-ui/core';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserDetailedHeaderInfo = ({ theme }) => {
+const UserDetailedHeaderInfo = ({ theme, profile }) => {
   const classes = useStyles(theme);
 
   return (
@@ -27,16 +28,16 @@ const UserDetailedHeaderInfo = ({ theme }) => {
                     gutterBottom={true}>
           <LocationOnOutlinedIcon color="action" className={classes.icon}
                                   fontSize='small'/>
-          Blacksburg, VA
+          {profile?.location}
         </Typography>
       </Box>
       <Box component='span' mr={2.5}>
 
         <Typography variant="body2" display="inline"
                     gutterBottom={true}>
-          <Link href="#">
+          <Link href={`http://${profile?.website}`} target='_blank'>
             <LinkIcon color="action" className={classes.icon} fontSize='small'/>
-            johndoe.com
+            {profile?.website}
           </Link>
         </Typography>
       </Box>
@@ -44,7 +45,7 @@ const UserDetailedHeaderInfo = ({ theme }) => {
         <Typography variant="body2" display="inline"
                     gutterBottom={true}>
           <TodayIcon color="action" className={classes.icon} fontSize='small'/>
-          Joined March 2017
+          Joined {moment(profile?.date).format("MMM YYYY")}
         </Typography>
       </Box>
 
