@@ -37,14 +37,16 @@ router.get('/me', auth, async (req, res) => {
 router.post('/', auth, async (req, res) => {
 
   const {
-    website, location, bio, status, githubUsername, interests, twitter, facebook, linkedin, instagram
+    profession, company, website, location, bio, status, githubUsername, interests, twitter, linkedin, instagram
   } = req.body;
 
   const profileFields = {};
 
   profileFields.user = req.user.id;
 
-  if (website) profileFields.company = website;
+  if (profession) profileFields.profession = profession;
+  if (company) profileFields.company = company;
+  if (website) profileFields.website = website;
   if (location) profileFields.location = location;
   if (bio) profileFields.bio = bio;
   if (status) profileFields.status = status;
@@ -57,7 +59,6 @@ router.post('/', auth, async (req, res) => {
   profileFields.social = {};
 
   if (twitter) profileFields.social.twitter = twitter;
-  if (facebook) profileFields.social.facebook = facebook;
   if (linkedin) profileFields.social.linkedin = linkedin;
   if (instagram) profileFields.social.instagram = instagram;
 

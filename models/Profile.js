@@ -35,9 +35,6 @@ const ProfileSchema = new mongoose.Schema({
     twitter: {
       type: String
     },
-    facebook: {
-      type: String
-    },
     linkedin: {
       type: String
     },

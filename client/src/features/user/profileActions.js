@@ -66,8 +66,10 @@ export const getProfileById = userId => async dispatch => {
 export const createProfile = (
   formData,
   history,
-  edit = false
+  edit = false,
 ) => async dispatch => {
+  console.log({formData, history, edit});
+  const interests = formData.interests && typeof(formData.interests) !== 'string' ? formData.interests.join(',') : formData.interests;
   try {
     const config = {
       headers: {
@@ -75,7 +77,7 @@ export const createProfile = (
       }
     };
 
-    const res = await axios.post('/api/profile', formData, config);
+    const res = await axios.post('/api/profile', {...formData, interests}, config);
 
     dispatch({
       type: GET_PROFILE,
@@ -84,8 +86,8 @@ export const createProfile = (
 
     toastr.success('Success', edit ? 'Profile Updated' : 'Profile Created');
 
-    if (!edit) {
-      history.push('/dashboard');
+    if (edit) {
+      // history.push('/dashboard');
     }
   } catch (err) {
     const errors = err.response.data.errors;

@@ -8,6 +8,7 @@ import {  GET_PROFILE,
 const initialState = {
   profile: null,
   profiles: [],
+  ideas: [],
   loading: true,
   error: {}
 };
@@ -20,7 +21,8 @@ export default function (state = initialState, action) {
     case UPDATE_PROFILE:
       return {
         ...state,
-        profile: payload,
+        profile: payload.profile,
+        ideas: payload.ideas,
         loading: false
       };
     case GET_PROFILES:
