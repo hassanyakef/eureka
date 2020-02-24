@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import Link from '@material-ui/core/Link';
+import { Link as RouterLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,8 +27,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserCard = ({ theme }) => {
+const UserCard = ({ theme,  profile: {
+  user: { _id, name, avatar },
+  profession,
+  company,
+  bio
+}}) => {
   const classes = useStyles(theme);
+
+
 
   return (
     <Fragment>
@@ -34,18 +43,18 @@ const UserCard = ({ theme }) => {
         <Card className={classes.card}>
           <Grid container className={classes.root} spacing={2}>
             <Grid item md={2.5}>
-              <Avatar className={classes.profile} alt="Remy Sharp"
-                      src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+              <Link component={RouterLink} to={`/users/${_id}`}>
+                <Avatar className={classes.profile} alt="Remy Sharp"
+                        src={avatar}/>
+              </Link>
             </Grid>
             <Grid item md={12}>
-              <Typography variant="h5" >
-                John Doe
-              </Typography>
+              <Link variant='h5' color="secondary" component={RouterLink} to={`/users/${_id}`}>{name}</Link>
               <Typography variant="body1" gutterBottom={true}>
-                Student at Virginia Tech
+                {profession} at {company}
               </Typography>
               <Typography variant="body2" gutterBottom={true} >
-                I'm a web developer based in Blacksburg, Virginia. I have a strong background in creating websites as well as developing rich interactive web apps.
+                {bio}
               </Typography>
               <Box my={2}>
                 <Button size='medium' fullWidth={true} variant='contained' color='secondary'>+ Follow</Button>

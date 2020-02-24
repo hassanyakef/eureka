@@ -42,7 +42,7 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile }, auth : {
     </Grid>
   </Fragment>;
 
-  return loading || profile === null || user === null ? <Spinner/> : mainDiv;
+  return profile === null || user === null ? <Spinner/> : mainDiv;
 
 };
 
