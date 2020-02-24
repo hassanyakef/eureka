@@ -43,7 +43,7 @@ const UserDetailedHeader = ({ theme, profile, myProfile = true }) => {
           </Grid>
           <Grid item md={8}>
             <Typography variant="h4" >
-              {profile?.name}
+              {profile?.user.name}
             </Typography>
             <Typography variant="h6" gutterBottom={true}>
               {profile?.profession} at {profile?.company}

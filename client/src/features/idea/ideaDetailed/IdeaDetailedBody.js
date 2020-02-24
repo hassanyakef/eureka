@@ -8,6 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,27 +21,28 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailedBody = ({ theme }) => {
+const IdeaDetailedBody = ({ theme, idea }) => {
   const classes = useStyles(theme);
+  const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
   return (
     <Fragment>
       <Box mb={3}>
-        <Typography variant='h3'>An app to share ideas</Typography>
+        <Typography variant='h3'>{title}</Typography>
       </Box>
       <Box mb={2}>
         <Grid container spacing={2}>
           <Grid item sm={2.5}>
-            <Link component={RouterLink} to='/users/1'>
-              <Avatar alt="Remy Sharp"
-                      src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+            <Link component={RouterLink} to={`/users/${user}`}>
+              <Avatar alt={authorName}
+                      src={avatar}/>
             </Link>
           </Grid>
           <Box mt={2} ml={1} mr={0} component='span'>
-            <Link variant='body1' color="secondary" component={RouterLink} to='/users/1'>John Doe</Link>
+            <Link variant='body1' color="secondary" component={RouterLink} to={`/users/${user}`}>{authorName}</Link>
           </Box>
           <Box mt={2} mx={1} component='span'>
             <Typography display='inline' variant="body1" style={{color: '#757575'}}>
-              Written Mar 21, 2019
+              Written {moment(date).format("LL")}
             </Typography>
           </Box>
           <Box  mt={2} mb={1} ml={2} component='span'>
@@ -59,35 +61,20 @@ const IdeaDetailedBody = ({ theme }) => {
       <Box mb={2}>
         <Box mr={1} component='span'>
           <Typography display='inline' variant="body2" className={classes.hashtag} style={{backgroundColor: 'yellow'}}>
-            #IOS
+            #{category}
           </Typography>
         </Box>
         <Box mr={1} component='span'>
           <Typography display='inline' variant="body2" className={classes.hashtag} style={{backgroundColor: 'lightgreen'}}>
-            #public
+            #{status}
           </Typography>
         </Box>
 
       </Box>
 
       <Box my={4}>
-        <Typography variant='body1' paragraph={true}>Developer/coders often do not consider the
-          software from the end user's point of view, and thus, they can miss-code some
-          features. This app can solve this problem by creating an easy communication
-          channel between the user (the idea creator) and the coder (the solver) without the
-          coder having to share the user's experience themselves.
-        </Typography>
-        <Typography variant='body1' paragraph={true}>Developer/coders often do not consider the
-          software from the end user's point of view, and thus, they can miss-code some
-          features. This app can solve this problem by creating an easy communication
-          channel between the user (the idea creator) and the coder (the solver) without the
-          coder having to share the user's experience themselves.
-        </Typography>
-        <Typography variant='body1' paragraph={true}>Developer/coders often do not consider the
-          software from the end user's point of view, and thus, they can miss-code some
-          features. This app can solve this problem by creating an easy communication
-          channel between the user (the idea creator) and the coder (the solver) without the
-          coder having to share the user's experience themselves.
+        <Typography variant='body1' paragraph={true}>
+          {body}
         </Typography>
       </Box>
 

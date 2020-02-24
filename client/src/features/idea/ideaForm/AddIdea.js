@@ -76,8 +76,8 @@ const AddIdea = ({ theme, addIdea, handleSubmit, history, invalid, submitting, a
           <form onSubmit={handleSubmit(val => addIdea(val, history))}>
             <Box mb={1}>
               <Field
-                required
-                autoFocus
+                required={true}
+                autoFocus={true}
                 fullWidth={true}
                 margin="dense"
                 label="App idea Suggestion"

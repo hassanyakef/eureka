@@ -14,6 +14,9 @@ import {
   IDEA_ERROR,
   LIKE_IDEA, REMOVE_COMMENT
 } from './ideaConstants';
+import { getProfileById } from '../user/profileActions';
+import {reset} from 'redux-form'
+import { GET_PROFILE } from '../user/profileConstants';
 
 // Get ideas
 export const getIdeas = () => async dispatch => {
@@ -121,6 +124,14 @@ export const getIdea = id => async dispatch => {
       type: GET_IDEA,
       payload: res.data
     });
+    const res2 = await axios.get(`/api/profile/user/${res.data.user}`);
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res2.data
+    });
+
+
   } catch (err) {
     dispatch({
       type: IDEA_ERROR,
@@ -138,6 +149,7 @@ export const addComment = (ideaId, formData) => async dispatch => {
   };
 
   try {
+    console.log({formData, ideaId});
     const res = await axios.post(
       `/api/ideas/comment/${ideaId}`,
       formData,
@@ -150,6 +162,7 @@ export const addComment = (ideaId, formData) => async dispatch => {
     });
 
     toastr.success('Success', 'Idea Commented');
+    dispatch(reset('addCommentForm'));
 
   } catch (err) {
     dispatch({

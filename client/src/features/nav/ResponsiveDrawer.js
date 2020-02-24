@@ -25,7 +25,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import AddIcon from '@material-ui/icons/Add';
 import { logout } from '../auth/authActions';
@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => {
     }
 }});
 
-function ResponsiveDrawer({logout, auth: { isAuthenticated, loading, user }, ...props}) {
+function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, user }, ...props}) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -163,7 +163,7 @@ function ResponsiveDrawer({logout, auth: { isAuthenticated, loading, user }, ...
       </List>
       <Divider/>
       <List>
-        <ListItem button key={'Logout'} onClick={logout}>
+        <ListItem button key={'Logout'} onClick={() => logout(history)}>
           <ListItemIcon >
             <ExitToAppIcon/>
           </ListItemIcon>
@@ -273,4 +273,4 @@ const actions = {
   logout
 };
 
-export default connect(mapStateToProps, actions)(ResponsiveDrawer);
+export default connect(mapStateToProps, actions)(withRouter(ResponsiveDrawer));

@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -6,6 +6,10 @@ import IdeaDetailedSidebarRight from './IdeaDetailedSidebarRight';
 import IdeaDetailedBody from './IdeaDetailedBody';
 import IdeaDetailedAddComment from './IdeaDetailedAddComment';
 import IdeaDetailedComments from './IdeaDetailedComments';
+import { getProfileById } from '../../user/profileActions';
+import { connect } from 'react-redux';
+import Spinner from '../../../app/common/util/Spinner';
+import { addComment, getIdea } from '../ideaActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,28 +25,46 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailed = ({ theme }) => {
+const IdeaDetailed = ({ theme, idea, profile, auth: {loading}, getIdea, addComment, match }) => {
   const classes = useStyles(theme);
-  return (
-    <Fragment>
+
+  useEffect(() => {
+    getIdea(match.params.id);
+  }, [getIdea]);
+
+  const mainDiv =<Fragment>
       <Grid container className={classes.root} spacing={3}>
         <Grid item lg={8} sm={12}>
           <Card className={classes.card}>
-            <IdeaDetailedBody/>
+            <IdeaDetailedBody idea={idea}/>
           </Card>
           <Card className={classes.card}>
-            <IdeaDetailedAddComment/>
+            <IdeaDetailedAddComment addComment={addComment} idea={idea}/>
           </Card>
-          <IdeaDetailedComments/>
+          {idea !== null && idea.comments.length > 0 ? (<IdeaDetailedComments comments={idea.comments}/>) : null}
         </Grid>
         <Grid item lg={4} sm={12}>
           <Card className={classes.card}>
-            <IdeaDetailedSidebarRight/>
+            <IdeaDetailedSidebarRight profile={profile}/>
           </Card>
         </Grid>
       </Grid>
-    </Fragment>
-  )
+    </Fragment>;
+
+  return idea === null || profile === null ? <Spinner/> : mainDiv;
+
 };
 
-export default IdeaDetailed;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  idea: state.idea.idea,
+  profile: state.profile.profile
+});
+
+const actions = {
+  getIdea,
+  addComment,
+  getProfileById
+};
+
+export default connect(mapStateToProps, actions)(IdeaDetailed);

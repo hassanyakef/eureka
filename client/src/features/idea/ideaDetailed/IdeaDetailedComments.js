@@ -1,15 +1,15 @@
 import React, {Fragment} from 'react';
 import IdeaDetailedComment from './IdeaDetailedComment';
+import { Typography } from '@material-ui/core';
 
-const IdeaDetailedComments = () => {
-  return (
+const IdeaDetailedComments = ({comments}) => {
+  return comments.length > 0 ? (
     <Fragment>
-      <IdeaDetailedComment/>
-      <IdeaDetailedComment/>
-      <IdeaDetailedComment/>
-      <IdeaDetailedComment/>
+      {comments.map(comment => (
+      <IdeaDetailedComment comment={comment}/>
+      ))}
     </Fragment>
-  );
+  ) : null;
 };
 
 export default IdeaDetailedComments;

@@ -101,10 +101,10 @@ export const login = ({email, password}) => async dispatch => {
 };
 
 // Logout / Clear Profile
-export const logout = () => dispatch => {
+export const logout = (history) => dispatch => {
   dispatch({ type: LOGOUT });
+  history.push('/login');
   toastr.success('Success', 'You are logged out');
-  console.log('You are logged out');
 };
 
 export const asyncActionStart = () => {

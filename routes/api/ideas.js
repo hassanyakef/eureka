@@ -204,7 +204,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
  * @desc Comment on a idea
  * @access Private
  */
-router.post('/comment/:id', [auth, [check('text', 'Text is required').not().isEmpty()]],
+router.post('/comment/:id', [auth, [check('commentBody', 'Comment body is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -215,7 +215,7 @@ router.post('/comment/:id', [auth, [check('text', 'Text is required').not().isEm
       const user = await User.findById(req.user.id).select('-password');
       const idea = await Idea.findById(req.params.id);
       const newComment = {
-        commentBody: req.body.text,
+        commentBody: req.body.commentBody,
         name: user.name,
         avatar: user.avatar,
         commentUser: req.user.id

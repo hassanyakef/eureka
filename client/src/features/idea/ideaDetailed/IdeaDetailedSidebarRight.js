@@ -21,27 +21,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const IdeaDetailedSidebarRight = ({ theme }) => {
+const IdeaDetailedSidebarRight = ({ theme, profile }) => {
   const classes = useStyles(theme);
 
+  const {profession, company, website, bio, location, date, user: {avatar, name, _id} } = profile;
   return (
     <Fragment>
       <Grid container className={classes.root} spacing={2}>
         <Grid item md={2.5}>
-          <Avatar className={classes.profile} alt="Remy Sharp"
-                  src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+          <Avatar className={classes.profile} alt={name}
+                  src={avatar}/>
         </Grid>
         <Grid item md={12}>
           <Typography variant="h4" >
-            John Doe
+            {name}
           </Typography>
           <Typography variant="h6" gutterBottom={true}>
-            Student at Virginia Tech
+            {profession} at {company}
           </Typography>
           <Typography variant="body1" gutterBottom={true} >
-            I'm a web developer based in Blacksburg, Virginia. I have a strong background in creating websites as well as developing rich interactive web apps.
+            {bio}
           </Typography>
-          <UserDetailedHeaderInfo/>
+          <UserDetailedHeaderInfo profile={{website, location, date}}/>
           <Box my={2}>
             <Button size='large' fullWidth={true} variant='contained' color='secondary'>+ Follow</Button>
           </Box>
