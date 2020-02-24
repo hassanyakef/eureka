@@ -1,14 +1,17 @@
 import React, {Fragment} from 'react';
 import IdeasPageBodyIdea from './IdeasPageBodyIdea';
 
-const IdeasPageBody = () => {
+const IdeasPageBody = ({ideas}) => {
 
   return (
     <Fragment>
-      <IdeasPageBodyIdea/>
-      <IdeasPageBodyIdea/>
-      <IdeasPageBodyIdea/>
-      <IdeasPageBodyIdea/>
+      {ideas.length > 0 ? (
+        ideas.map(idea => (
+           <IdeasPageBodyIdea idea={idea}/>
+            ))
+        ) : (
+        <h4>No ideas posted yet...</h4>
+        )}
     </Fragment>
   );
 };

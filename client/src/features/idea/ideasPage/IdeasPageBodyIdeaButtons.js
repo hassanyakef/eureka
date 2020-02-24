@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const IdeasPageBodyIdeaButtons = ({theme}) => {
+const IdeasPageBodyIdeaButtons = ({theme, likes, comments, id}) => {
   const classes = useStyles(theme);
 
   return (
@@ -24,23 +24,23 @@ const IdeasPageBodyIdeaButtons = ({theme}) => {
         <Typography variant="body2" display="inline" gutterBottom={true}>
           <Link href='#' color="secondary">
             <ThumbUpOutlinedIcon color="action" className={classes.icon} fontSize='small'/>
-            15
+            {likes}
           </Link>
         </Typography>
       </Box>
+      {/*<Box mr={2.5} component={'span'}>*/}
+      {/*  <Typography variant="body2" display="inline" gutterBottom={true}>*/}
+      {/*    <Link href="#" color="secondary">*/}
+      {/*      <ShareIcon color="action" className={classes.icon} fontSize='small'/>*/}
+      {/*      6*/}
+      {/*    </Link>*/}
+      {/*  </Typography>*/}
+      {/*</Box>*/}
       <Box mr={2.5} component={'span'}>
         <Typography variant="body2" display="inline" gutterBottom={true}>
-          <Link href="#" color="secondary">
-            <ShareIcon color="action" className={classes.icon} fontSize='small'/>
-            6
-          </Link>
-        </Typography>
-      </Box>
-      <Box mr={2.5} component={'span'}>
-        <Typography variant="body2" display="inline" gutterBottom={true}>
-          <Link component={RouterLink} to='/ideas/1' color="secondary">
+          <Link component={RouterLink} to={`/ideas/${id}`} color="secondary">
             <ChatBubbleOutlineIcon color="action" className={classes.icon} fontSize='small'/>
-            8
+            {comments}
           </Link>
         </Typography>
       </Box>

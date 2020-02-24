@@ -35,10 +35,10 @@ const UserDetailedPageBody = ({ theme, sectionTitle }) => {
           <Divider/>
         </Box>
         <List className={classes.root}>
-          <IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>
-          <IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>
-          <IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>
-          <IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>
+          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
+          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
+          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
+          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
         </List>
       </Card>
     </Fragment>

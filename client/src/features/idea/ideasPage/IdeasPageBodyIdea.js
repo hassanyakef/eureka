@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import IdeasPageBodyIdeaButtons from './IdeasPageBodyIdeaButtons';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import moment from 'moment';
 
 
 const useStyles = makeStyles(theme => ({
@@ -32,8 +33,9 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBottom = false}) => {
+const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBottom = false, idea}) => {
   const classes = useStyles(theme);
+  const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
 
   return (
     <Fragment>
@@ -41,34 +43,34 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
         <Card className={!elevateCard ? classes.cardUserPage : classes.cardIdeasPage} variant="outlined" elevation={elevateCard ? 1 : 0}>
           <Grid container className={classes.root} spacing={2}>
             <Grid item xs={12}>
-              <Link variant='h6' color="secondary" component={RouterLink} to='/ideas/1'> An app to share ideas</Link>
+              <Link variant='h6' color="secondary" component={RouterLink} to={`/ideas/${_id}`}>{title}</Link>
             </Grid>
             <Grid item sm={2.5}>
               <Box mt={0.5}>
-                <Link component={RouterLink} to='/users/1'>
-                  <Avatar alt="Remy Sharp"
-                          src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+                <Link component={RouterLink} to={`/users/${user}`}>
+                  <Avatar alt={authorName}
+                          src={avatar}/>
                 </Link>
               </Box>
 
             </Grid>
             <Grid item sm={6}>
               <Box mt={0.5}>
-                <Link variant='body2' color="secondary" component={RouterLink} to='/users/1'>John Doe</Link>
+                <Link variant='body2' color="secondary" component={RouterLink} to={`/users/${user}`}>{authorName}</Link>
               </Box>
               <Box mt={0.5}>
                 <Typography variant="body2" style={{color: '#757575'}}>
-                  Written Mar 21, 2019
+                  Written {moment(date).format("LL")}
                 </Typography>
               </Box>
             </Grid>
             <Grid item md={12}>
               <Typography variant="body1" paragraph={true}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto blanditiis dolorem error facere incidunt, ipsam repellat. Aliquam consequatur dignissimos distinctio fuga ipsa, odio omnis pariatur quidem, quisquam quod rem suscipit...
+                {body}...
                 {' '}
-                <Link variant='body1' component={RouterLink} to='/ideas/1'>(more)</Link>
+                <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>
               </Typography>
-              <IdeasPageBodyIdeaButtons/>
+              <IdeasPageBodyIdeaButtons likes={likes.length} comments={comments.length} id={_id}/>
             </Grid>
           </Grid>
         </Card>

@@ -1,14 +1,20 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link'
-import { Link as RouterLink } from 'react-router-dom';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import SelectInput from '../../../app/common/form/SelectInput';
+import TextArea from '../../../app/common/form/TextArea';
+import TextInput from '../../../app/common/form/TextInput';
+import { connect } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Field, reduxForm } from 'redux-form';
+import { combineValidators, isRequired } from 'revalidate';
+import { addIdea } from '../ideaActions';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,12 +57,15 @@ const visibilities = [
   },
 ];
 
-const AddIdea = ({ theme }) => {
+const validate = combineValidators({
+  title: isRequired('Title'),
+  body: isRequired('Body'),
+  category: isRequired('Category'),
+  status: isRequired('Visibility'),
+});
+
+const AddIdea = ({ theme, addIdea, handleSubmit, history, invalid, submitting, auth: {loading}  }) => {
   const classes = useStyles(theme);
-
-
-  const [appType, setAppType] = useState('ios');
-  const [visibility, setVisibility] = useState('private');
 
   return (
     <Grid container className={classes.root} spacing={5}>
@@ -64,68 +73,69 @@ const AddIdea = ({ theme }) => {
         <Card className={classes.card}>
           <Typography variant='h3'>Add Idea</Typography>
           <Typography variant='subtitle1'>What kind of app do you wish to be made?</Typography>
-          <form>
+          <form onSubmit={handleSubmit(val => addIdea(val, history))}>
             <Box mb={1}>
-              <TextField
+              <Field
                 required
                 autoFocus
                 fullWidth={true}
                 margin="dense"
-                id="name"
                 label="App idea Suggestion"
                 placeholder='What kind of app do you need?'
+                name="title"
+                component={TextInput}
               />
             </Box>
             <Box mr={2} mb={1} component='span'>
-              <TextField
-                required
-                id="standard-select-currency"
-                select
-                label="Platform"
+              <Field
+                required={true}
                 margin="dense"
-                value={appType}
-                onChange={(event) => setAppType(event.target.value)}
+                name="category"
+                label="Platform"
+                defaultValue={appTypes[1].value}
                 style={{minWidth: 100}}
+                component={SelectInput}
               >
                 {appTypes.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </Field>
             </Box>
             <Box mr={2} mb={1} component='span'>
-              <TextField
-                required
-                id="standard-select-currency"
-                select
-                label="Visibility"
+              <Field
+                required={true}
                 margin="dense"
-                value={visibility}
-                onChange={(event) => setVisibility(event.target.value)}
+                name="status"
+                label="Visibility"
+                defaultValue={visibilities[1].value}
                 style={{minWidth: 100}}
+                component={SelectInput}
               >
                 {visibilities.map(option => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
+              </Field>
             </Box>
             <Box mb={3}>
-              <TextField
+              <Field
                 required
+                margin="dense"
+                name="body"
                 label="Enter more details..."
-                multiline
+                multiline={true}
+                fullWidth={true}
                 rows="5"
                 placeholder="State your problem and potential features for the app..."
-                fullWidth
-
+                component={TextArea}
               />
             </Box>
 
             <Box mt={3}>
-              <Button variant='outlined' color='primary' fullWidth={true}>Submit</Button>
+              <Button disabled={invalid || submitting} type='submit' variant='outlined' color='primary' fullWidth={true}>Submit {submitting && <Box ml={1.5} mb={-0.7}><CircularProgress size={20}/></Box>}</Button>
             </Box>
           </form>
 
@@ -137,4 +147,11 @@ const AddIdea = ({ theme }) => {
   )
 };
 
-export default AddIdea;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+const actions = { addIdea };
+
+export default connect(mapStateToProps, actions)(reduxForm({ form: 'addIdeaForm', validate})(
+  withRouter(AddIdea)));
