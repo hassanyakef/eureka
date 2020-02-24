@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme, user, profile: { profile, loading}, getCurrentProfile }) => {
+const Dashboard = ({ theme, auth: {loading, user}, profile: { profile}, getCurrentProfile }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const Dashboard = ({ theme, user, profile: { profile, loading}, getCurrentProfil
 };
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
+  auth: state.auth,
   profile: state.profile
 });
 

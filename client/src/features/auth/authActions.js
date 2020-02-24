@@ -6,7 +6,7 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  LOGOUT
+  LOGOUT, ASYNC_ACTION_START, ASYNC_ACTION_FINISH, ASYNC_ACTION_ERROR
 } from './authConstants';
 import setAuthToken from '../../app/common/util/setAuthToken';
 import { toastr } from 'react-redux-toastr';
@@ -18,15 +18,18 @@ export const loadUser = () => async dispatch => {
   }
 
   try {
+    dispatch(asyncActionStart());
     const res = await axios.get('/api/auth');
     dispatch({
       type: USER_LOADED,
       payload: res.data
-    })
+    });
+    dispatch(asyncActionFinish());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
-    })
+    });
+    dispatch(asyncActionError());
   }
 };
 
@@ -41,12 +44,14 @@ export const register = ({ name, email, password }) => async dispatch => {
   const body = JSON.stringify({ name, email, password });
 
   try {
+    dispatch(asyncActionStart());
     const res = await axios.post('/api/users', body, config);
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
     dispatch(loadUser());
+    dispatch(asyncActionFinish());
     toastr.success('Success', 'Account has been created');
   } catch (err) {
     const errors = err.response.data.errors;
@@ -57,7 +62,8 @@ export const register = ({ name, email, password }) => async dispatch => {
 
     dispatch({
       type: REGISTER_FAIL,
-    })
+    });
+    dispatch(asyncActionError());
   }
 };
 
@@ -71,6 +77,7 @@ export const login = ({email, password}) => async dispatch => {
   const body = JSON.stringify({ email, password });
 
   try {
+    dispatch(asyncActionStart());
     const res = await axios.post('/api/auth', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
@@ -78,6 +85,7 @@ export const login = ({email, password}) => async dispatch => {
     });
 
     dispatch(loadUser());
+    dispatch(asyncActionFinish());
     toastr.success('Success', 'You are logged in');
   } catch (err) {
     const errors = err.response.data.errors;
@@ -87,7 +95,8 @@ export const login = ({email, password}) => async dispatch => {
     }
     dispatch({
       type: LOGIN_FAIL,
-    })
+    });
+    dispatch(asyncActionError());
   }
 };
 
@@ -96,4 +105,22 @@ export const logout = () => dispatch => {
   dispatch({ type: LOGOUT });
   toastr.success('Success', 'You are logged out');
   console.log('You are logged out');
+};
+
+export const asyncActionStart = () => {
+  return {
+    type: ASYNC_ACTION_START
+  }
+};
+
+export const asyncActionFinish= () => {
+  return {
+    type: ASYNC_ACTION_FINISH
+  }
+};
+
+export const asyncActionError = () => {
+  return {
+    type: ASYNC_ACTION_ERROR
+  }
 };

@@ -1,4 +1,7 @@
 import {
+  ASYNC_ACTION_ERROR,
+  ASYNC_ACTION_FINISH,
+  ASYNC_ACTION_START,
   AUTH_ERROR, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT,
   REGISTER_FAIL,
   REGISTER_SUCCESS,
@@ -8,7 +11,7 @@ import {
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
-  loading: true,
+  loading: false,
   user: null
 };
 
@@ -20,7 +23,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
-        loading: false,
         user: payload
       };
     case REGISTER_SUCCESS:
@@ -29,7 +31,6 @@ export default function (state = initialState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false
       };
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
@@ -37,7 +38,6 @@ export default function (state = initialState, action) {
         ...state,
         ...payload,
         isAuthenticated: true,
-        loading: false
       };
 
     case LOGOUT:
@@ -49,8 +49,12 @@ export default function (state = initialState, action) {
         ...state,
         token: null,
         isAuthenticated: false,
-        loading: false
       };
+    case ASYNC_ACTION_START:
+      return {...state, loading: true};
+    case ASYNC_ACTION_FINISH:
+    case ASYNC_ACTION_ERROR:
+      return {...state, loading: false};
     default:
       return state;
   }

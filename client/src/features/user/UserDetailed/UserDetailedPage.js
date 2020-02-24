@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const UserDetailedPage = ({theme, getProfileById, profile: { profile, loading }, auth, match}) => {
+const UserDetailedPage = ({theme, getProfileById, profile: { profile }, auth : {user, loading, isAuthenticated}, match}) => {
 
   useEffect(() => {
     getProfileById(match.params.id);
@@ -29,7 +29,7 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile, loading },
         <Grid container className={classes.root}>
           <Grid item sm={12}>
             <UserDetailedHeader profile={profile}/>
-             {/*myProfile={auth.isAuthenticated && profile.user && auth.loading === false && auth.user._id === profile.user._id}*/}
+             {/*myProfile={isAuthenticated && profile.user && user && user._id === profile.user._id}*/}
           </Grid>
           <Grid item sm={12}>
             <UserDetailedPageBody sectionTitle={'Use Ideas'} profile={profile}/>
@@ -42,7 +42,7 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile, loading },
     </Grid>
   </Fragment>;
 
-  return loading || profile === null || auth.user === null? <Spinner/> : mainDiv;
+  return loading || profile === null || user === null ? <Spinner/> : mainDiv;
 
 };
 
