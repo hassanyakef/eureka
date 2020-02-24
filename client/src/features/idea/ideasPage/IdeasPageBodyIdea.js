@@ -60,7 +60,7 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
               </Box>
               <Box mt={0.5}>
                 <Typography variant="body2" style={{color: '#757575'}}>
-                  Written {moment(date).format("LL")}
+                  Written {moment(date).fromNow()}
                 </Typography>
               </Box>
             </Grid>

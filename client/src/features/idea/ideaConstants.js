@@ -7,3 +7,7 @@ export const ADD_IDEA = 'ADD_IDEA';
 export const ADD_COMMENT = 'ADD_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 export const LIKE_COMMENT = 'LIKE_COMMENT';
+
+export const SORT_COMMENT_BY_DATE = 'SORT_COMMENT_BY_DATE';
+export const SORT_COMMENT_BY_LIKES = 'SORT_COMMENT_BY_LIKES';
+

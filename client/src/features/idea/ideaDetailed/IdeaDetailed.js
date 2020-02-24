@@ -10,6 +10,7 @@ import { getProfileById } from '../../user/profileActions';
 import { connect } from 'react-redux';
 import Spinner from '../../../app/common/util/Spinner';
 import { addComment, getIdea } from '../ideaActions';
+import {sortCommentsByDate, sortCommentsByLikes} from '../ideaActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,7 +26,10 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailed = ({ theme, idea, profile, auth: {loading}, getIdea, addComment, match }) => {
+const IdeaDetailed = ({ theme, idea, profile, auth: {loading},
+                        getIdea, addComment, match, sortCommentsByDate,
+                        sortCommentsByLikes
+                      }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
@@ -41,7 +45,11 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading}, getIdea, addComme
           <Card className={classes.card}>
             <IdeaDetailedAddComment addComment={addComment} idea={idea}/>
           </Card>
-          {idea !== null && idea.comments.length > 0 ? (<IdeaDetailedComments comments={idea.comments}/>) : null}
+          {idea !== null && idea.comments.length > 0 ? (
+            <IdeaDetailedComments
+            comments={idea.comments}
+            sortCommentsByDate={sortCommentsByDate}
+            sortCommentsByLikes={sortCommentsByLikes}/>) : null}
         </Grid>
         <Grid item lg={4} sm={12}>
           <Card className={classes.card}>
@@ -64,7 +72,9 @@ const mapStateToProps = (state) => ({
 const actions = {
   getIdea,
   addComment,
-  getProfileById
+  getProfileById,
+  sortCommentsByDate,
+  sortCommentsByLikes
 };
 
 export default connect(mapStateToProps, actions)(IdeaDetailed);

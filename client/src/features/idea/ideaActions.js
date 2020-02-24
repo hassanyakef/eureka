@@ -12,7 +12,7 @@ import {
   GET_IDEA,
   GET_IDEAS,
   IDEA_ERROR,
-  LIKE_IDEA, REMOVE_COMMENT
+  LIKE_IDEA, REMOVE_COMMENT, SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES
 } from './ideaConstants';
 import { getProfileById } from '../user/profileActions';
 import {reset} from 'redux-form'
@@ -170,6 +170,22 @@ export const addComment = (ideaId, formData) => async dispatch => {
       payload: { msg: err.response.statusText, status: err.response.status }
     });
   }
+};
+
+// sort comments by date
+export const sortCommentsByDate = () => dispatch => {
+  console.log('sort by date');
+  dispatch({
+    type: SORT_COMMENT_BY_DATE
+  });
+};
+
+// Sort comments by Likes
+export const sortCommentsByLikes = () => dispatch => {
+  console.log('sort by likes');
+  dispatch({
+    type: SORT_COMMENT_BY_LIKES
+  });
 };
 
 // Delete comment

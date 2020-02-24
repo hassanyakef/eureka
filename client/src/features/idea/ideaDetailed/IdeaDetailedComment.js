@@ -48,7 +48,7 @@ const IdeaDetailedComment = ({ theme, comment }) => {
           <Typography variant='body1' paragraph={true}>{commentBody}</Typography>
           <Box mr={2} component='span'>
             <Typography variant="body2" style={{color: '#757575'}} paragraph={true} display='inline'>
-              Posted {moment(commentDate).startOf('day').fromNow()}
+              Posted {moment(commentDate).fromNow()}
             </Typography>
           </Box>
           <Box mr={2} component='span'>
