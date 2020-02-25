@@ -89,6 +89,22 @@ router.get('/', auth, async (req, res) => {
 });
 
 /**
+ * @route GET api/ideas/:userId
+ * @desc Get all ideas from a user
+ * @access Private
+ */
+router.get('/user/:userId', auth, async (req, res) => {
+  try {
+    const ideas = await Idea.find({user: req.params.userId}).sort({ date: -1 });
+    return res.json(ideas);
+
+  } catch (err) {
+    console.log(err.message);
+    return res.status(500).send('Server Error');
+  }
+});
+
+/**
  * @route GET api/ideas/:id
  * @desc Get a single idea by id
  * @access Private
@@ -141,7 +157,7 @@ router.delete('/:id', auth, async (req, res) => {
 
 /**
  * @route PUT api/ideas/like/:id
- * @desc Like a idea
+ * @desc Like or unlike an idea
  * @access Private
  */
 router.put('/like/:id', auth, async (req, res) => {
@@ -151,10 +167,13 @@ router.put('/like/:id', auth, async (req, res) => {
       return res.status(404).json({ msg: 'Idea not found' });
     }
     // Check if the idea has already been liked
-    if (idea.likes.filter(like => like.user.toString() === req.user.id).length > 0) {
-      return res.status(400).json({ msg: 'Idea already liked' });
+    if (idea.likes.filter(like => like._id.toString() === req.user.id).length > 0) {
+      // Get remove idx
+      const removeIdx = idea.likes.map(like => like._id.toString()).indexOf(req.user.id);
+      idea.likes.splice(removeIdx, 1);
+    } else {
+      idea.likes.unshift(req.user.id);
     }
-    idea.likes.unshift(req.user.id);
     await idea.save();
 
     res.json(idea.likes);
@@ -169,26 +188,36 @@ router.put('/like/:id', auth, async (req, res) => {
 });
 
 /**
- * @route PUT api/ideas/unlike/:id
- * @desc Unlike a idea
+ * @route PUT api/ideas/like/:id
+ * @desc Like or unlike a comment
  * @access Private
  */
-router.put('/unlike/:id', auth, async (req, res) => {
+router.put('/comment/like/:id/:comment_id', auth, async (req, res) => {
   try {
     const idea = await Idea.findById(req.params.id);
     if (!idea) {
       return res.status(404).json({ msg: 'Idea not found' });
     }
-    // Check if the idea has already been liked
-    if (idea.likes.filter(like => like.user.toString() === req.user.id).length === 0) {
-      return res.status(400).json({ msg: 'Idea has not yet been liked' });
+
+    // Pull out comment from the idea
+    const comment = idea.comments.find(comment => comment.id === req.params.comment_id);
+
+    // Make sure comment exist
+    if (!comment) {
+      return res.status(404).json({ msg: 'Comment does not exist' });
     }
-    // Get remove idx
-    const removeIdx = idea.likes.map(like => like.user.toString()).indexOf(req.user.id);
-    idea.likes.splice(removeIdx, 1);
+
+    // Check if the comment has already been liked
+    if (comment.likes.filter(like => like._id.toString() === req.user.id).length > 0) {
+      // Get remove idx
+      const removeIdx = comment.likes.map(like => like._id.toString()).indexOf(req.user.id);
+      comment.likes.splice(removeIdx, 1);
+    } else {
+      comment.likes.unshift(req.user.id);
+    }
     await idea.save();
 
-    res.json(idea.likes);
+    res.json(comment.likes);
 
   } catch (err) {
     console.log(err.message);
@@ -251,12 +280,12 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
     }
 
     // Check user
-    if (comment.user.toString() !== req.user.id) {
+    if (comment.commentUser.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'User not authorized' });
     }
 
     // Get remove index
-    const removeIdx = idea.comments.map(comment => comment.user.toString())
+    const removeIdx = idea.comments.map(comment => comment.commentUser.toString())
       .indexOf(req.user.id);
     idea.comments.splice(removeIdx, 1);
 
