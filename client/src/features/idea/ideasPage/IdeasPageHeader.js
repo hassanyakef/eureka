@@ -28,24 +28,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const IdeasPageHeader = ({theme}) => {
+const IdeasPageHeader = ({theme, user}) => {
 
   const classes = useStyles(theme);
+  const {name, avatar} = user;
 
   return (
     <Fragment>
       <Card className={classes.card}>
         <Grid container className={classes.root} spacing={2}>
           <Grid item sm={2.5}>
-            <Avatar className={classes.profile} alt="Remy Sharp"
-                    src="http://swipemarket.com/wp-content/uploads/2014/06/Untitled-6.jpg"/>
+            <Avatar className={classes.profile} alt={name}
+                    src={avatar}/>
 
           </Grid>
           <Grid item sm={8}>
             <Box component='span' mt={0.5}>
               <Typography variant="h5">
                 <Link href="#" style={{color: '#757575'}}>
-                  John Doe
+                  {name}
                 </Link>
               </Typography>
             </Box>

@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading} }) => {
+const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading, user} }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
@@ -23,14 +23,14 @@ const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading} }) => {
 
   return (
     <Fragment>
-      {loading ? (
+      {loading || user === null ? (
         <Spinner />
       ) : (
       <Grid container className={classes.root} spacing={5}>
         <Grid item lg={8} sm={12}>
           <Grid container className={classes.root}>
             <Grid item sm={12}>
-              <IdeasPageHeader/>
+              <IdeasPageHeader user={user}/>
             </Grid>
             <Grid item sm={12}>
               <IdeasPageBody ideas={ideas}/>

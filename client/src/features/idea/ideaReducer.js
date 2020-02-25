@@ -83,9 +83,9 @@ export default function(state = initialState, action) {
         const commentB = b.commentDate;
 
         let comparison = 0;
-        if (commentA > commentB) {
+        if (commentA < commentB) {
           comparison = 1;
-        } else if (commentA < commentB) {
+        } else if (commentA > commentB) {
           comparison = -1;
         }
         return comparison;
@@ -94,7 +94,10 @@ export default function(state = initialState, action) {
       return {
         ...state,
         sortComment: 'byDate',
-        comments: commentsByDate
+        idea: {
+          ...state.idea,
+          comments: commentsByDate
+        }
       };
     case SORT_COMMENT_BY_LIKES:
       const commentsByLikes = state.idea.comments;
@@ -104,9 +107,9 @@ export default function(state = initialState, action) {
         const commentB = b.likes.length;
 
         let comparison = 0;
-        if (commentA > commentB) {
+        if (commentA < commentB) {
           comparison = 1;
-        } else if (commentA < commentB) {
+        } else if (commentA > commentB) {
           comparison = -1;
         }
         return comparison;
@@ -115,7 +118,10 @@ export default function(state = initialState, action) {
       return {
         ...state,
         sortComment: 'byLikes',
-        comments: commentsByLikes
+        idea: {
+          ...state.idea,
+          comments: commentsByLikes
+        }
       };
     default:
       return state;

@@ -7,7 +7,7 @@ const IdeasPageBody = ({ideas}) => {
     <Fragment>
       {ideas.length > 0 ? (
         ideas.map(idea => (
-           <IdeasPageBodyIdea idea={idea}/>
+           <IdeasPageBodyIdea key={idea._id} idea={idea}/>
             ))
         ) : (
         <h4>No ideas posted yet...</h4>

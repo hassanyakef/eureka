@@ -5,7 +5,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
-const IdeaDetailedComments = ({comments, sortCommentsByDate, sortCommentsByLikes}) => {
+const IdeaDetailedComments = ({comments, sortCommentsByDate, sortCommentsByLikes, ideaId}) => {
   return comments.length > 0 ? (
     <Fragment>
       <Box my={2} mx={1}>
@@ -21,7 +21,7 @@ const IdeaDetailedComments = ({comments, sortCommentsByDate, sortCommentsByLikes
       </Box>
 
       {comments.map(comment => (
-      <IdeaDetailedComment comment={comment}/>
+      <IdeaDetailedComment key={comment._id} comment={comment} ideaId={ideaId}/>
       ))}
     </Fragment>
   ) : null;

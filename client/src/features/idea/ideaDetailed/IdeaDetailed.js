@@ -47,6 +47,7 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading},
           </Card>
           {idea !== null && idea.comments.length > 0 ? (
             <IdeaDetailedComments
+              ideaId={idea._id}
             comments={idea.comments}
             sortCommentsByDate={sortCommentsByDate}
             sortCommentsByLikes={sortCommentsByLikes}/>) : null}

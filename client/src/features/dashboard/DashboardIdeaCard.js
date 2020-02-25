@@ -63,7 +63,7 @@ const DashboardIdeaCard = ({ theme }) => {
                 <Link variant='body1' component={RouterLink} to='/ideas/1'>(more)</Link>
               </Typography>
               <Box mb={2}>
-                <IdeasPageBodyIdeaButtons/>
+                {/*<IdeasPageBodyIdeaButtons/>*/}
               </Box>
               <Box mt={2}>
                 <ButtonGroup size='small' aria-label="button group">

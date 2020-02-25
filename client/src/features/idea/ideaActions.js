@@ -11,7 +11,7 @@ import {
   DELETE_IDEA,
   GET_IDEA,
   GET_IDEAS,
-  IDEA_ERROR,
+  IDEA_ERROR, LIKE_COMMENT,
   LIKE_IDEA, REMOVE_COMMENT, SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES
 } from './ideaConstants';
 import { getProfileById } from '../user/profileActions';
@@ -35,27 +35,10 @@ export const getIdeas = () => async dispatch => {
   }
 };
 
-// Like an idea
+// Like or unlike an idea
 export const likeIdea = id => async dispatch => {
   try {
     const res = await axios.put(`/api/ideas/like/${id}`);
-
-    dispatch({
-      type: LIKE_IDEA,
-      payload: { id, likes: res.data }
-    });
-  } catch (err) {
-    dispatch({
-      type: IDEA_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Unlike idea
-export const unlikeIdea = id => async dispatch => {
-  try {
-    const res = await axios.put(`/api/ideas/unlike/${id}`);
 
     dispatch({
       type: LIKE_IDEA,
@@ -164,6 +147,25 @@ export const addComment = (ideaId, formData) => async dispatch => {
     toastr.success('Success', 'Idea Commented');
     dispatch(reset('addCommentForm'));
 
+  } catch (err) {
+    dispatch({
+      type: IDEA_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Like or unlike a comment
+export const likeComment = (id, commentId) => async dispatch => {
+  try {
+    console.log({id, commentId});
+    const res = await axios.put(`/api/ideas/comment/like/${id}/${commentId}`);
+    console.log(res.data);
+
+    dispatch({
+      type: LIKE_COMMENT,
+      payload: { id: commentId, likes: res.data }
+    });
   } catch (err) {
     dispatch({
       type: IDEA_ERROR,

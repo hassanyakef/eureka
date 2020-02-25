@@ -70,7 +70,7 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
                 {' '}
                 <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>
               </Typography>
-              <IdeasPageBodyIdeaButtons likes={likes.length} comments={comments.length} id={_id}/>
+              <IdeasPageBodyIdeaButtons likes={likes} comments={comments.length} id={_id}/>
             </Grid>
           </Grid>
         </Card>
