@@ -99,7 +99,7 @@ export const createProfile = (
 
     toastr.success('Success', edit ? 'Profile Updated' : 'Profile Created');
 
-    history.push(`/users/${res.data._id}`);
+    // history.push(`/users/${res.data._id}`);
 
   } catch (err) {
     const errors = err.response.data.errors;

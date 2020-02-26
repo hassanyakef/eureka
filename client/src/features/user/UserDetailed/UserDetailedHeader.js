@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserDetailedHeader = ({ theme, profile, myProfile = true }) => {
+const UserDetailedHeader = ({ theme, profile, user, myProfile = true }) => {
   const classes = useStyles(theme);
 
   return (
@@ -39,15 +39,15 @@ const UserDetailedHeader = ({ theme, profile, myProfile = true }) => {
         <Grid container className={classes.root} spacing={2}>
           <Grid item md={2.5}>
             <Avatar className={classes.profile} alt="Remy Sharp"
-                    src={profile.user.avatar}/>
+                    src={profile?.user?.avatar || user?.avatar}/>
           </Grid>
           <Grid item md={8}>
             <Typography variant="h4" >
-              {profile?.user.name}
+              {profile?.user?.name || user?.name}
             </Typography>
-            <Typography variant="h6" gutterBottom={true}>
+            {profile !== null ? (<Typography variant="h6" gutterBottom={true}>
               {profile?.profession} at {profile?.company}
-            </Typography>
+            </Typography>) : null}
             <Box my={1.5}>
               {myProfile ? <Button size='medium' fullWidth={false} variant='outlined' color='primary' component={RouterLink} to='/edit-profile'>Edit Profile</Button> :
                 <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>

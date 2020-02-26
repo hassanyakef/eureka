@@ -14,6 +14,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import Spinner from '../../app/common/util/Spinner';
 import { connect } from 'react-redux';
 import { getIdeasByUser } from '../idea/ideaActions';
+import { getCurrentProfile } from '../user/profileActions';
+import { loadUser } from '../auth/authActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,12 +44,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme, auth: {loading, user}, getIdeasByUser, ideas }) => {
+const Dashboard = ({ theme, auth: {loading, user}, profile: {profile}, getIdeasByUser,getCurrentProfile, loadUser, ideas }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
-    getIdeasByUser(user._id)
-  }, [user]);
+    getCurrentProfile();
+    // getIdeasByUser(user._id)
+  }, [user, getCurrentProfile, getIdeasByUser]);
 
   const mainDiv = <Fragment>
     <Box mb={2}>
@@ -86,7 +89,7 @@ const Dashboard = ({ theme, auth: {loading, user}, getIdeasByUser, ideas }) => {
       </Box>
       <List className={classes.root}>
         <Grid container spacing={20}>
-          {ideas.length > 0 ? (
+          {ideas?.length > 0 ? (
             ideas.map(idea => (
           <DashboardIdeaCard key={idea._id} idea={idea}/>
             ))
@@ -99,16 +102,19 @@ const Dashboard = ({ theme, auth: {loading, user}, getIdeasByUser, ideas }) => {
     </Card>
   </Fragment>;
 
-  return loading ? <Spinner/> : mainDiv;
+  return loading && profile === null ? <Spinner/> : mainDiv;
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  ideas: state.idea.ideas
+  ideas: state.idea.ideas,
+  profile: state.profile
 });
 
 const actions = {
-  getIdeasByUser
+  getIdeasByUser,
+  getCurrentProfile,
+  loadUser
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

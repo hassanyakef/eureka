@@ -23,24 +23,24 @@ const UserDetailedHeaderInfo = ({ theme, profile }) => {
 
   return (
     <div className={classes.root}>
-      <Box component='span' mr={2.5}>
+      {profile && <Box component='span' mr={2.5}>
         <Typography variant="body2" display="inline"
                     gutterBottom={true}>
           <LocationOnOutlinedIcon color="action" className={classes.icon}
                                   fontSize='small'/>
           {profile?.location}
         </Typography>
-      </Box>
-      <Box component='span' mr={2.5}>
+      </Box>}
+      {profile && <Box component='span' mr={2.5}>
 
-        <Typography variant="body2" display="inline"
+       <Typography variant="body2" display="inline"
                     gutterBottom={true}>
           <Link href={`http://${profile?.website}`} target='_blank'>
             <LinkIcon color="action" className={classes.icon} fontSize='small'/>
             {profile?.website}
           </Link>
         </Typography>
-      </Box>
+      </Box>}
       <Box component='span' mr={2.5}>
         <Typography variant="body2" display="inline"
                     gutterBottom={true}>

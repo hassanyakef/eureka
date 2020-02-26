@@ -78,7 +78,7 @@ export const likeIdea = id => async dispatch => {
 // Delete idea
 export const deleteIdea = id => async dispatch => {
   try {
-    await axios.delete(`/api/posts/${id}`);
+    await axios.delete(`/api/ideas/${id}`);
 
     dispatch({
       type: DELETE_IDEA,

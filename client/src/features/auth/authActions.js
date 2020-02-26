@@ -10,6 +10,7 @@ import {
 } from './authConstants';
 import setAuthToken from '../../app/common/util/setAuthToken';
 import { toastr } from 'react-redux-toastr';
+import { GET_USER_IDEAS } from '../idea/ideaConstants';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -20,9 +21,16 @@ export const loadUser = () => async dispatch => {
   try {
     dispatch(asyncActionStart());
     const res = await axios.get('/api/auth');
+    const res2 = await axios.get(`/api/ideas/user/${res.data._id}`);
+
+    console.log('Load user');
     dispatch({
       type: USER_LOADED,
       payload: res.data
+    });
+    dispatch({
+      type: GET_USER_IDEAS,
+      payload: res2.data
     });
     dispatch(asyncActionFinish());
   } catch (err) {

@@ -30,11 +30,11 @@ const UserDetailedPage = ({theme, getProfileById, getIdeasByUser, ideas, profile
       <Grid item lg={8} sm={12}>
         <Grid container className={classes.root}>
           <Grid item sm={12}>
-            <UserDetailedHeader profile={profile}/>
+            <UserDetailedHeader profile={profile} user={user}/>
              {/*myProfile={isAuthenticated && profile.user && user && user._id === profile.user._id}*/}
           </Grid>
           <Grid item sm={12}>
-            <UserDetailedPageBody sectionTitle={'Use Ideas'} profile={profile} ideas={ideas} name={user.name || profile.user.name}/>
+            <UserDetailedPageBody sectionTitle={'Use Ideas'} ideas={ideas} name={user?.name || profile?.user.name}/>
           </Grid>
         </Grid>
       </Grid>
@@ -44,7 +44,7 @@ const UserDetailedPage = ({theme, getProfileById, getIdeasByUser, ideas, profile
     </Grid>
   </Fragment>;
 
-  return loading || profile === null || user === null ? <Spinner/> : mainDiv;
+  return loading || user === null ? <Spinner/> : mainDiv;
 
 };
 
