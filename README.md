@@ -35,12 +35,13 @@ An idea-generator where people (general public) can post an app idea.
 
 ### Development Status
 
-The backend API is complete. I am in the process of creating the front-end user interface using Material UI and React. Once I am done with that, I will integrate the backend with front-end using Redux and Axio.
+The basic functionality of the app is complete. You can try it out by running it locally.
 
-### How to run the front-end locally?
-- ``` cd client ```
+### How to run the it locally?
 - ``` npm install ```
-- ```npm start```
+- ``` npm run client ``` (run front-end)
+- ``` npm run server ``` (run back-end)
+- ``` npm run dev ``` (run both back-end and front-end)
 
 ### keys_dev.js needs to be created in the config folder:
 ```
