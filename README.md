@@ -43,11 +43,11 @@ The basic functionality of the app is complete. You can try it out by running it
 - ``` npm run server ``` (run back-end)
 - ``` npm run dev ``` (run both back-end and front-end)
 
-### keys_dev.js needs to be created in the config folder:
+### default.json needs to be created in the config folder:
 ```
-module.exports = {
-   mongoURI: 'CHANGE_ME',
-   secretOrKey: 'secret'
+{
+   "mongoURL": "CHANGE_ME",
+   "jwtSecret": "secret"
 }
 ```
 
