@@ -3,7 +3,7 @@ import {
   ADD_IDEA,
   DELETE_IDEA,
   GET_IDEA,
-  GET_IDEAS,
+  GET_IDEAS, GET_USER_IDEAS,
   IDEA_ERROR,
   LIKE_COMMENT,
   LIKE_IDEA,
@@ -25,6 +25,7 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case GET_IDEAS:
+    case GET_USER_IDEAS:
       return {
         ...state,
         ideas: payload,

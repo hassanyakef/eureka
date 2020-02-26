@@ -64,13 +64,13 @@ const validate = combineValidators({
   status: isRequired('Visibility'),
 });
 
-const EditIdea = ({ theme, getIdea, updateIdea, idea, initialValues, handleSubmit, history, invalid, submitting }) => {
+const EditIdea = ({ theme, getIdea, updateIdea, handleSubmit, history, invalid, submitting, match }) => {
   const classes = useStyles(theme);
 
 
   useEffect(() => {
-    getIdea(idea._id);
-  }, [idea]);
+    getIdea(match.params.id);
+  }, [match]);
 
   return (
     <Grid container className={classes.root} spacing={5}>
@@ -78,7 +78,7 @@ const EditIdea = ({ theme, getIdea, updateIdea, idea, initialValues, handleSubmi
         <Card className={classes.card}>
           <Typography variant='h3'>Edit Idea</Typography>
           <Typography variant='subtitle1'>Update and save your idea <span style={{visibility: 'hidden'}}>sssssssss</span></Typography>
-          <form onSubmit={handleSubmit(val => updateIdea(idea._id, val, history))}>
+          <form onSubmit={handleSubmit(val => updateIdea(match.params.id, val, history))}>
             <Box mb={1}>
               <Field
                 required={true}
@@ -153,7 +153,6 @@ const EditIdea = ({ theme, getIdea, updateIdea, idea, initialValues, handleSubmi
 };
 
 const mapStateToProps = (state) => ({
-  idea: state.idea.idea,
   initialValues: state.idea.idea
 });
 

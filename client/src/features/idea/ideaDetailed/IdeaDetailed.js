@@ -60,7 +60,7 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading},
       </Grid>
     </Fragment>;
 
-  return idea === null || profile === null ? <Spinner/> : mainDiv;
+  return loading || idea === null || profile === null ? <Spinner/> : mainDiv;
 
 };
 

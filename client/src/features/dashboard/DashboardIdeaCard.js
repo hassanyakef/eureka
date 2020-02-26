@@ -11,6 +11,7 @@ import IdeasPageBodyIdeaButtons from '../idea/ideasPage/IdeasPageBodyIdeaButtons
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,8 +39,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DashboardIdeaCard = ({ theme }) => {
+const DashboardIdeaCard = ({ theme, idea }) => {
   const classes = useStyles(theme);
+  const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
 
   return (
     <Fragment>
@@ -48,28 +50,25 @@ const DashboardIdeaCard = ({ theme }) => {
           <Grid container className={classes.root} spacing={2}>
             <Grid item md={12}>
               <Link variant='h5' color="secondary" component={RouterLink}
-                    to='/ideas/1'> An app to share ideas</Link>
+                    to={`/ideas/${_id}`}>{title}</Link>
               <Box mt={0.5} mb={1}>
                 <Typography variant="body2" style={{ color: '#757575' }}>
-                  Written Mar 21, 2019
+                  Written {moment(date).format("LL")}
                 </Typography>
               </Box>
               <Typography variant="body1" paragraph={true}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-                blanditiis dolorem error facere incidunt, ipsam repellat. Aliquam
-                consequatur dignissimos distinctio fuga ipsa, odio omnis pariatur quidem,
-                quisquam quod rem suscipit...
+                {body}...
                 {' '}
-                <Link variant='body1' component={RouterLink} to='/ideas/1'>(more)</Link>
+                <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>
               </Typography>
               <Box mb={2}>
-                {/*<IdeasPageBodyIdeaButtons/>*/}
+                <IdeasPageBodyIdeaButtons likes={likes} comments={comments.length} id={_id}/>
               </Box>
               <Box mt={2}>
                 <ButtonGroup size='small' aria-label="button group">
                   <Button color='primary'
                           component={RouterLink}
-                          to='/ideas/edit/1'
+                          to={`/ideas/edit/${_id}`}
                           startIcon={<EditIcon/>}>
                     Edit
                   </Button>

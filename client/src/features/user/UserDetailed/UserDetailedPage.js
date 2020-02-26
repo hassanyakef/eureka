@@ -7,6 +7,7 @@ import UserDetailedPageBody from './UserDetailedPageBody';
 import { connect } from 'react-redux';
 import { getProfileById } from '../profileActions';
 import Spinner from '../../../app/common/util/Spinner';
+import { getIdeasByUser } from '../../idea/ideaActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,11 +16,12 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const UserDetailedPage = ({theme, getProfileById, profile: { profile }, auth : {user, loading, isAuthenticated}, match}) => {
+const UserDetailedPage = ({theme, getProfileById, getIdeasByUser, ideas, profile: { profile }, auth : {user, loading, isAuthenticated}, match}) => {
 
   useEffect(() => {
     getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    getIdeasByUser(match.params.id);
+  }, [getProfileById, getIdeasByUser, match.params.id]);
 
   const classes = useStyles(theme);
 
@@ -32,7 +34,7 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile }, auth : {
              {/*myProfile={isAuthenticated && profile.user && user && user._id === profile.user._id}*/}
           </Grid>
           <Grid item sm={12}>
-            <UserDetailedPageBody sectionTitle={'Use Ideas'} profile={profile}/>
+            <UserDetailedPageBody sectionTitle={'Use Ideas'} profile={profile} ideas={ideas} name={user.name || profile.user.name}/>
           </Grid>
         </Grid>
       </Grid>
@@ -42,17 +44,19 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile }, auth : {
     </Grid>
   </Fragment>;
 
-  return profile === null || user === null ? <Spinner/> : mainDiv;
+  return loading || profile === null || user === null ? <Spinner/> : mainDiv;
 
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  ideas: state.idea.ideas
 });
 
 const actions = {
-  getProfileById
+  getProfileById,
+  getIdeasByUser
 };
 
 export default connect(mapStateToProps, actions)(UserDetailedPage);

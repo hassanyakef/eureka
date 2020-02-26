@@ -13,7 +13,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import { Link as RouterLink } from 'react-router-dom';
 import Spinner from '../../app/common/util/Spinner';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../user/profileActions';
+import { getIdeasByUser } from '../idea/ideaActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,12 +42,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme, auth: {loading, user}, profile: { profile}, getCurrentProfile }) => {
+const Dashboard = ({ theme, auth: {loading, user}, getIdeasByUser, ideas }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
-    getCurrentProfile();
-  }, []);
+    getIdeasByUser(user._id)
+  }, [user]);
 
   const mainDiv = <Fragment>
     <Box mb={2}>
@@ -86,27 +86,29 @@ const Dashboard = ({ theme, auth: {loading, user}, profile: { profile}, getCurre
       </Box>
       <List className={classes.root}>
         <Grid container spacing={20}>
-          <DashboardIdeaCard/>
-          <DashboardIdeaCard/>
-          <DashboardIdeaCard/>
-          <DashboardIdeaCard/>
-          <DashboardIdeaCard/>
+          {ideas.length > 0 ? (
+            ideas.map(idea => (
+          <DashboardIdeaCard key={idea._id} idea={idea}/>
+            ))
+          ) : (
+            <Typography variant='body1'>You haven't posted any ideas...</Typography>
+          )}
         </Grid>
 
       </List>
     </Card>
   </Fragment>;
 
-  return loading && profile === null ? <Spinner/> : mainDiv;
+  return loading ? <Spinner/> : mainDiv;
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile
+  ideas: state.idea.ideas
 });
 
 const actions = {
-  getCurrentProfile
+  getIdeasByUser
 };
 
 export default connect(mapStateToProps, actions)(Dashboard);

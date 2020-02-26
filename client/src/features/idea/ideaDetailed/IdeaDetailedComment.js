@@ -9,8 +9,12 @@ import { Link } from '@material-ui/core';
 import { Link as RouterLink } from 'react-router-dom';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import moment from 'moment';
-import { likeComment } from '../ideaActions';
+import { likeComment, deleteComment } from '../ideaActions';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const IdeaDetailedComment = ({ theme, comment, likeComment, ideaId, user }) => {
+const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaId, user }) => {
   const {commentUser, name, avatar, commentBody, commentDate, likes, _id} = comment;
 
   const buttonColor = likes && likes.length > 0 && likes.find(like => like._id === user._id) !== undefined ? 'red' : 'gray';
@@ -40,19 +44,31 @@ const IdeaDetailedComment = ({ theme, comment, likeComment, ideaId, user }) => {
   return (
     <Fragment>
       <Box mb={2}>
-        <Card className={classes.card}>
-          <Box mb={2}>
-            <Chip
-              avatar={  <Avatar alt={name}
-                                src={avatar}/>}
-              label={name}
-              clickable
-              color="primary"
-              component={RouterLink}
-              to={`/users/${commentUser}`}
-            />
+        <Card className={classes.card} >
+          <Box style={{display: 'flex', justifyContent: 'space-between'}}>
+            <Box mb={2} component='span'>
+              <Chip
+                avatar={  <Avatar alt={name}
+                                  src={avatar}/>}
+                label={name}
+                clickable
+                color="primary"
+                component={RouterLink}
+                to={`/users/${commentUser}`}
+              />
+
+            </Box>
+            {
+              user._id === commentUser && <Box component='span'>
+                <IconButton onClick={() => deleteComment(ideaId, _id)} aria-label="delete" style={{color: '#ba1818'}}>
+                  <DeleteIcon fontSize="medium" />
+                </IconButton>
+              </Box>
+            }
 
           </Box>
+
+
           <Typography variant='body1' paragraph={true}>{commentBody}</Typography>
           <Box mr={2} component='span'>
             <Typography variant="body2" style={{color: '#757575'}} paragraph={true} display='inline'>
@@ -79,7 +95,8 @@ const mapStateToProps = (state) => ({
 });
 
 const actions = {
-  likeComment
+  likeComment,
+  deleteComment
 };
 
 export default connect(mapStateToProps, actions)(IdeaDetailedComment);

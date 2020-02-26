@@ -10,7 +10,7 @@ import {
   ADD_IDEA,
   DELETE_IDEA,
   GET_IDEA,
-  GET_IDEAS,
+  GET_IDEAS, GET_USER_IDEAS,
   IDEA_ERROR, LIKE_COMMENT,
   LIKE_IDEA, REMOVE_COMMENT, SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES, UPDATE_IDEA
 } from './ideaConstants';
@@ -18,20 +18,43 @@ import { getProfileById } from '../user/profileActions';
 import {reset} from 'redux-form'
 import { GET_PROFILE } from '../user/profileConstants';
 
-// Get ideas
+// Get all public ideas
 export const getIdeas = () => async dispatch => {
   try {
+    dispatch(asyncActionStart());
     const res = await axios.get('/api/ideas');
 
     dispatch({
       type: GET_IDEAS,
       payload: res.data
     });
+    dispatch(asyncActionFinish());
   } catch (err) {
     dispatch({
       type: IDEA_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
+    dispatch(asyncActionError());
+  }
+};
+
+// Get ideas
+export const getIdeasByUser = (userId) => async dispatch => {
+  try {
+    dispatch(asyncActionStart());
+    const res = await axios.get(`/api/ideas/user/${userId}`);
+
+    dispatch({
+      type: GET_USER_IDEAS,
+      payload: res.data
+    });
+    dispatch(asyncActionFinish());
+  } catch (err) {
+    dispatch({
+      type: IDEA_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+    dispatch(asyncActionError());
   }
 };
 
@@ -73,7 +96,7 @@ export const deleteIdea = id => async dispatch => {
 };
 
 // Add idea
-export const addIdea = formData => async dispatch => {
+export const addIdea = (formData, history) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -88,6 +111,7 @@ export const addIdea = formData => async dispatch => {
       payload: res.data
     });
 
+    history.push(`/ideas/${res.data._id}`);
     toastr.success('Success', 'Idea Created');
 
   } catch (err) {
@@ -128,6 +152,7 @@ export const updateIdea = (id, formData, history) => async dispatch => {
 // Get idea
 export const getIdea = id => async dispatch => {
   try {
+    dispatch(asyncActionStart());
     const res = await axios.get(`/api/ideas/${id}`);
 
     dispatch({
@@ -140,6 +165,7 @@ export const getIdea = id => async dispatch => {
       type: GET_PROFILE,
       payload: res2.data
     });
+    dispatch(asyncActionFinish());
 
 
   } catch (err) {
@@ -147,6 +173,7 @@ export const getIdea = id => async dispatch => {
       type: IDEA_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }
     });
+    dispatch(asyncActionError());
   }
 };
 
@@ -159,7 +186,6 @@ export const addComment = (ideaId, formData) => async dispatch => {
   };
 
   try {
-    console.log({formData, ideaId});
     const res = await axios.post(
       `/api/ideas/comment/${ideaId}`,
       formData,

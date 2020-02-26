@@ -1,4 +1,6 @@
 export const GET_IDEAS = 'GET_IDEAS';
+export const GET_USER_IDEAS = 'GET_USER_IDEAS';
+
 export const GET_IDEA = 'GET_IDEA';
 export const IDEA_ERROR = 'IDEA_ERROR';
 export const LIKE_IDEA = 'LIKE_IDEA';

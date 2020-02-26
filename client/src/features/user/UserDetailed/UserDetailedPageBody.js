@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { Card, Box } from '@material-ui/core';
+import { Card, Box, Grid } from '@material-ui/core';
 import IdeasPageBodyIdea from '../../idea/ideasPage/IdeasPageBodyIdea';
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserDetailedPageBody = ({ theme, sectionTitle }) => {
+const UserDetailedPageBody = ({ theme, sectionTitle, ideas, name }) => {
   const classes = useStyles(theme);
 
   return (
@@ -35,10 +35,13 @@ const UserDetailedPageBody = ({ theme, sectionTitle }) => {
           <Divider/>
         </Box>
         <List className={classes.root}>
-          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
-          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
-          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
-          {/*<IdeasPageBodyIdea elevateCard={false} marginY={0} dividerBottom={true}/>*/}
+          {ideas.length > 0 ? (
+            ideas.map(idea => (
+              <IdeasPageBodyIdea key={idea._id} idea={idea} elevateCard={false} marginY={0} dividerBottom={true}/>
+              ))
+          ) : (
+            <Typography variant='body1'>{name} hasn't posted any ideas...</Typography>
+          )}
         </List>
       </Card>
     </Fragment>
