@@ -1,16 +1,22 @@
 # Eureka
-An idea-generator where people (general public) can post an app idea.
+An idea sharing platform where both the developers and general public can propose app idea. 
 
 ### Project Overview
 
-#### Problem:
+#### Concept:
 
-Developer/coders often do not consider the software from the end user's point of view, and thus, they can miss-code some features. 
+People face problems in their everyday life. And they often have the solution to those problems. However, most people lack the technical expertise to make that idea come to life. 
 
+This is what Eureka tries to solve!
+
+Eureka is an idea sharing platform where both the developers and general public can propose app idea. The general public can state the problem they are experiencing and propose an app idea with possible features. The developer can then pick up the idea that they like and make it into an open source app. 
+
+#### Problems it address:
+
+1) Developers often do not consider the software from the end user's point of view, and thus, they can miss-code some features.
 This app can solve this problem by creating an easy communication channel between the user (the idea creator) and the coder (the solver) without the coder having to share the user's experience themselves.
 
-#### Concept:
-An idea-generator where people (general public) can post an app idea.
+2) Developers have trouble finding open source projects to contribute to. With Eureka, they can easily find such projects, and help out the dev community. The developers can also team up with each other.
 
 #### Features:
 
