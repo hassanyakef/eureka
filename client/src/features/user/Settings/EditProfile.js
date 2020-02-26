@@ -57,7 +57,6 @@ const EditProfile = ({ theme, createProfile, getCurrentProfile, profile: {profil
 
   useEffect(() => {
     getCurrentProfile();
-    console.log({profile, initialValues});
   }, [loading]);
 
     return (

@@ -12,7 +12,7 @@ import {
   GET_IDEA,
   GET_IDEAS,
   IDEA_ERROR, LIKE_COMMENT,
-  LIKE_IDEA, REMOVE_COMMENT, SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES
+  LIKE_IDEA, REMOVE_COMMENT, SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES, UPDATE_IDEA
 } from './ideaConstants';
 import { getProfileById } from '../user/profileActions';
 import {reset} from 'redux-form'
@@ -89,6 +89,33 @@ export const addIdea = formData => async dispatch => {
     });
 
     toastr.success('Success', 'Idea Created');
+
+  } catch (err) {
+    dispatch({
+      type: IDEA_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Update an idea
+export const updateIdea = (id, formData, history) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const res = await axios.put(`/api/ideas/${id}`, formData, config);
+
+    dispatch({
+      type: UPDATE_IDEA,
+      payload: res.data
+    });
+    history.push(`/ideas/${id}`);
+
+    toastr.success('Success', 'Idea Updated');
 
   } catch (err) {
     dispatch({

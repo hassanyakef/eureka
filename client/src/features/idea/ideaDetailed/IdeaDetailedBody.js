@@ -9,6 +9,7 @@ import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import moment from 'moment';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,7 +55,18 @@ const IdeaDetailedBody = ({ theme, idea }) => {
             >
               Save
             </Button>
-          </Box>
+            <Box  mt={2} mb={1} ml={1} component='span'>
+              <Button
+                variant="outlined"
+                color="primary"
+                size='small'
+                component={RouterLink} to={`/ideas/edit/${_id}`}
+                startIcon={<EditIcon />}
+              >
+                Edit
+              </Button>
+            </Box>
+            </Box>
         </Grid>
       </Box>
 

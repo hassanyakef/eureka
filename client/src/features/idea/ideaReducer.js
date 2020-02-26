@@ -4,8 +4,13 @@ import {
   DELETE_IDEA,
   GET_IDEA,
   GET_IDEAS,
-  IDEA_ERROR, LIKE_COMMENT,
-  LIKE_IDEA, REMOVE_COMMENT, SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES
+  IDEA_ERROR,
+  LIKE_COMMENT,
+  LIKE_IDEA,
+  REMOVE_COMMENT,
+  SORT_COMMENT_BY_DATE,
+  SORT_COMMENT_BY_LIKES,
+  UPDATE_IDEA
 } from './ideaConstants';
 
 const initialState = {
@@ -34,6 +39,13 @@ export default function(state = initialState, action) {
         ...state,
         ideas: [payload, ...state.ideas],
       };
+    case UPDATE_IDEA:
+        return {
+          ...state,
+          ideas: state.ideas.map(idea =>
+            idea._id === payload._id ? payload : idea
+          ),
+        };
     case DELETE_IDEA:
       return {
         ...state,
