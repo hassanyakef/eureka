@@ -12,6 +12,7 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
+import { stripTags, truncate } from '../../app/common/util/helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,6 +44,8 @@ const DashboardIdeaCard = ({ theme, idea }) => {
   const classes = useStyles(theme);
   const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
 
+  const renderBody = stripTags(truncate(body,200));
+  const isLongText = renderBody.substr(renderBody.length - 4, renderBody.length) === "... ";
   return (
     <Fragment>
       <Grid item lg={4} md={6} sm={12} xl={3}>
@@ -57,9 +60,8 @@ const DashboardIdeaCard = ({ theme, idea }) => {
                 </Typography>
               </Box>
               <Typography variant="body1" paragraph={true}>
-                {body}...
-                {' '}
-                <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>
+                {renderBody}
+                {isLongText && <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>}
               </Typography>
               <Box mb={2}>
                 <IdeasPageBodyIdeaButtons likes={likes} comments={comments.length} id={_id}/>

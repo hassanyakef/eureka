@@ -15,6 +15,7 @@ import TextInput from '../../../app/common/form/TextInput';
 import SelectInput from '../../../app/common/form/SelectInput';
 import TextArea from '../../../app/common/form/TextArea';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import RichEditor from '../../../app/common/form/RichEditor';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -125,17 +126,17 @@ const EditIdea = ({ theme, getIdea, updateIdea, handleSubmit, history, invalid, 
                 ))}
               </Field>
             </Box>
-            <Box mb={3}>
+            <Box mb={3} mt={3}>
               <Field
-                required
-                margin="dense"
                 name="body"
-                label="Enter more details..."
-                multiline={true}
-                fullWidth={true}
-                rows="5"
-                placeholder="State your problem and potential features for the app..."
-                component={TextArea}
+                config={
+                  {
+                    alignment: {
+                      options: [ 'left', 'center', 'justify', 'right']
+                    }
+                  }
+                }
+                component={RichEditor}
               />
             </Box>
 

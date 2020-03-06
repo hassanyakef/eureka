@@ -10,7 +10,7 @@ import IdeasPageBodyIdeaButtons from './IdeasPageBodyIdeaButtons';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
-
+import {stripTags, truncate} from '../../../app/common/util/helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
 const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBottom = false, idea}) => {
   const classes = useStyles(theme);
   const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
+
+  const renderBody = stripTags(truncate(body,200));
+  const isLongText = renderBody.substr(renderBody.length - 4, renderBody.length) === "... ";
 
   return (
     <Fragment>
@@ -66,9 +69,8 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
             </Grid>
             <Grid item md={12}>
               <Typography variant="body1" paragraph={true}>
-                {body}...
-                {' '}
-                <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>
+                {renderBody}
+                {isLongText && <Link variant='body1' component={RouterLink} to={`/ideas/${_id}`}>(more)</Link>}
               </Typography>
               <IdeasPageBodyIdeaButtons likes={likes} comments={comments.length} id={_id}/>
             </Grid>

@@ -15,6 +15,7 @@ import { Field, reduxForm } from 'redux-form';
 import { combineValidators, isRequired } from 'revalidate';
 import { addIdea } from '../ideaActions';
 import { withRouter } from 'react-router-dom';
+import RichEditor from '../../../app/common/form/RichEditor';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -120,17 +121,29 @@ const AddIdea = ({ theme, addIdea, handleSubmit, history, invalid, submitting, a
                 ))}
               </Field>
             </Box>
-            <Box mb={3}>
+            <Box mb={3} mt={3}>
+              {/*<Field*/}
+              {/*  required*/}
+              {/*  margin="dense"*/}
+              {/*  name="body"*/}
+              {/*  label="Enter more details..."*/}
+              {/*  multiline={true}*/}
+              {/*  fullWidth={true}*/}
+              {/*  rows="5"*/}
+              {/*  placeholder="State your problem and potential features for the app..."*/}
+              {/*  component={RichEditor}*/}
+              {/*/>*/}
+              <Box mb={1}>
+                <Typography variant='body1'>Body</Typography>
+              </Box>
               <Field
-                required
-                margin="dense"
                 name="body"
-                label="Enter more details..."
-                multiline={true}
-                fullWidth={true}
-                rows="5"
-                placeholder="State your problem and potential features for the app..."
-                component={TextArea}
+                config={
+                  {
+                    placeholder:"Enter more details...",
+                  }
+                }
+                component={RichEditor}
               />
             </Box>
 

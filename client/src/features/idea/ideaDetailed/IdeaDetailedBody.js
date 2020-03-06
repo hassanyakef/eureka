@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import moment from 'moment';
 import EditIcon from '@material-ui/icons/Edit';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,7 +87,7 @@ const IdeaDetailedBody = ({ theme, idea }) => {
 
       <Box my={4}>
         <Typography variant='body1' paragraph={true}>
-          {body}
+          {ReactHtmlParser(body)}
         </Typography>
       </Box>
 
