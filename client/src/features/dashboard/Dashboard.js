@@ -44,13 +44,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme, auth: {loading, user}, profile: {profile}, getIdeasByUser,getCurrentProfile, loadUser, ideas }) => {
+const Dashboard = ({ theme, auth: {loading, user}, profile: {profile, ideas}, getIdeasByUser,getCurrentProfile, loadUser }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
     getCurrentProfile();
-    // getIdeasByUser(user._id)
-  }, [user, getCurrentProfile, getIdeasByUser]);
+  }, [getCurrentProfile]);
 
   const mainDiv = <Fragment>
     <Box mb={2}>
@@ -102,17 +101,15 @@ const Dashboard = ({ theme, auth: {loading, user}, profile: {profile}, getIdeasB
     </Card>
   </Fragment>;
 
-  return loading && profile === null ? <Spinner/> : mainDiv;
+  return loading || ideas === null ? <Spinner/> : mainDiv;
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  ideas: state.idea.ideas,
   profile: state.profile
 });
 
 const actions = {
-  getIdeasByUser,
   getCurrentProfile,
   loadUser
 };

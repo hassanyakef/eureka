@@ -33,7 +33,7 @@ const UsersPage = ({ theme, getProfiles, profile: { profiles }, auth : {loading}
 
   return (
     <Fragment>
-    {loading ? (
+    {loading || profiles === null? (
         <Spinner />
       ) : (
           <Card className={classes.card}>
@@ -45,7 +45,7 @@ const UsersPage = ({ theme, getProfiles, profile: { profiles }, auth : {loading}
             </Box>
             <List className={classes.root}>
               <Grid container spacing={20}>
-                {profiles.length > 0 ? (
+                {profiles?.length > 0 ? (
                     profiles.map(profile => (
                       <UserCard key={profile._id} profile={profile} />
                   ))

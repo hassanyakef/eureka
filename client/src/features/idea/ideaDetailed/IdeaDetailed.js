@@ -52,15 +52,16 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading},
             sortCommentsByDate={sortCommentsByDate}
             sortCommentsByLikes={sortCommentsByLikes}/>) : null}
         </Grid>
+        {profile !== null &&
         <Grid item lg={4} sm={12}>
           <Card className={classes.card}>
-            <IdeaDetailedSidebarRight profile={profile}/>
+             <IdeaDetailedSidebarRight profile={profile}/>
           </Card>
-        </Grid>
+        </Grid>}
       </Grid>
     </Fragment>;
 
-  return loading || idea === null || profile === null ? <Spinner/> : mainDiv;
+  return loading || idea === null ? <Spinner/> : mainDiv;
 
 };
 

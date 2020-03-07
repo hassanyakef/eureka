@@ -4,11 +4,12 @@ import {  GET_PROFILE,
   UPDATE_PROFILE,
   GET_PROFILES
 } from './profileConstants';
+import { LIKE_IDEA } from '../idea/ideaConstants';
 
 const initialState = {
   profile: null,
-  profiles: [],
-  ideas: [],
+  profiles: null,
+  ideas: null,
   loading: true,
   error: {}
 };
@@ -37,6 +38,13 @@ export default function (state = initialState, action) {
         error: payload,
         loading: false
       };
+    // case LIKE_IDEA:
+    //   return {
+    //     ...state,
+    //     ideas: state.ideas.map(idea =>
+    //       idea._id === payload.id ? { ...idea, likes: payload.likes } : idea
+    //     ),
+    //   };
     case CLEAR_PROFILE:
       return {
         ...state,

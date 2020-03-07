@@ -11,6 +11,7 @@ import {
 import setAuthToken from '../../app/common/util/setAuthToken';
 import { toastr } from 'react-redux-toastr';
 import { GET_USER_IDEAS } from '../idea/ideaConstants';
+import { GET_PROFILE } from '../user/profileConstants';
 
 // Load User
 export const loadUser = () => async dispatch => {
@@ -21,15 +22,14 @@ export const loadUser = () => async dispatch => {
   try {
     dispatch(asyncActionStart());
     const res = await axios.get('/api/auth');
-    const res2 = await axios.get(`/api/ideas/user/${res.data._id}`);
-
-    console.log('Load user');
+    // const res2 = await axios.get(`/api/ideas/user/${res.data._id}`);
+    const res2 = await axios.get('/api/profile/me');
     dispatch({
       type: USER_LOADED,
       payload: res.data
     });
     dispatch({
-      type: GET_USER_IDEAS,
+      type: GET_PROFILE,
       payload: res2.data
     });
     dispatch(asyncActionFinish());

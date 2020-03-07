@@ -14,7 +14,7 @@ import {
 } from './ideaConstants';
 
 const initialState = {
-  ideas: [],
+  ideas: null,
   idea: null,
   error: {},
   sortComment: 'byDate'

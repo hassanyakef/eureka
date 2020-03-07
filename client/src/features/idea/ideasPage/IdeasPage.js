@@ -23,7 +23,7 @@ const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading, user} }) => {
 
   return (
     <Fragment>
-      { loading || user === null ? (
+      { loading || user === null || ideas === null ? (
         <Spinner />
       ) : (
       <Grid container className={classes.root} spacing={5}>

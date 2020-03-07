@@ -17,9 +17,9 @@ router.get('/me', auth, async (req, res) => {
         path: 'user',
         select: ['name', 'avatar']
       });
-    if (!profile) {
-      return res.status(400).json({ msg: 'There is no profile for this user' });
-    }
+    // if (!profile) {
+    //   return res.status(400).json({ msg: 'There is no profile for this user' });
+    // }
     const ideas = await Idea.find({ user: req.user.id });
     return res.json({profile, ideas});
 
@@ -107,9 +107,9 @@ router.get('/user/:user_id', async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.params.user_id })
       .populate('user', ['name', 'avatar']);
-    if (!profile) {
-      return res.status(400).json({ msg: 'Profile not found' });
-    }
+    // if (!profile) {
+    //   return res.status(400).json({ msg: 'Profile not found' });
+    // }
     const ideas = await Idea.find({ user: req.params.user_id });
     return res.json({profile, ideas});
   } catch (err) {

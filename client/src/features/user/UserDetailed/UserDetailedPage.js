@@ -7,7 +7,6 @@ import UserDetailedPageBody from './UserDetailedPageBody';
 import { connect } from 'react-redux';
 import { getProfileById } from '../profileActions';
 import Spinner from '../../../app/common/util/Spinner';
-import { getIdeasByUser } from '../../idea/ideaActions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,12 +15,11 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const UserDetailedPage = ({theme, getProfileById, getIdeasByUser, ideas, profile: { profile }, auth : {user, loading, isAuthenticated}, match}) => {
+const UserDetailedPage = ({theme, getProfileById, profile: { profile, ideas }, auth : {user, loading, isAuthenticated}, match}) => {
 
   useEffect(() => {
     getProfileById(match.params.id);
-    getIdeasByUser(match.params.id);
-  }, [getProfileById, getIdeasByUser, match.params.id]);
+  }, [getProfileById, match.params.id]);
 
   const classes = useStyles(theme);
 
@@ -50,13 +48,11 @@ const UserDetailedPage = ({theme, getProfileById, getIdeasByUser, ideas, profile
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
-  ideas: state.idea.ideas
+  profile: state.profile
 });
 
 const actions = {
-  getProfileById,
-  getIdeasByUser
+  getProfileById
 };
 
 export default connect(mapStateToProps, actions)(UserDetailedPage);
