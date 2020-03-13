@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailed = ({ theme, idea, profile, auth: {loading},
+const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated},
                         getIdea, addComment, match, sortCommentsByDate,
                         sortCommentsByLikes
                       }) => {
@@ -42,9 +42,11 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading},
           <Card className={classes.card}>
             <IdeaDetailedBody idea={idea}/>
           </Card>
-          <Card className={classes.card}>
-            <IdeaDetailedAddComment addComment={addComment} idea={idea}/>
-          </Card>
+          {isAuthenticated &&
+            <Card className={classes.card}>
+              <IdeaDetailedAddComment addComment={addComment} idea={idea}/>
+            </Card>
+          }
           {idea !== null && idea.comments.length > 0 ? (
             <IdeaDetailedComments
               ideaId={idea._id}

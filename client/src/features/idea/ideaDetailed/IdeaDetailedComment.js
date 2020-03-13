@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaId, user }) => {
   const {commentUser, name, avatar, commentBody, commentDate, likes, _id} = comment;
 
-  const buttonColor = likes && likes.length > 0 && likes.find(like => like._id === user._id) !== undefined ? 'red' : 'gray';
+  const buttonColor = user && likes && likes.length > 0 && likes.find(like => like._id === user._id) !== undefined ? 'red' : 'gray';
 
   const classes = useStyles(theme);
   return (
@@ -59,7 +59,7 @@ const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaI
 
             </Box>
             {
-              user._id === commentUser && <Box component='span'>
+              user?._id === commentUser && <Box component='span'>
                 <IconButton onClick={() => deleteComment(ideaId, _id)} aria-label="delete" style={{color: '#ba1818'}}>
                   <DeleteIcon fontSize="medium" />
                 </IconButton>

@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const IdeasPageBodyIdeaButtons = ({theme, likes, comments, id, likeIdea, user}) => {
   const classes = useStyles(theme);
-  const buttonColor = likes && likes.length > 0 && likes.find(like => like._id === user._id) !== undefined ? 'primary' : 'action';
+  const buttonColor = user && likes && likes.length > 0 && likes.find(like => like._id === user._id) !== undefined ? 'primary' : 'action';
 
   return (
     <Box mb={1} mt={1.5}>

@@ -177,7 +177,7 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
     <div className={classes.outerDiv}>
       <div className={classes.toolbar} />
       <List>
-        <ListItem button key={'Ideas'} component={RouterLink} to="ideas/">
+        <ListItem button key={'Ideas'} component={RouterLink} to="/ideas">
           <ListItemIcon>
             <NoteIcon/>
           </ListItemIcon>

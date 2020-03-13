@@ -22,7 +22,6 @@ export const loadUser = () => async dispatch => {
   try {
     dispatch(asyncActionStart());
     const res = await axios.get('/api/auth');
-    // const res2 = await axios.get(`/api/ideas/user/${res.data._id}`);
     const res2 = await axios.get('/api/profile/me');
     dispatch({
       type: USER_LOADED,

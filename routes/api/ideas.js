@@ -77,7 +77,7 @@ router.put('/:id', auth,
  * @desc Get all ideas
  * @access Private
  */
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const ideas = await Idea.find().sort({ date: -1 });
     return res.json(ideas);
@@ -107,9 +107,9 @@ router.get('/user/:userId', auth, async (req, res) => {
 /**
  * @route GET api/ideas/:id
  * @desc Get a single idea by id
- * @access Private
+ * @access Public
  */
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const idea = await Idea.findById(req.params.id);
     if (!idea) {

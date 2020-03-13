@@ -23,14 +23,14 @@ const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading, user} }) => {
 
   return (
     <Fragment>
-      { loading || user === null || ideas === null ? (
+      { loading || ideas === null ? (
         <Spinner />
       ) : (
       <Grid container className={classes.root} spacing={5}>
         <Grid item lg={8} sm={12}>
           <Grid container className={classes.root}>
             <Grid item sm={12}>
-              <IdeasPageHeader user={user}/>
+              {user && <IdeasPageHeader user={user}/>}
             </Grid>
             <Grid item sm={12}>
               <IdeasPageBody ideas={ideas}/>
