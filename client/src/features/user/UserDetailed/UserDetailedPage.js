@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const UserDetailedPage = ({theme, getProfileById, profile: { profile, ideas }, auth : {user, loading, isAuthenticated}, match}) => {
+const UserDetailedPage = ({theme, getProfileById, profile: { profile }, ideas, auth : {user, loading, isAuthenticated}, match}) => {
 
   useEffect(() => {
     getProfileById(match.params.id);
@@ -48,7 +48,8 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile, ideas }, a
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+  ideas: state.idea.ideas
 });
 
 const actions = {

@@ -32,6 +32,10 @@ export const loadUser = () => async dispatch => {
       type: GET_PROFILE,
       payload: res2.data
     });
+    dispatch({
+      type: GET_USER_IDEAS,
+      payload: res2.data.ideas
+    });
     dispatch(asyncActionFinish());
   } catch (err) {
     dispatch({

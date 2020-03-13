@@ -9,8 +9,7 @@ import { LIKE_IDEA } from '../idea/ideaConstants';
 const initialState = {
   profile: null,
   profiles: null,
-  ideas: null,
-  loading: true,
+  loading: false,
   error: {}
 };
 
@@ -23,7 +22,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         profile: payload.profile,
-        ideas: payload.ideas,
+        // ideas: payload.ideas,
         loading: false
       };
     case GET_PROFILES:

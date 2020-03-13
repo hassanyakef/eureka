@@ -13,15 +13,22 @@ import {
   asyncActionFinish,
   asyncActionStart
 } from '../auth/authActions';
+import { GET_USER_IDEAS } from '../idea/ideaConstants';
 
 // Get current user's profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
     dispatch(asyncActionStart());
     const res = await axios.get('/api/profile/me');
+
     dispatch({
       type: GET_PROFILE,
       payload: res.data
+    });
+
+    dispatch({
+      type: GET_USER_IDEAS,
+      payload: res.data.ideas
     });
     dispatch(asyncActionFinish());
 
@@ -65,6 +72,10 @@ export const getProfileById = userId => async dispatch => {
     dispatch({
       type: GET_PROFILE,
       payload: res.data
+    });
+    dispatch({
+      type: GET_USER_IDEAS,
+      payload: res.data.ideas
     });
     dispatch(asyncActionFinish());
   } catch (err) {
