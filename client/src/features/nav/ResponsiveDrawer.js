@@ -206,12 +206,12 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
           </ListItemIcon>
           <ListItemText primary={'Users'}/>
         </ListItem>
-        <ListItem button key={'Bookmarks'}  component={RouterLink} to="/bookmarks">
-          <ListItemIcon>
-            <BookmarkBorderIcon/>
-          </ListItemIcon>
-          <ListItemText primary={'Bookmarks'}/>
-        </ListItem>
+        {/*<ListItem button key={'Bookmarks'}  component={RouterLink} to="/bookmarks">*/}
+        {/*  <ListItemIcon>*/}
+        {/*    <BookmarkBorderIcon/>*/}
+        {/*  </ListItemIcon>*/}
+        {/*  <ListItemText primary={'Bookmarks'}/>*/}
+        {/*</ListItem>*/}
         <ListItem button key={'Setting'} component={RouterLink} to="/edit-profile">
           <ListItemIcon>
             <SettingsIcon/>

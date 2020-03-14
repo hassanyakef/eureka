@@ -11,6 +11,13 @@ import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
 import {stripTags, truncate} from '../../../app/common/util/helpers';
+import { deleteIdea } from '../ideaActions';
+import { connect } from 'react-redux';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import Button from '@material-ui/core/Button';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBottom = false, idea}) => {
+const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBottom = false, idea, auth, deleteIdea}) => {
   const classes = useStyles(theme);
   const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
 
@@ -44,9 +51,29 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
     <Fragment>
       <Box my={marginY}>
         <Card className={!elevateCard ? classes.cardUserPage : classes.cardIdeasPage} variant="outlined" elevation={elevateCard ? 1 : 0}>
-          <Grid container className={classes.root} spacing={2}>
-            <Grid item xs={12}>
-              <Link variant='h6' color="secondary" component={RouterLink} to={`/ideas/${_id}`}>{title}</Link>
+          <Grid container className={classes.root} spacing={1}>
+            <Grid item xs={12} style={{paddingBottom: 0}}>
+              <Box style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Box component='span'>
+                  <Link variant='h6' color="secondary" component={RouterLink} to={`/ideas/${_id}`}>{title}</Link>
+                </Box>
+                {
+                  auth?.user?._id === user &&
+                  <Box>
+                    <IconButton  component={RouterLink}
+                                 to={`/ideas/edit/${_id}`}
+                                 aria-label="edit"
+                                 color='primary'>
+                      <EditIcon fontSize="medium" />
+                    </IconButton>
+
+                      <IconButton onClick={() => deleteIdea(_id)} aria-label="delete"
+                                  style={{ color: '#ba1818' }}>
+                        <DeleteIcon fontSize="medium"/>
+                      </IconButton>
+                  </Box>
+                }
+              </Box>
             </Grid>
             <Grid item sm={2.5}>
               <Box mt={0.5}>
@@ -55,6 +82,7 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
                           src={avatar}/>
                 </Link>
               </Box>
+
 
             </Grid>
             <Grid item sm={6}>
@@ -82,4 +110,12 @@ const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBotto
   );
 };
 
-export default IdeasPageBodyIdea;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+const actions = {
+  deleteIdea,
+};
+
+export default connect(mapStateToProps, actions)(IdeasPageBodyIdea);
