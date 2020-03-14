@@ -11,8 +11,7 @@ import Spinner from '../../../app/common/util/Spinner';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-  },
-
+  }
 }));
 
 const UserDetailedPage = ({theme, getProfileById, profile: { profile }, ideas, auth : {user, loading, isAuthenticated}, match}) => {
@@ -28,8 +27,10 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile }, ideas, a
       <Grid item lg={8} sm={12}>
         <Grid container className={classes.root}>
           <Grid item sm={12}>
-            <UserDetailedHeader profile={profile} user={user}/>
-             {/*myProfile={isAuthenticated && profile.user && user && user._id === profile.user._id}*/}
+            <UserDetailedHeader profile={profile} user={user}
+                                isAuthenticatedUser={isAuthenticated && user?._id === profile?.user._id}
+
+            />
           </Grid>
           <Grid item sm={12}>
             <UserDetailedPageBody sectionTitle={'Use Ideas'} ideas={ideas} name={user?.name || profile?.user.name}/>

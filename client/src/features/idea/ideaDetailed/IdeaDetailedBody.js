@@ -10,7 +10,11 @@ import Avatar from '@material-ui/core/Avatar';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import moment from 'moment';
 import EditIcon from '@material-ui/icons/Edit';
-import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2
+} from 'react-html-parser';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,9 +27,9 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailedBody = ({ theme, idea }) => {
+const IdeaDetailedBody = ({ theme, idea, isAuthenticatedUser = false }) => {
   const classes = useStyles(theme);
-  const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
+  const { title, body, status, category, _id, avatar, authorName, user, likes, comments, date } = idea;
   return (
     <Fragment>
       <Box mb={3}>
@@ -40,45 +44,50 @@ const IdeaDetailedBody = ({ theme, idea }) => {
             </Link>
           </Grid>
           <Box mt={2} ml={1} mr={0} component='span'>
-            <Link variant='body1' color="secondary" component={RouterLink} to={`/users/${user}`}>{authorName}</Link>
+            <Link variant='body1' color="secondary" component={RouterLink}
+                  to={`/users/${user}`}>{authorName}</Link>
           </Box>
           <Box mt={2} mx={1} component='span'>
-            <Typography display='inline' variant="body1" style={{color: '#757575'}}>
-              Written {moment(date).format("LL")}
+            <Typography display='inline' variant="body1" style={{ color: '#757575' }}>
+              Written {moment(date).format('LL')}
             </Typography>
           </Box>
-          <Box  mt={2} mb={1} ml={2} component='span'>
-            <Button
-              variant="outlined"
-              color="primary"
-              size='small'
-              startIcon={<BookmarkIcon />}
-            >
-              Save
-            </Button>
-            <Box  mt={2} mb={1} ml={1} component='span'>
+          <Box mt={2} mb={1} ml={2} component='span'>
+            {isAuthenticatedUser ? (
               <Button
                 variant="outlined"
                 color="primary"
                 size='small'
                 component={RouterLink} to={`/ideas/edit/${_id}`}
-                startIcon={<EditIcon />}
+                startIcon={<EditIcon/>}
               >
                 Edit
               </Button>
-            </Box>
-            </Box>
+            ) : (
+              <Button
+                variant="outlined"
+                color="primary"
+                size='small'
+                startIcon={<BookmarkIcon/>}
+              >
+                Save
+              </Button>
+            )
+            }
+          </Box>
         </Grid>
       </Box>
 
       <Box mb={2}>
         <Box mr={1} component='span'>
-          <Typography display='inline' variant="body2" className={classes.hashtag} style={{backgroundColor: 'yellow'}}>
+          <Typography display='inline' variant="body2" className={classes.hashtag}
+                      style={{ backgroundColor: 'yellow' }}>
             #{category}
           </Typography>
         </Box>
         <Box mr={1} component='span'>
-          <Typography display='inline' variant="body2" className={classes.hashtag} style={{backgroundColor: 'lightgreen'}}>
+          <Typography display='inline' variant="body2" className={classes.hashtag}
+                      style={{ backgroundColor: 'lightgreen' }}>
             #{status}
           </Typography>
         </Box>

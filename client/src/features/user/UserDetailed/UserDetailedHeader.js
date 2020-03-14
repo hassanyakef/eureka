@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserDetailedHeader = ({ theme, profile, user, myProfile = true }) => {
+const UserDetailedHeader = ({ theme, profile, user, isAuthenticatedUser = true }) => {
   const classes = useStyles(theme);
 
   return (
@@ -49,7 +49,7 @@ const UserDetailedHeader = ({ theme, profile, user, myProfile = true }) => {
               {profile?.profession} at {profile?.company}
             </Typography>) : null}
             <Box my={1.5}>
-              {myProfile ? <Button size='medium' fullWidth={false} variant='outlined' color='primary' component={RouterLink} to='/edit-profile'>Edit Profile</Button> :
+              {isAuthenticatedUser ? <Button size='medium' fullWidth={false} variant='outlined' color='primary' component={RouterLink} to='/edit-profile'>Edit Profile</Button> :
                 <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>
               }
             </Box>

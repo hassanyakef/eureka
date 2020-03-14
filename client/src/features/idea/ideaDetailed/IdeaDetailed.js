@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated},
+const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated, user},
                         getIdea, addComment, match, sortCommentsByDate,
                         sortCommentsByLikes
                       }) => {
@@ -40,7 +40,7 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated},
       <Grid container className={classes.root} spacing={3}>
         <Grid item lg={8} sm={12}>
           <Card className={classes.card}>
-            <IdeaDetailedBody idea={idea}/>
+            <IdeaDetailedBody idea={idea} isAuthenticatedUser={isAuthenticated && user?._id === idea?.user}/>
           </Card>
           {isAuthenticated &&
             <Card className={classes.card}>
