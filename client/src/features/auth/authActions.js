@@ -101,7 +101,7 @@ export const login = ({email, password}) => async dispatch => {
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
-      errors.forEach(error => toastr.error('Oops', `Something went wrong ${error.msg}`));
+      errors.forEach(error => toastr.error('Oops', `${error.msg}`));
       console.log({ errors});
     }
     dispatch({

@@ -1,4 +1,4 @@
-import React, { Fragment} from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -6,16 +6,13 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
@@ -30,6 +27,12 @@ import Box from '@material-ui/core/Box';
 import AddIcon from '@material-ui/icons/Add';
 import { logout } from '../auth/authActions';
 import { connect } from 'react-redux';
+import Avatar from '@material-ui/core/Avatar';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
+import Container from '@material-ui/core/Container';
 
 
 
@@ -94,7 +97,64 @@ const useStyles = makeStyles(theme => {
       paddingRight: theme.spacing(5),
       paddingLeft: theme.spacing(4),
       textTransform: 'capitalize'
-    }
+    },
+    search: {
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      '&:hover': {
+        backgroundColor: fade(theme.palette.common.white, 0.25),
+      },
+      marginLeft: 0,
+      marginRight: theme.spacing(30),
+      paddingLeft: 0,
+      width: '100%',
+      [theme.breakpoints.down('sm')]: {
+        marginRight: theme.spacing(5),
+      },
+      [theme.breakpoints.up('sm')]: {
+        width: 'auto',
+        marginRight: theme.spacing(45),
+      },
+      [theme.breakpoints.up('md')]: {
+        marginRight: theme.spacing(55),
+      },
+      [theme.breakpoints.up('lg')]: {
+        marginRight: theme.spacing(70),
+      },
+    },
+    searchIcon: {
+      width: theme.spacing(7),
+      height: '100%',
+      position: 'absolute',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    inputRoot: {
+      color: 'inherit',
+    },
+    inputInput: {
+      padding: theme.spacing(1, 1, 1, 7),
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('sm')]: {
+        width: 120,
+        '&:focus': {
+          width: 200,
+        },
+      },
+    },
+    small: {
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+    },
+    menuItem: {
+      marginLeft: theme.spacing(1),
+      textTransform: 'capitalize',
+      fontSize: '1rem'
+    },
 }});
 
 function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, user }, ...props}) {
@@ -102,6 +162,17 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -216,6 +287,38 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
             <MenuIcon />
           </IconButton>
           <Link color='inherit' variant='h6' underline='none' component={RouterLink} to='/'>Eureka</Link>
+          <Box className={classes.search}>
+          </Box>
+
+          {isAuthenticated && <div>
+            <IconButton
+              className={classes.menuItem}
+              aria-label="Profile" color="inherit"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+            >
+              <Avatar className={classes.small} alt={user?.name} src={user?.avatar} />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose} component={RouterLink} to="/dashboard">Dashboard</MenuItem>
+              <MenuItem onClick={handleClose} component={RouterLink} to={`/users/${user?._id}`}>Profile</MenuItem>
+            </Menu>
+          </div>}
 
 
         </Toolbar>

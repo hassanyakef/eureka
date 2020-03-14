@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const IdeaDetailedSidebarRight = ({ theme, profile }) => {
+const IdeaDetailedSidebarRight = ({ theme, profile, isAuthenticated }) => {
   const classes = useStyles(theme);
 
   const {profession, company, website, bio, location, date, user: {avatar, name, _id} } = profile;
@@ -43,10 +43,11 @@ const IdeaDetailedSidebarRight = ({ theme, profile }) => {
             {bio}
           </Typography>
           <UserDetailedHeaderInfo profile={{website, location, date}}/>
-          <Box my={2}>
-            <Button size='large' fullWidth={true} variant='contained' color='secondary'>+ Follow</Button>
-          </Box>
-
+          {isAuthenticated &&
+            <Box my={2}>
+              <Button size='large' fullWidth={true} variant='contained' color='secondary'>+ Follow</Button>
+            </Box>
+          }
         </Grid>
       </Grid>
     </Fragment>

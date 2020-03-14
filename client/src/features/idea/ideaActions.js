@@ -59,7 +59,13 @@ export const getIdeasByUser = (userId) => async dispatch => {
 };
 
 // Like or unlike an idea
-export const likeIdea = id => async dispatch => {
+export const likeIdea = (id, isAuthenticated, history) => async dispatch => {
+  if(!isAuthenticated) {
+    history.push('/login');
+    toastr.error('You need to login to like an idea');
+    return;
+  }
+
   try {
     const res = await axios.put(`/api/ideas/like/${id}`);
 
@@ -209,7 +215,13 @@ export const addComment = (ideaId, formData) => async dispatch => {
 };
 
 // Like or unlike a comment
-export const likeComment = (id, commentId) => async dispatch => {
+export const likeComment = (id, commentId, isAuthenticated, history) => async dispatch => {
+  if(!isAuthenticated) {
+    history.push('/login');
+    toastr.error('You need to login to like a comment');
+    return;
+  }
+
   try {
     console.log({id, commentId});
     const res = await axios.put(`/api/ideas/comment/like/${id}/${commentId}`);

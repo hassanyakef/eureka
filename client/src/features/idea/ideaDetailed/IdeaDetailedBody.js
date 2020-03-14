@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const IdeaDetailedBody = ({ theme, idea, isAuthenticatedUser = false }) => {
+const IdeaDetailedBody = ({ theme, idea, isAuthenticated, isAuthenticatedUser = false }) => {
   const classes = useStyles(theme);
   const { title, body, status, category, _id, avatar, authorName, user, likes, comments, date } = idea;
   return (
@@ -52,6 +52,7 @@ const IdeaDetailedBody = ({ theme, idea, isAuthenticatedUser = false }) => {
               Written {moment(date).format('LL')}
             </Typography>
           </Box>
+          {isAuthenticated &&
           <Box mt={2} mb={1} ml={2} component='span'>
             {isAuthenticatedUser ? (
               <Button
@@ -75,6 +76,7 @@ const IdeaDetailedBody = ({ theme, idea, isAuthenticatedUser = false }) => {
             )
             }
           </Box>
+          }
         </Grid>
       </Box>
 

@@ -27,9 +27,11 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile }, ideas, a
       <Grid item lg={8} sm={12}>
         <Grid container className={classes.root}>
           <Grid item sm={12}>
-            <UserDetailedHeader profile={profile} user={user}
-                                isAuthenticatedUser={isAuthenticated && user?._id === profile?.user._id}
-
+            <UserDetailedHeader
+              profile={profile}
+              user={user}
+              isAuthenticated={isAuthenticated}
+              isAuthenticatedUser={isAuthenticated && user?._id === profile?.user._id}
             />
           </Grid>
           <Grid item sm={12}>
@@ -43,7 +45,7 @@ const UserDetailedPage = ({theme, getProfileById, profile: { profile }, ideas, a
     </Grid>
   </Fragment>;
 
-  return loading || user === null ? <Spinner/> : mainDiv;
+  return loading || ideas === null || (user === null && isAuthenticated) ? <Spinner/> : mainDiv;
 
 };
 

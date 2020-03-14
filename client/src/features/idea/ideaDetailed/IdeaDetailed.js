@@ -40,7 +40,7 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated, u
       <Grid container className={classes.root} spacing={3}>
         <Grid item lg={8} sm={12}>
           <Card className={classes.card}>
-            <IdeaDetailedBody idea={idea} isAuthenticatedUser={isAuthenticated && user?._id === idea?.user}/>
+            <IdeaDetailedBody idea={idea} isAuthenticated={isAuthenticated} isAuthenticatedUser={isAuthenticated && user?._id === idea?.user}/>
           </Card>
           {isAuthenticated &&
             <Card className={classes.card}>
@@ -57,7 +57,7 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated, u
         {profile !== null &&
         <Grid item lg={4} sm={12}>
           <Card className={classes.card}>
-             <IdeaDetailedSidebarRight profile={profile}/>
+             <IdeaDetailedSidebarRight profile={profile} isAuthenticated={isAuthenticated}/>
           </Card>
         </Grid>}
       </Grid>

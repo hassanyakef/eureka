@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import UserDetailedHeaderInfo from './UserDetailedHeaderInfo';
-import Link from '@material-ui/core/Link'
+import Link from '@material-ui/core/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const UserDetailedHeader = ({ theme, profile, user, isAuthenticatedUser = true }) => {
+const UserDetailedHeader = ({ theme, profile, user, isAuthenticated, isAuthenticatedUser = true }) => {
   const classes = useStyles(theme);
 
   return (
@@ -42,18 +42,28 @@ const UserDetailedHeader = ({ theme, profile, user, isAuthenticatedUser = true }
                     src={profile?.user?.avatar || user?.avatar}/>
           </Grid>
           <Grid item md={8}>
-            <Typography variant="h4" >
+            <Typography variant="h4">
               {profile?.user?.name || user?.name}
             </Typography>
             {profile !== null ? (<Typography variant="h6" gutterBottom={true}>
               {profile?.profession} at {profile?.company}
             </Typography>) : null}
-            <Box my={1.5}>
-              {isAuthenticatedUser ? <Button size='medium' fullWidth={false} variant='outlined' color='primary' component={RouterLink} to='/edit-profile'>Edit Profile</Button> :
-                <Button size='medium' fullWidth={false} variant='contained' color='secondary'>+ Follow</Button>
-              }
-            </Box>
-            <Typography variant="body1" gutterBottom={true} >
+            {isAuthenticated &&
+              <Box my={1.5}>
+                {isAuthenticatedUser ?
+                  (<Button size='medium'
+                          fullWidth={false}
+                          variant='outlined'
+                          color='primary'
+                          component={RouterLink} to='/edit-profile'>
+                    Edit Profile
+                  </Button>) : (
+                  <Button size='medium' fullWidth={false} variant='contained'
+                          color='secondary'>+ Follow</Button>)
+                }
+              </Box>
+            }
+            <Typography variant="body1" gutterBottom={true}>
               {profile?.bio}
             </Typography>
             <UserDetailedHeaderInfo profile={profile}/>
@@ -66,7 +76,7 @@ const UserDetailedHeader = ({ theme, profile, user, isAuthenticatedUser = true }
                 </Typography>
               </Box>
               <Typography display="inline" variant="body1">
-                <Link color="secondary"  component={RouterLink} to='/users'>
+                <Link color="secondary" component={RouterLink} to='/users'>
                   <strong>22</strong> Following
                 </Link>
               </Typography>

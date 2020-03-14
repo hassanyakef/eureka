@@ -16,6 +16,7 @@ import SelectInput from '../../../app/common/form/SelectInput';
 import TextArea from '../../../app/common/form/TextArea';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import RichEditor from '../../../app/common/form/RichEditor';
+import Spinner from '../../../app/common/util/Spinner';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,7 +66,8 @@ const validate = combineValidators({
   status: isRequired('Visibility'),
 });
 
-const EditIdea = ({ theme, getIdea, updateIdea, handleSubmit, history, invalid, submitting, match }) => {
+const EditIdea = ({ theme, getIdea, updateIdea, handleSubmit, history,
+                    invalid, submitting, match, auth: {loading} }) => {
   const classes = useStyles(theme);
 
 
@@ -73,7 +75,7 @@ const EditIdea = ({ theme, getIdea, updateIdea, handleSubmit, history, invalid, 
     getIdea(match.params.id);
   }, [match]);
 
-  return (
+  return loading ? (<Spinner/>) : (
     <Grid container className={classes.root} spacing={5}>
       <Grid item lg={8} sm={12}>
         <Card className={classes.card}>
@@ -154,7 +156,8 @@ const EditIdea = ({ theme, getIdea, updateIdea, handleSubmit, history, invalid, 
 };
 
 const mapStateToProps = (state) => ({
-  initialValues: state.idea.idea
+  initialValues: state.idea.idea,
+  auth: state.auth
 });
 
 const actions = { updateIdea, getIdea };

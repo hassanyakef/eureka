@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,8 +18,13 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const Landing = ({ theme }) => {
+const Landing = ({ theme, auth: {isAuthenticated} }) => {
   const classes = useStyles(theme);
+
+  if(isAuthenticated) {
+    return <Redirect to="/dashboard"/>
+  }
+
   return (
       <Grid container className={classes.root} spacing={5}>
         <Grid item lg={8} sm={12}>
@@ -42,4 +48,8 @@ const Landing = ({ theme }) => {
   )
 };
 
-export default Landing;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(Landing);

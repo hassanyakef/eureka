@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading, user} }) => {
+const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading, user, isAuthenticated} }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
@@ -29,9 +29,11 @@ const IdeasPage = ({ theme, getIdeas, ideas, auth : {loading, user} }) => {
       <Grid container className={classes.root} spacing={5}>
         <Grid item lg={8} sm={12}>
           <Grid container className={classes.root}>
-            <Grid item sm={12}>
-              {user && <IdeasPageHeader user={user}/>}
-            </Grid>
+            {isAuthenticated &&
+              <Grid item sm={12}>
+                 <IdeasPageHeader user={user}/>
+              </Grid>
+            }
             <Grid item sm={12}>
               <IdeasPageBody ideas={ideas}/>
             </Grid>

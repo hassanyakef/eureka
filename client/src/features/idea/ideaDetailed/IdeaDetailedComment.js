@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import { Link } from '@material-ui/core';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'react-router-dom';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import moment from 'moment';
 import { likeComment, deleteComment } from '../ideaActions';
@@ -35,7 +35,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaId, user }) => {
+const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaId,
+                               auth: {user, isAuthenticated}, history }) => {
   const {commentUser, name, avatar, commentBody, commentDate, likes, _id} = comment;
 
   const buttonColor = user && likes && likes.length > 0 && likes.find(like => like._id === user._id) !== undefined ? 'red' : 'gray';
@@ -77,7 +78,7 @@ const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaI
           </Box>
           <Box mr={2} component='span'>
             <Typography variant="body2" display="inline" gutterBottom={true}>
-              <Link className={classes.button} onClick={() => likeComment(ideaId, _id)} style={{color: `${buttonColor}`}}>
+              <Link className={classes.button} onClick={() => likeComment(ideaId, _id, isAuthenticated, history)} style={{color: `${buttonColor}`}}>
                 <FavoriteIcon style={{color: `${buttonColor}`}} className={classes.icon} fontSize='small'/>
                 {likes.length}
               </Link>
@@ -91,7 +92,7 @@ const IdeaDetailedComment = ({ theme, comment, likeComment, deleteComment, ideaI
 };
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user
+  auth: state.auth
 });
 
 const actions = {
@@ -99,4 +100,4 @@ const actions = {
   deleteComment
 };
 
-export default connect(mapStateToProps, actions)(IdeaDetailedComment);
+export default connect(mapStateToProps, actions)(withRouter(IdeaDetailedComment));
