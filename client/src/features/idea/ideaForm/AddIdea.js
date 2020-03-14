@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import SelectInput from '../../../app/common/form/SelectInput';
-import TextArea from '../../../app/common/form/TextArea';
 import TextInput from '../../../app/common/form/TextInput';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -65,7 +64,7 @@ const validate = combineValidators({
   status: isRequired('Visibility'),
 });
 
-const AddIdea = ({ theme, addIdea, handleSubmit, history, invalid, submitting, auth: {loading}  }) => {
+const AddIdea = ({ theme, addIdea, handleSubmit, history, invalid, submitting }) => {
   const classes = useStyles(theme);
 
   return (
@@ -160,11 +159,7 @@ const AddIdea = ({ theme, addIdea, handleSubmit, history, invalid, submitting, a
   )
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth
-});
-
 const actions = { addIdea };
 
-export default connect(mapStateToProps, actions)(reduxForm({ form: 'addIdeaForm', validate})(
+export default connect(null, actions)(reduxForm({ form: 'addIdeaForm', validate})(
   withRouter(AddIdea)));

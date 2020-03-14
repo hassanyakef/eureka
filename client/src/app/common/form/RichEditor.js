@@ -9,6 +9,8 @@ const RichEditor = ({ input,placeholder, config }) => {
       editor={ ClassicEditor }
       config={{
         toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|',  'blockQuote',  'insertTable', '|', 'undo', 'redo'],
+        width: 'auto',
+        height: 'auto',
         ...config
       }}
       placeholder={placeholder}
