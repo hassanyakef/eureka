@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
+const config = require('../config/keys');
 
 // Checks if request includes a JWT token,
 // if it does, decode the token and pass the user id to the req.user object
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
 
   // Varify token
   try {
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    const decoded = jwt.verify(token, config.jwtSecret);
     req.user = decoded.user;
     next();
 
