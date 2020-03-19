@@ -1,5 +1,5 @@
 # Eureka
-An idea sharing platform where both the developers and general public can propose app idea. 
+An idea sharing platform where both the developers and general public can propose app idea. [Visit](https://eureka123.herokuapp.com/)
 
 ### Project Overview
 
@@ -41,7 +41,7 @@ This app can solve this problem by creating an easy communication channel betwee
 
 ### Development Status
 
-The basic functionality of the app is complete. You can try it out by running it locally.
+The basic functionality of the app is complete.
 
 ### How to run the it locally?
 - ``` npm install ```

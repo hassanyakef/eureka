@@ -33,6 +33,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -178,6 +179,15 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
     setMobileOpen(!mobileOpen);
   };
 
+  const footer = (
+    <Box mx={1} style={{
+      position: 'absolute',
+      bottom: '25px',
+    }}>
+      <Typography >Created with ❤️ by <Link href="https://github.com/hassanyakef" target='_blank'>Hassan Yakefujiang</Link></Typography>
+    </Box>
+  );
+
   const authenticatedMenu = (
     <div className={classes.outerDiv}>
       <div className={classes.toolbar} />
@@ -241,6 +251,7 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
           <ListItemText primary={'Logout'}/>
         </ListItem>
       </List>
+      {footer}
     </div>
   );
 
@@ -270,6 +281,7 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
           <ListItemText primary={'Register'}/>
         </ListItem>
       </List>
+      {footer}
     </div>
   );
 
@@ -341,6 +353,7 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
             }}
           >
             {isAuthenticated ? authenticatedMenu : unAuthenticatedMenu}
+
           </Drawer>
         </Hidden>
         <Hidden xsDown implementation="css">
