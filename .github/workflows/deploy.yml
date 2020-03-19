@@ -23,9 +23,9 @@ jobs:
       with:
         node-version: 12
     - name: Login to Heroku
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku login
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku login
     - name: Add remote origin
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
