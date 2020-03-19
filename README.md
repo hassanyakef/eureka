@@ -56,5 +56,4 @@ module.exports = {
   jwtSecret: "CHANGE_ME"
 };
 ```
-s
 
