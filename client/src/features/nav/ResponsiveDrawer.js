@@ -1,7 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -30,12 +29,7 @@ import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-
-
 
 const useStyles = makeStyles(theme => {
   const drawerWidth = 400;
@@ -121,7 +115,7 @@ const useStyles = makeStyles(theme => {
         marginRight: theme.spacing(55),
       },
       [theme.breakpoints.up('lg')]: {
-        marginRight: theme.spacing(70),
+        marginRight: theme.spacing(100),
       },
     },
     searchIcon: {
