@@ -22,9 +22,14 @@ jobs:
     - uses: actions/setup-node@master
       with:
         node-version: 12
-    - name: Build and push
+    - name: Add remote origin
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         HEROKU_APP_NAME: "eureka123"
-      if: github.ref == 'refs/heads/master' && job.status == 'success'
-      run: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git origin/master:master
+      run: |
+        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+    - name: Deploy to Heroku
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: |
+        git push heroku HEAD:master -f
