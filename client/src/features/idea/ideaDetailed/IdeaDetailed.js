@@ -6,11 +6,11 @@ import IdeaDetailedSidebarRight from './IdeaDetailedSidebarRight';
 import IdeaDetailedBody from './IdeaDetailedBody';
 import IdeaDetailedAddComment from './IdeaDetailedAddComment';
 import IdeaDetailedComments from './IdeaDetailedComments';
-import { getProfileById } from '../../user/profileActions';
+import { getProfileById } from '../../user/profileAction';
 import { connect } from 'react-redux';
 import Spinner from '../../../app/common/util/Spinner';
-import { addComment, getIdea } from '../ideaActions';
-import {sortCommentsByDate, sortCommentsByLikes} from '../ideaActions';
+import { SORT_COMMENT_BY_DATE, SORT_COMMENT_BY_LIKES } from '../ideaSlice';
+import { addComment, getIdea,  } from '../ideaAction';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,8 +27,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated, user},
-                        getIdea, addComment, match, sortCommentsByDate,
-                        sortCommentsByLikes
+                        getIdea, addComment, match, SORT_COMMENT_BY_DATE,
+                        SORT_COMMENT_BY_LIKES
                       }) => {
   const classes = useStyles(theme);
 
@@ -51,8 +51,8 @@ const IdeaDetailed = ({ theme, idea, profile, auth: {loading, isAuthenticated, u
             <IdeaDetailedComments
               ideaId={idea._id}
             comments={idea.comments}
-            sortCommentsByDate={sortCommentsByDate}
-            sortCommentsByLikes={sortCommentsByLikes}/>) : null}
+            sortCommentsByDate={SORT_COMMENT_BY_DATE}
+            sortCommentsByLikes={SORT_COMMENT_BY_LIKES}/>) : null}
         </Grid>
         {profile !== null &&
         <Grid item lg={4} sm={12}>
@@ -77,8 +77,8 @@ const actions = {
   getIdea,
   addComment,
   getProfileById,
-  sortCommentsByDate,
-  sortCommentsByLikes
+  SORT_COMMENT_BY_DATE,
+  SORT_COMMENT_BY_LIKES
 };
 
 export default connect(mapStateToProps, actions)(IdeaDetailed);

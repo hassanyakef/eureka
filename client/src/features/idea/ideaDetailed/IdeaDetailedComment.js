@@ -9,10 +9,8 @@ import { Link } from '@material-ui/core';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import moment from 'moment';
-import { likeComment, deleteComment } from '../ideaActions';
+import { likeComment, deleteComment } from '../ideaAction';
 import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 

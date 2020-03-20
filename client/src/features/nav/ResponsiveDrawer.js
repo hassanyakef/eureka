@@ -24,7 +24,7 @@ import Link from '@material-ui/core/Link'
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import AddIcon from '@material-ui/icons/Add';
-import { logout } from '../auth/authActions';
+import { logout } from '../auth/authAction';
 import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
@@ -152,10 +152,9 @@ const useStyles = makeStyles(theme => {
     },
 }});
 
-function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, user }, ...props}) {
+function ResponsiveDrawer({logout, history, auth: { isAuthenticated, user }, ...props}) {
   const { container } = props;
   const classes = useStyles();
-  const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -292,7 +291,7 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
           >
             <MenuIcon />
           </IconButton>
-          <Link color='inherit' variant='h6' underline='none' component={RouterLink} to='/'>Eureka</Link>
+          <Link color='inherit' variant='h6' underline='none' component={RouterLink} to='/ideas'>Eureka</Link>
           <Box className={classes.search}>
           </Box>
 
@@ -323,6 +322,7 @@ function ResponsiveDrawer({logout, history, auth: { isAuthenticated, loading, us
             >
               <MenuItem onClick={handleClose} component={RouterLink} to="/dashboard">Dashboard</MenuItem>
               <MenuItem onClick={handleClose} component={RouterLink} to={`/users/${user?._id}`}>Profile</MenuItem>
+              <MenuItem onClick={handleClose} component={RouterLink} to={`/ideas/add`}>Add Idea</MenuItem>
             </Menu>
           </div>}
 

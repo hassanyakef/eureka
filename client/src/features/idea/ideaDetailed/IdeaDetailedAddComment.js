@@ -3,23 +3,14 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import { Field, reduxForm } from 'redux-form';
 import { combineValidators, isRequired } from 'revalidate';
-import { connect } from 'react-redux';
 import TextArea from '../../../app/common/form/TextArea';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-  },
-  card: {
-    padding: theme.spacing(5),
-    [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(3),
-    }
   }
-
 }));
 
 const validate = combineValidators({

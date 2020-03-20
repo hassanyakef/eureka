@@ -5,7 +5,7 @@ import UserDetailedHeader from './UserDetailedHeader';
 import UserDetailedSidebar from './UserDetailedSidebar';
 import UserDetailedPageBody from './UserDetailedPageBody';
 import { connect } from 'react-redux';
-import { getProfileById } from '../profileActions';
+import { getProfileById } from '../profileAction';
 import Spinner from '../../../app/common/util/Spinner';
 
 const useStyles = makeStyles(theme => ({

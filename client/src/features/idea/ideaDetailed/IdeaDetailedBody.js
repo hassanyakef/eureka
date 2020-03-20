@@ -10,11 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import moment from 'moment';
 import EditIcon from '@material-ui/icons/Edit';
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2
-} from 'react-html-parser';
+import ReactHtmlParser from 'react-html-parser';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 const IdeaDetailedBody = ({ theme, idea, isAuthenticated, isAuthenticatedUser = false }) => {
   const classes = useStyles(theme);
-  const { title, body, status, category, _id, avatar, authorName, user, likes, comments, date } = idea;
+  const { title, body, status, category, _id, avatar, authorName, user, date } = idea;
   return (
     <Fragment>
       <Box mb={3}>

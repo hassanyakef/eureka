@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import { Card, Box, Grid } from '@material-ui/core';
 import UserCard from './UserCard';
-import { getProfiles } from '../profileActions';
+import { getProfiles } from '../profileAction';
 import { connect } from 'react-redux';
 import Spinner from '../../../app/common/util/Spinner';
 

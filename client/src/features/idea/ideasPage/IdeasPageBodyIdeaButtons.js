@@ -7,7 +7,7 @@ import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Box } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { likeIdea } from '../ideaActions';
+import { likeIdea } from '../ideaAction';
 
 const useStyles = makeStyles(theme => ({
   icon: {

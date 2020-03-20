@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link'
 import { Link as RouterLink } from 'react-router-dom';
 import { combineValidators, composeValidators, isRequired } from 'revalidate';
-import { login, loadUser } from './authActions';
+import { login } from './authAction';
 import { Field, reduxForm } from 'redux-form';
 import TextInput from '../../app/common/form/TextInput';
 import { Redirect } from 'react-router-dom';
@@ -34,7 +34,7 @@ const validate = combineValidators({
   password: isRequired('password'),
 });
 
-const Login = ({ theme, auth: {isAuthenticated}, login, handleSubmit, error, invalid, submitting }) => {
+const Login = ({ theme, auth: {isAuthenticated}, login, handleSubmit, invalid, submitting }) => {
   const classes = useStyles(theme);
 
   if(isAuthenticated) {

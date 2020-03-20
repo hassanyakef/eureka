@@ -13,9 +13,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import moment from 'moment';
 import { stripTags, truncate } from '../../app/common/util/helpers';
-import { deleteIdea } from '../idea/ideaActions';
+import { deleteIdea } from '../idea/ideaAction';
 import { connect } from 'react-redux';
-import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -45,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 const DashboardIdeaCard = ({ theme, idea, deleteIdea }) => {
   const classes = useStyles(theme);
-  const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
+  const {title, body, _id, likes, comments, date} = idea;
 
   const renderBody = stripTags(truncate(body,200));
   const isLongText = renderBody.substr(renderBody.length - 4, renderBody.length) === "... ";

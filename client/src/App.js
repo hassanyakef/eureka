@@ -22,14 +22,18 @@ import EditIdea from './features/idea/ideaForm/EditIdea';
 import EditProfile from './features/user/Settings/EditProfile';
 import AddIdea from './features/idea/ideaForm/AddIdea';
 import { Provider } from 'react-redux';
-import { configureStore } from './app/store/configureStore';
 import setAuthToken from './app/common/util/setAuthToken';
 import ReduxToastr from 'react-redux-toastr';
-import { loadUser } from './features/auth/authActions';
+import { loadUser } from './features/auth/authAction';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import PrivateRoute from './app/common/util/PrivateRoute';
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './app/reducers';
 
-const store = configureStore();
+const store = configureStore({
+  reducer: rootReducer,
+  devTools:  process.env.NODE_ENV !== 'production'
+});
 
 const theme = createMuiTheme({
   palette: {

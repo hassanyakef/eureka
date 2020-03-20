@@ -13,9 +13,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import { Link as RouterLink } from 'react-router-dom';
 import Spinner from '../../app/common/util/Spinner';
 import { connect } from 'react-redux';
-import { getIdeasByUser } from '../idea/ideaActions';
-import { getCurrentProfile } from '../user/profileActions';
-import { loadUser } from '../auth/authActions';
+import { getCurrentProfile } from '../user/profileAction';
+import { loadUser } from '../auth/authAction';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = ({ theme, auth: {loading, user}, profile: {profile}, ideas, getIdeasByUser,getCurrentProfile, loadUser }) => {
+const Dashboard = ({ theme, auth: {loading, user}, ideas, getCurrentProfile }) => {
   const classes = useStyles(theme);
 
   useEffect(() => {

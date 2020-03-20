@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import AppBar from '@material-ui/core/AppBar/AppBar';
 import { Container } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Drawer from './Drawer';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
@@ -12,7 +11,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
 
 const useStyles = makeStyles(theme => ({
   root: {

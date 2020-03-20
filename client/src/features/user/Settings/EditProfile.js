@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
-import { createProfile, getCurrentProfile} from '../profileActions';
+import { createProfile, getCurrentProfile} from '../profileAction';
 import { Field, reduxForm } from 'redux-form';
 import { combineValidators, composeValidators, isRequired } from 'revalidate';
 import TextInput from '../../../app/common/form/TextInput';

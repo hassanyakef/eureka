@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import { Card, Box, Grid } from '@material-ui/core';
+import { Card, Box } from '@material-ui/core';
 import IdeasPageBodyIdea from '../../idea/ideasPage/IdeasPageBodyIdea';
 
 const useStyles = makeStyles(theme => ({

@@ -4,7 +4,7 @@ import IdeasPageBody from './IdeasPageBody';
 import IdeasPageSidebarRight from './IdeasPageSidebarRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { getIdeas } from '../../idea/ideaActions';
+import { getIdeas } from '../../idea/ideaAction';
 import { connect } from 'react-redux';
 import Spinner from '../../../app/common/util/Spinner';
 

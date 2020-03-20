@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Field, reduxForm } from 'redux-form';
 import { combineValidators, isRequired } from 'revalidate';
-import { addIdea } from '../ideaActions';
+import { addIdea } from '../ideaAction';
 import { withRouter } from 'react-router-dom';
 import RichEditor from '../../../app/common/form/RichEditor';
 

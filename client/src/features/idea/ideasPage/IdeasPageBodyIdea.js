@@ -11,13 +11,11 @@ import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import moment from 'moment';
 import {stripTags, truncate} from '../../../app/common/util/helpers';
-import { deleteIdea } from '../ideaActions';
+import { deleteIdea } from '../ideaAction';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import Button from '@material-ui/core/Button';
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,7 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 const IdeasPageBodyIdea = ({theme, elevateCard = true, marginY = 2, dividerBottom = false, idea, auth, deleteIdea}) => {
   const classes = useStyles(theme);
-  const {title, body, status, category, _id, avatar, authorName, user, likes, comments, date} = idea;
+  const {title, body, _id, avatar, authorName, user, likes, comments, date} = idea;
 
   const renderBody = stripTags(truncate(body,200));
   const isLongText = renderBody.substr(renderBody.length - 4, renderBody.length) === "... ";
