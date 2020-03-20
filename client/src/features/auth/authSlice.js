@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const resetAuthState = (state) => {
+  localStorage.removeItem('token');
+  state.token = null;
+  state.isAuthenticated = false;
+};
+
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -34,16 +40,8 @@ const authSlice = createSlice({
       state.token = payload;
       state.isAuthenticated = true;
     },
-    AUTH_ERROR (state) {
-      localStorage.removeItem('token');
-      state.token = null;
-      state.isAuthenticated = false;
-    },
-    LOGOUT (state) {
-      localStorage.removeItem('token');
-      state.token = null;
-      state.isAuthenticated = false;
-    },
+    AUTH_ERROR: resetAuthState,
+    LOGOUT: resetAuthState
   }
 });
 
