@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const resetAuthState = (state) => {
+const clearAuthState = (state) => {
   localStorage.removeItem('token');
   state.token = null;
   state.isAuthenticated = false;
@@ -28,22 +28,19 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload;
     },
-    REGISTER_SUCCESS (state, action) {
-      const { payload } = action;
-      localStorage.setItem('token', payload);
-      state.token = payload;
-      state.isAuthenticated = true;
-    },
-    LOGIN_SUCCESS (state, action) {
-      const { payload } = action;
-      localStorage.setItem('token', payload);
-      state.token = payload;
-      state.isAuthenticated = true;
-    },
-    AUTH_ERROR: resetAuthState,
-    LOGOUT: resetAuthState
+    REGISTER_SUCCESS: (state, action) => populateAuthState(state, action),
+    LOGIN_SUCCESS: (state, action) => populateAuthState(state, action),
+    AUTH_ERROR: clearAuthState,
+    LOGOUT: clearAuthState
   }
 });
+
+const populateAuthState = (state, action) => {
+  const { payload } = action;
+  localStorage.setItem('token', payload);
+  state.token = payload;
+  state.isAuthenticated = true;
+};
 
 export const {
   ASYNC_ACTION_ERROR,

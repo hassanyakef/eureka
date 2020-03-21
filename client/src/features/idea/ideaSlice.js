@@ -5,8 +5,7 @@ const ideaSlice = createSlice({
   initialState: {
     ideas: null,
     idea: null,
-    error: {},
-    sortComment: 'byDate'
+    error: {}
   },
   reducers: {
     GET_IDEAS(state, action) {
@@ -51,38 +50,25 @@ const ideaSlice = createSlice({
       state.idea.comments = state.idea.comments.map(comment =>
         comment._id === payload.id ? { ...comment, likes: payload.likes } : comment)
     },
-    SORT_COMMENT_BY_DATE(state) {
-      state.idea.comments.sort((a, b) => {
-        const commentA = a.commentDate;
-        const commentB = b.commentDate;
-
-        let comparison = 0;
-        if (commentA < commentB) {
-          comparison = 1;
-        } else if (commentA > commentB) {
-          comparison = -1;
-        }
-        return comparison;
-      });
-      state.sortComment = 'byDate';
-    },
-    SORT_COMMENT_BY_LIKES(state) {
-      state.idea.comments.sort((a, b) => {
-        const commentA = a.likes.length;
-        const commentB = b.likes.length;
-
-        let comparison = 0;
-        if (commentA < commentB) {
-          comparison = 1;
-        } else if (commentA > commentB) {
-          comparison = -1;
-        }
-        return comparison;
-      });
-      state.sortComment = 'byLikes';
-    }
+    SORT_COMMENT_BY_DATE: (state, action) => sortBy(state, action),
+    SORT_COMMENT_BY_LIKES: (state, action) => sortBy(state, action)
   }
 });
+
+const sortBy = (state, action) => {
+  state.idea.comments.sort((a, b) => {
+    const commentA = action.type === 'idea/SORT_COMMENT_BY_DATE' ? a.commentDate : a.likes.length;
+    const commentB = action.type === 'idea/SORT_COMMENT_BY_DATE' ? b.commentDate : b.likes.length;
+
+    let comparison = 0;
+    if (commentA < commentB) {
+      comparison = 1;
+    } else if (commentA > commentB) {
+      comparison = -1;
+    }
+    return comparison;
+  });
+};
 
 // Destructure and export the plain action creators
 export const {
