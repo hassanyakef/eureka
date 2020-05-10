@@ -53,13 +53,15 @@ const userStatuses = [
   },
 ];
 
-const EditProfile = ({ theme, createProfile, getCurrentProfile,
+const EditProfile = ({ theme, createProfile, getCurrentProfile, initialValues,
                        handleSubmit, history, invalid, submitting, auth: {loading}}) => {
   const classes = useStyles(theme);
 
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    if(!initialValues) {
+      getCurrentProfile();
+    }
+  }, [getCurrentProfile, initialValues]);
 
     return loading ? (<Spinner/>) : (
         <Fragment>
