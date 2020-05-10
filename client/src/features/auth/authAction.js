@@ -1,7 +1,5 @@
 import setAuthToken from '../../app/common/util/setAuthToken';
 import axios from 'axios';
-import { GET_PROFILE } from '../user/profileSlice';
-import { GET_USER_IDEAS } from '../idea/ideaSlice';
 import { toastr } from 'react-redux-toastr';
 import {
   ASYNC_ACTION_ERROR,
@@ -20,10 +18,7 @@ export const loadUser = () => async dispatch => {
   try {
     dispatch(ASYNC_ACTION_START());
     const res = await axios.get('/api/auth');
-    const res2 = await axios.get('/api/profile/me');
     dispatch(USER_LOADED(res.data));
-    dispatch(GET_PROFILE(res2.data.profile));
-    dispatch(GET_USER_IDEAS(res2.data.ideas));
     dispatch(ASYNC_ACTION_FINISH());
   } catch (err) {
     dispatch(AUTH_ERROR());

@@ -17,7 +17,16 @@ const useStyles = makeStyles(theme => ({
 const UserDetailedPage = ({theme, getProfileById, profile: { profile }, ideas, auth : {user, loading, isAuthenticated}, match}) => {
 
   useEffect(() => {
-    getProfileById(match.params.id);
+    // we render the user Profile using a id that is passed in
+    // this id is current authenticated user's id if we click the "profile" button from menu page
+    // this can also be the another user's profile id (from "Users" page for example)
+    // --> we only want to render this when the currently rendered user's id (aka match.params.id)
+    // is different from previously rendered user's id
+    if(profile?.user?._id !== match.params.id) {
+      getProfileById(match.params.id);
+    }
+    // one solution --> we clean up the store's "profile" state whenever we render a different user's profile
+    // thus,
   }, [getProfileById, match.params.id]);
 
   const classes = useStyles(theme);

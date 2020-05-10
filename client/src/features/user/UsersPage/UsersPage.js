@@ -27,8 +27,11 @@ const useStyles = makeStyles(theme => ({
 
 const UsersPage = ({ theme, getProfiles, profile: { profiles }, auth : {loading}}) => {
   const classes = useStyles(theme);
+
   useEffect(() => {
-    getProfiles();
+    if(!profiles) {
+      getProfiles();
+    }
   }, [getProfiles]);
 
   return (

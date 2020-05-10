@@ -44,11 +44,11 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const Register = ({ theme, handleSubmit, register, invalid, submitting, auth: {isAuthenticated}}) => {
+const Register = ({ theme, handleSubmit, register, invalid, submitting, auth: {isAuthenticated, loading}}) => {
   const classes = useStyles(theme);
 
-  if(isAuthenticated) {
-    return <Redirect to="/dashboard"/>
+  if(!loading && isAuthenticated) {
+    return <Redirect to="/ideas"/>
   }
   return (
     <Grid container className={classes.root} spacing={5}>

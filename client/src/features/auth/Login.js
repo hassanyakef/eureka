@@ -34,11 +34,11 @@ const validate = combineValidators({
   password: isRequired('password'),
 });
 
-const Login = ({ theme, auth: {isAuthenticated}, login, handleSubmit, invalid, submitting }) => {
+const Login = ({ theme, auth: {isAuthenticated, loading}, login, handleSubmit, invalid, submitting }) => {
   const classes = useStyles(theme);
 
-  if(isAuthenticated) {
-    return <Redirect to="/dashboard"/>
+  if(!loading && isAuthenticated) {
+    return <Redirect to="/ideas"/>
   }
 
   return (
