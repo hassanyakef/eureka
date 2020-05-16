@@ -33,7 +33,7 @@ export const {
   GET_PROFILE,
   GET_PROFILES,
   PROFILE_ERROR,
-  CLEAR_PROFILE
+  CREATE_PROFILE
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

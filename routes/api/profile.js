@@ -68,13 +68,22 @@ router.post('/', auth, async (req, res) => {
       // Update profile
       profile =
         await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields },
-          { new: true });
+          { new: true }).populate({
+          path: 'user',
+          select: ['name', 'avatar']
+        });
       return res.json(profile);
     }
 
     // Create profile
     profile = new Profile(profileFields);
     await profile.save();
+
+    profile = await Profile.findOne({ user: req.user.id })
+      .populate({
+        path: 'user',
+        select: ['name', 'avatar']
+      });
     return res.json(profile);
 
   } catch (err) {

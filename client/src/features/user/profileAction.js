@@ -6,7 +6,7 @@ import {
 import axios from 'axios';
 import { GET_USER_IDEAS } from '../idea/ideaSlice';
 import { toastr } from 'react-redux-toastr';
-import { CLEAR_PROFILE, GET_PROFILE, GET_PROFILES, PROFILE_ERROR } from './profileSlice';
+import { GET_PROFILE, GET_PROFILES, PROFILE_ERROR } from './profileSlice';
 
 // Get current user's profile
 export const getCurrentProfile = () => async (dispatch) => {
@@ -27,7 +27,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 
 // Get all profiles
 export const getProfiles = () => async dispatch => {
-  dispatch(CLEAR_PROFILE());
+  // dispatch(CLEAR_PROFILE());
 
   try {
     dispatch(ASYNC_ACTION_START());
@@ -74,10 +74,9 @@ export const createProfile = (
       }
     };
     const res = await axios.post('/api/profile', {...formData, interests}, config);
-
     dispatch(GET_PROFILE(res.data));
     toastr.success('Success', edit ? 'Profile Updated' : 'Profile Created');
-    // history.push(`/users/${res.data._id}`);
+    history.push(`/users/${res.data.user._id}`);
   } catch (err) {
     const errors = err.response.data.errors;
 
